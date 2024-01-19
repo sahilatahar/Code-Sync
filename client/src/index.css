@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+	background-color: #191722;
+	color: #fff;
+	font-family: "Poppins", sans-serif;
+
+	--sb-track-color: #191722;
+	--sb-thumb-color: #d6b8fe;
+	--sb-size: 6px;
+
+	scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+}
+
+::-webkit-scrollbar {
+	width: var(--sb-size);
+}
+
+::-webkit-scrollbar-track {
+	background: var(--sb-track-color);
+	border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--sb-thumb-color);
+	border-radius: 6px;
+}
+
+@keyframes up-down {
+	0% {
+		transform: translateY(-20px);
+	}
+	100% {
+		transform: translateY(0px);
+	}
+}
