@@ -4,9 +4,9 @@ import App from "./App.jsx"
 import ContextProvider from "./context/ContextProvider.jsx"
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-	<ContextProvider>
-		<React.StrictMode>
-			<App />
-		</React.StrictMode>
-	</ContextProvider>
+    <ContextProvider>
+        <React.StrictMode>
+            <App />
+        </React.StrictMode>
+    </ContextProvider>,
 )

@@ -1,23 +1,23 @@
-import illustration from "../assets/illustration.svg";
-import FormComponent from "../components/Home/FormComponent";
-// import Footer from "../components/Home/Footer";
+import illustration from "../assets/illustration.svg"
+import FormComponent from "../components/forms/FormComponent"
+// import Footer from "../components/common/Footer";
 
 function Home() {
-	return (
-		<div className="min-h-screen flex items-center justify-center flex-col gap-16">
-			<div className="flex-col sm:flex-row min-w-full h-full flex justify-evenly items-center pt-12 sm:pt-0">
-				<div className="w-full sm:w-auto flex justify-center animate-up-down">
-					<img
-						src={illustration}
-						alt=""
-						className="w-[250px] mx-auto sm:w-[400px]"
-					/>
-				</div>
-				<FormComponent />
-			</div>
-			{/* <Footer /> */}
-		</div>
-	);
+    return (
+        <div className="flex min-h-screen flex-col items-center justify-center gap-16">
+            <div className="flex h-full min-w-full flex-col items-center justify-evenly pt-12 sm:flex-row sm:pt-0">
+                <div className="flex w-full animate-up-down justify-center sm:w-auto sm:pl-4">
+                    <img
+                        src={illustration}
+                        alt=""
+                        className="mx-auto w-[250px] sm:w-[400px]"
+                    />
+                </div>
+                <FormComponent />
+            </div>
+            {/* <Footer /> */}
+        </div>
+    )
 }
 
-export default Home;
+export default Home
