@@ -7,7 +7,7 @@
 		"dev": "nodemon server.js",
 		"start": "node server.js",
 		"build-client": "cd ../client && npm install && npm run build",
-		"build": "npm build-client && npm install"
+		"build": "npm run build-client && npm install"
 	},
 	"keywords": [],
 	"author": "",
