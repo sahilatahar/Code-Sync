@@ -2,7 +2,7 @@ import illustration from "../assets/illustration.svg"
 import FormComponent from "../components/forms/FormComponent"
 // import Footer from "../components/common/Footer";
 
-function Home() {
+function HomePage() {
     return (
         <div className="flex min-h-screen flex-col items-center justify-center gap-16">
             <div className="flex h-full min-w-full flex-col items-center justify-evenly pt-12 sm:flex-row sm:pt-0">
@@ -20,4 +20,4 @@ function Home() {
     )
 }
 
-export default Home
+export default HomePage

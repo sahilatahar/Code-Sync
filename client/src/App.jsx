@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
-import Home from "./pages/Home"
+import HomePage from "./pages/HomePage"
 import EditorLayout from "./layouts/EditorLayout"
 import { Toaster } from "react-hot-toast"
 
@@ -18,7 +18,7 @@ function App() {
             />
             <Router>
                 <Routes>
-                    <Route path="/" element={<Home />} />
+                    <Route path="/" element={<HomePage />} />
                     <Route path="/editor/:roomId" element={<EditorLayout />} />
                 </Routes>
             </Router>
