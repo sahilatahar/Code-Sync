@@ -70,6 +70,10 @@ io.on("connection", (socket) => {
 
 const PORT = process.env.PORT || 3000
 
+app.get("/", (req, res) => {
+	res.send("API is running successfully")
+})
+
 server.listen(PORT, () => {
 	console.log(`Listening on port ${PORT}`)
 })
