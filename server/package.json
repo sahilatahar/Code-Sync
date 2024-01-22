@@ -6,9 +6,8 @@
 	"scripts": {
 		"dev": "nodemon server.js",
 		"start": "node server.js",
-		"build-client": "cd ../client && npm run build",
-		"build-server": "npm run build-client",
-		"build": "npm run build-server"
+		"build-client": "cd ../client && npm install && npm run build",
+		"build": "npm build-client && npm install"
 	},
 	"keywords": [],
 	"author": "",
