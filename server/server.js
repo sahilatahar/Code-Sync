@@ -70,9 +70,17 @@ io.on("connection", (socket) => {
 
 const PORT = process.env.PORT || 3000
 
-app.get("/", (req, res) => {
-	res.send("API is running successfully")
-})
+if (process.env.NODE_ENV === "production") {
+	app.use(express.static("public"))
+
+	app.get("*", (req, res) => {
+		res.sendFile(path.resolve(__dirname, "public", "index.html"))
+	})
+} else {
+	app.get("/", (req, res) => {
+		res.send("API is running successfully")
+	})
+}
 
 server.listen(PORT, () => {
 	console.log(`Listening on port ${PORT}`)
