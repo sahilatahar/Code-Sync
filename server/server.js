@@ -4,6 +4,9 @@ require("dotenv").config()
 const http = require("http")
 const cors = require("cors")
 const ACTIONS = require("./utils/actions")
+const path = require("path")
+
+app.use(express.json())
 
 app.use(cors())
 
