@@ -23,7 +23,7 @@ function Sidebar({ sidebarRef }) {
             ref={sidebarRef}
         >
             {/* Close menu button */}
-            <button className="absolute right-4 top-4 block sm:hidden">
+            <button className="absolute right-4 top-5 block sm:hidden">
                 <img
                     src={closeIcon}
                     alt=""
@@ -33,7 +33,7 @@ function Sidebar({ sidebarRef }) {
             </button>
 
             {/* Tab buttons */}
-            <div className="mb-4 flex gap-3 border-b-2 border-b-white">
+            <div className="mb-4 flex w-[90%] gap-2 border-b-2 border-b-white sm:w-full">
                 <TabButton
                     activeTab={activeTab}
                     setActiveTab={handleTabClick}

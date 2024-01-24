@@ -33,7 +33,7 @@ function ConnectedTab() {
                         onClick={copyRoomId}
                         title="Copy room ID"
                     >
-                        <MdOutlineContentCopy size={24} />
+                        <MdOutlineContentCopy size={22} />
                     </button>
                     {/* Leave room button */}
                     <button
