@@ -1,8 +1,6 @@
 import CodeMirror from "@uiw/react-codemirror"
 import { useContext } from "react"
 import { Context } from "../../context/ContextProvider"
-import ACTIONS from "../../utils/actions"
-import { useParams } from "react-router-dom"
 import { editorThemes } from "../../resources/Themes"
 import { editorLanguages } from "../../resources/Languages"
 import { color } from "@uiw/codemirror-extensions-color"
@@ -10,15 +8,10 @@ import { hyperLink } from "@uiw/codemirror-extensions-hyper-link"
 import useZoom from "../../hooks/useZoom"
 
 function Editor() {
-    const { code, setCode, socket, settings } = useContext(Context)
+    const { code, setCode, settings } = useContext(Context)
     const { theme, language, fontSize } = settings
-    const { roomId } = useParams()
 
     const onCodeChange = (code) => {
-        socket.emit(ACTIONS.CODE_CHANGE, {
-            roomId,
-            code,
-        })
         setCode(code)
     }
 

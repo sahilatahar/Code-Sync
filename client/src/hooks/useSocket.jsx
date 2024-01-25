@@ -83,6 +83,11 @@ function useSocket() {
     useEffect(() => {
         if (socket == null) return
 
+        socket.emit(ACTIONS.CODE_CHANGE, {
+            roomId,
+            code,
+        })
+
         socket.on(ACTIONS.JOINED, ({ username, socketId }) => {
             toast.success(`${username} joined the room`)
             // send the code to the server
@@ -92,7 +97,7 @@ function useSocket() {
             })
         })
 
-        //
+        // Listening for code change event
         socket.on(ACTIONS.CODE_CHANGE, ({ code }) => {
             if (code !== null) {
                 setCode(code)
@@ -112,7 +117,7 @@ function useSocket() {
             socket.off(ACTIONS.CODE_CHANGE)
             socket.off(ACTIONS.SYNC_CODE)
         }
-    }, [socket, code, setCode])
+    }, [socket, code, setCode, roomId])
 
     return { isLoading, isError }
 }
