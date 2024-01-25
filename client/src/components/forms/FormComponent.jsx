@@ -1,11 +1,11 @@
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { useLocation, useNavigate } from "react-router-dom"
 import { v4 as uuidv4 } from "uuid"
 import toast from "react-hot-toast"
 
 function FormComponent() {
     const navigate = useNavigate()
-
+    const location = useLocation()
     const [roomID, setRoomID] = useState("")
     const [username, setUsername] = useState("")
 
@@ -35,6 +35,13 @@ function FormComponent() {
             },
         })
     }
+
+    useEffect(() => {
+        if (location.state?.roomId) {
+            setRoomID(location.state.roomId)
+            toast.success("Enter your username")
+        }
+    }, [location.state?.roomId])
 
     return (
         <div className="flex w-full max-w-[500px] flex-col items-center justify-center gap-4 p-4 sm:w-[500px] sm:p-8">

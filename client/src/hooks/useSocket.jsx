@@ -15,10 +15,11 @@ function useSocket() {
     const [isError, setIsError] = useState(false)
 
     useEffect(() => {
+        // if the user is not coming from the home page
         if (!location.state?.username) {
-            navigate("/")
+            navigate("/", { state: { roomId } })
         }
-    }, [navigate, location.state?.username])
+    }, [navigate, location.state?.username, roomId])
 
     useEffect(() => {
         setIsLoading(true)

@@ -5,7 +5,7 @@ import PropTypes from "prop-types"
 function Loading({ isError }) {
     const location = useLocation()
     const navigate = useNavigate()
-    const username = location?.state?.username
+    const username = location?.state?.username || ""
 
     const [message, setMessage] = useState(`Joining the room as ${username}...`)
 
