@@ -1,65 +1,63 @@
 import { useContext, useRef } from "react"
-import { Context } from "../../context/ContextProvider"
-import {
-    fileExtensionsArray as AllowedFileTypes,
-    getFileExtension,
-    getLanguageName,
-} from "../../resources/Languages"
-import { saveAs } from "file-saver"
+import { fileExtensionsArray as AllowedFileTypes } from "../../resources/Languages"
 import FileSystem from "../files/FileSystem"
 import PropTypes from "prop-types"
+import { FileContext } from "../../context/FileContextProvider"
+import { v4 as uuidv4 } from "uuid"
 
 function FilesTab({ hideSidebar }) {
-    const { currentFile, setCurrentFile, settings, updateSettings } =
-        useContext(Context)
-    const { language } = settings
+    const {
+        currentFile,
+        setCurrentFile,
+        updateFile,
+        setFiles,
+        downloadCurrentFile,
+        downloadAllFiles,
+    } = useContext(FileContext)
     const fileInputRef = useRef(null)
 
     const handleOpenFile = () => {
         fileInputRef.current.click()
     }
-
-    const handleSaveFile = () => {
-        let filename = "code.txt"
-        const extension = getFileExtension(language)
-        if (extension != null) {
-            filename = `code${extension}`
-        }
-        const blob = new Blob([currentFile.content], {
-            type: "text/plain;charset=utf-8",
-        })
-        saveAs(blob, filename)
-    }
-
     const onFileChange = (e) => {
-        const file = e.target.files[0]
-        // Get file extension on file open and set language
-        const language = getLanguageName(file.name)
-        if (language != null) {
-            updateSettings((prev) => ({ ...prev, language }))
-        }
+        const selectedFile = e.target.files[0]
         const reader = new FileReader()
         reader.onload = (e) => {
             const text = e.target.result
-            setCurrentFile((prev) => ({ ...prev, content: text }))
+            const file = {
+                id: uuidv4(),
+                name: selectedFile.name,
+                content: text,
+            }
+            // Save current file before opening new file
+            updateFile(currentFile.id, currentFile.content)
+
+            setFiles((prev) => [...prev, file])
+            setCurrentFile(file)
         }
-        reader.readAsText(file)
+        reader.readAsText(selectedFile)
     }
 
     return (
         <div className="flex h-full select-none flex-col gap-1">
             <FileSystem hideSidebar={hideSidebar} />
             <button
-                className="flex w-full justify-start py-2 transition-all hover:rounded-md hover:bg-darkHover hover:px-4"
+                className="flex w-full justify-start rounded-md py-2 transition-all hover:bg-darkHover hover:px-4"
                 onClick={handleOpenFile}
             >
                 Open File
             </button>
             <button
-                className="flex w-full justify-start py-2 transition-all hover:rounded-md hover:bg-darkHover hover:px-4"
-                onClick={handleSaveFile}
+                className="flex w-full justify-start rounded-md py-2 transition-all hover:bg-darkHover hover:px-4"
+                onClick={downloadCurrentFile}
             >
-                Save
+                Download File
+            </button>
+            <button
+                className="flex w-full justify-start rounded-md py-2 transition-all hover:bg-darkHover hover:px-4"
+                onClick={downloadAllFiles}
+            >
+                Download All Files
             </button>
             {/* Input to choose and open file */}
             <input

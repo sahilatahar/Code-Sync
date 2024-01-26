@@ -22,7 +22,7 @@ function EditorPage() {
                     <Editor />
                 ) : (
                     <div className="flex h-full items-center justify-center">
-                        <h1 className="text-2xl text-gray-400">
+                        <h1 className="text-xl text-white">
                             No file is currently open.
                         </h1>
                     </div>

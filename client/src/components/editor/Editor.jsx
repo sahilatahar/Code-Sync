@@ -9,6 +9,7 @@ import useZoom from "../../hooks/useZoom"
 import { FileContext } from "../../context/FileContextProvider"
 import ACTIONS from "../../utils/actions"
 import { useParams } from "react-router-dom"
+import placeholder from "../../utils/editorPlaceholder"
 
 function Editor() {
     const { socket, settings } = useContext(Context)
@@ -27,7 +28,7 @@ function Editor() {
 
     return (
         <CodeMirror
-            placeholder="// Write your code here..."
+            placeholder={placeholder(currentFile.name)}
             mode={language.toLowerCase()}
             theme={editorThemes[theme]}
             onChange={onCodeChange}

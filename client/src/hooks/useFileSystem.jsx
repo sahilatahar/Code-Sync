@@ -5,9 +5,13 @@ import ACTIONS from "../utils/actions"
 import { useParams } from "react-router-dom"
 import { Context } from "../context/ContextProvider"
 import toast from "react-hot-toast"
+import { getLanguageName } from "../resources/Languages"
+import { saveAs } from "file-saver"
+import JSZip from "jszip"
 
 function useFileSystem() {
     const { roomId } = useParams()
+    const { updateSettings } = useContext(Context)
 
     const initialFile = {
         id: uuidv4(),
@@ -96,6 +100,35 @@ function useFileSystem() {
         socket.emit(ACTIONS.FILE_DELETED, { roomId, id })
     }
 
+    const downloadCurrentFile = () => {
+        const blob = new Blob([currentFile.content], {
+            type: "text/plain;charset=utf-8",
+        })
+        saveAs(blob, currentFile.name)
+    }
+
+    const downloadAllFiles = () => {
+        const zip = new JSZip()
+        files.forEach((file) => {
+            const blobFile = new Blob([file.content], {
+                type: "text/plain;charset=utf-8",
+            })
+            zip.file(file.name, blobFile)
+        })
+        zip.generateAsync({ type: "blob" }).then(function (content) {
+            saveAs(content, "Code-Sync-Files.zip")
+        })
+    }
+
+    useEffect(() => {
+        if (currentFile === null) return
+        // Get file extension on file open and set language when file is opened
+        const language = getLanguageName(currentFile.name)
+        if (language != null) {
+            updateSettings((prev) => ({ ...prev, language }))
+        }
+    }, [currentFile, updateSettings])
+
     useEffect(() => {
         if (socket === null) return
 
@@ -177,6 +210,8 @@ function useFileSystem() {
         openFile,
         renameFile,
         deleteFile,
+        downloadCurrentFile,
+        downloadAllFiles,
     }
 }
 

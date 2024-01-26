@@ -7,7 +7,8 @@ import PropTypes from "prop-types"
 
 function FileSystem({ hideSidebar }) {
     const filesContentRef = useRef(null)
-    const { files, openFile, deleteFile, createFile } = useContext(FileContext)
+    const { files, currentFile, openFile, deleteFile, createFile } =
+        useContext(FileContext)
     const [editingFileId, setEditingFileId] = useState(null)
 
     const handleRenameFile = (e, id) => {
@@ -16,7 +17,7 @@ function FileSystem({ hideSidebar }) {
     }
 
     const handleCreateNewFile = () => {
-        const id = createFile("New File")
+        const id = createFile("Untitled")
         setEditingFileId(id)
     }
 
@@ -36,6 +37,13 @@ function FileSystem({ hideSidebar }) {
         openFile(id)
     }
 
+    const fileSelectedClass = (id) => {
+        if (currentFile !== null && currentFile.id === id) {
+            return "bg-darkHover"
+        }
+        return ""
+    }
+
     return (
         <>
             <div className="relative py-2">
@@ -43,19 +51,23 @@ function FileSystem({ hideSidebar }) {
                 <button
                     className="absolute right-0"
                     onClick={handleCreateNewFile}
+                    title="Create new file"
                 >
                     <IoIosAdd color="white" size={24} />
                 </button>
             </div>
             <div
-                className="max-h-[70%] overflow-auto pl-6 pr-2"
+                className="max-h-[70%] overflow-auto pl-4 pr-2"
                 onClick={(e) => e.stopPropagation()}
                 ref={filesContentRef}
             >
                 {files.map((file) => {
                     return editingFileId !== file.id ? (
                         <div
-                            className="flex py-2"
+                            className={
+                                "mb-2 flex rounded-md px-4 py-1 hover:bg-darkHover " +
+                                fileSelectedClass(file.id)
+                            }
                             key={file.id}
                             onClick={() => handleFileClick(file.id)}
                         >

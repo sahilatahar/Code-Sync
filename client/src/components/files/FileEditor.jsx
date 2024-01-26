@@ -7,13 +7,15 @@ import { FileContext } from "../../context/FileContextProvider"
 
 function FileEditor({ editingFileId, setEditingFileId, name }) {
     const [fileName, setFileName] = useState(name || "")
-    const { renameFile } = useContext(FileContext)
+    const { renameFile, openFile } = useContext(FileContext)
 
     const handleOnChange = (e) => {
         setFileName(e.target.value)
     }
 
-    const handleConfirm = () => {
+    const handleConfirm = (e) => {
+        e.preventDefault()
+
         if (fileName === "") {
             toast.error("File name cannot be empty")
         } else if (fileName.length > 25) {
@@ -22,6 +24,7 @@ function FileEditor({ editingFileId, setEditingFileId, name }) {
             toast.error("File name cannot be the same as before")
         } else {
             const isRenamed = renameFile(editingFileId, fileName)
+            openFile(editingFileId)
             if (!isRenamed) {
                 toast.error("File with same name already exists")
             } else {
@@ -35,22 +38,27 @@ function FileEditor({ editingFileId, setEditingFileId, name }) {
     }
 
     return (
-        <div className="flex gap-4">
-            <input
-                type="text"
-                className="w-[80%] flex-grow bg-white px-2 py-1 text-black"
-                autoFocus
-                value={fileName}
-                onChange={handleOnChange}
-            />
-            <span className="flex gap-4">
-                <button onClick={handleConfirm}>
-                    <FaCheck size={16} />
-                </button>
-                <button onClick={handleCancel}>
-                    <IoClose size={20} />
-                </button>
-            </span>
+        <div className="rounded-md">
+            <form
+                onSubmit={handleConfirm}
+                className="flex w-full gap-4 px-4 py-2"
+            >
+                <input
+                    type="text"
+                    className="w-[80%] flex-grow rounded-sm bg-white px-2 text-base text-black outline-none"
+                    autoFocus
+                    value={fileName}
+                    onChange={handleOnChange}
+                />
+                <span className="flex gap-4">
+                    <button onClick={handleConfirm} type="submit">
+                        <FaCheck size={16} />
+                    </button>
+                    <button onClick={handleCancel} type="reset">
+                        <IoClose size={20} />
+                    </button>
+                </span>
+            </form>
         </div>
     )
 }
