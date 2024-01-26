@@ -17,16 +17,18 @@ Code Sync is a collaborative, real-time code editor where users can seamlessly c
 
 ## 🔮 Features
 
--   Real-time collaboration on code editing
+-   Real-time collaboration on code editing across multiple files
 -   Unique room generation with room ID for collaboration
--   Syntax highlighting
--   Instant updates and synchronization of code changes
+-   Syntax highlighting for various file types with auto-language detection
+-   Instant updates and synchronization of code changes across all files
 -   Notifications for user join and leave events
 -   Multiple themes for personalized coding experience
 -   Comprehensive language support for versatile programming
--   Open and save file functionality
 -   Option to change font size and font family
 -   User presence list of users currently in the collaboration session.
+-   Open, edit, save, and delete file functionalities
+-   Real-time updates of changes made by users to multiple files
+-   Option to download files edited within the collaboration session
 
 ## 💻 Tech Stack
 
@@ -44,6 +46,7 @@ Code Sync is a collaborative, real-time code editor where users can seamlessly c
 -   **@uiw/react-codemirror:** A versatile text editor implemented in React, providing an embeddable code editor for web applications.
 -   **@uiw/codemirror-extensions:** Extensions for CodeMirror, enhancing the editor with additional features and capabilities.
 -   **React Icons:** A collection of popular icons for React projects, providing easy integration of icons into the user interface.
+-   **JSZIP**: A JavaScript library for creating, reading, and editing .zip files, useful for downloading multiple files as a single .zip file.
 
 ### 🌐 Backend
 
@@ -70,6 +73,9 @@ client/
 │   │   │   └── Select.jsx
 │   │   ├── editor/
 │   │   │   └── Editor.jsx
+│   │   ├── files/
+│   │   │   ├── FileEditor.jsx
+│   │   │   └── FileSystem.jsx
 │   │   ├── forms/
 │   │   │   └── FormComponent.jsx
 │   │   ├── loading/
@@ -82,8 +88,10 @@ client/
 │   │       ├── ConnectedTab.jsx
 │   │       └── TabButton.jsx
 │   ├── context/
+│   │   ├── FileContextProvider.jsx
 │   │   └── ContextProvider.jsx
 │   ├── hooks/
+│   │   ├── useFileSystem.jsx
 │   │   ├── useLocalStorage.jsx
 │   │   ├── useSocket.jsx
 │   │   └── useZoom.jsx
@@ -100,6 +108,7 @@ client/
 │   │   └── socket.js
 │   ├── utils/
 │   │   ├── actions.js
+│   │   ├── editorPlaceholder.js
 │   │   ├── initialCode.js
 │   │   └── tabs.js
 │   ├── App.jsx
@@ -174,7 +183,6 @@ README.md
 
 -   **Chatting Group Feature:** Introduce a collaborative chatting group within the platform, allowing users to communicate in real-time while working on code.
 -   **Admin Permission:** Implement an admin permission system to manage user access levels and control over certain platform features.
--   **Autosave Functionality:** Integrate an autosave feature to automatically save users work at regular intervals, preventing data loss and providing a seamless editing experience.
 -   **User Presence Indicators:**
     -   **Online/Offline Status:** Display a simple indicator next to each username, such as a green dot for online and a grey dot for offline.
 -   **Search and Replace:** Implement a search and replace functionality for efficient code navigation.
