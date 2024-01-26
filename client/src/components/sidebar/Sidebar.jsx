@@ -1,14 +1,16 @@
 import PropTypes from "prop-types"
 import closeIcon from "../../assets/close.svg"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import FilesTab from "../tabs/FilesTab"
 import ConnectedTab from "../tabs/ConnectedTab"
 import SettingsTab from "../tabs/SettingsTab"
 import TABS from "../../utils/tabs"
 import TabButton from "../tabs/TabButton"
+import { Context } from "../../context/ContextProvider"
 
 function Sidebar({ sidebarRef }) {
-    const [activeTab, setActiveTab] = useState(TABS.FILES)
+    const { settings } = useContext(Context)
+    const [activeTab, setActiveTab] = useState(settings.lastOpenTab)
 
     const hideSidebar = () =>
         sidebarRef.current.classList.add("-translate-x-full")
