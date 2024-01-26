@@ -27,14 +27,16 @@ function getAllConnectedClient(roomId) {
 			return {
 				socketId,
 				username: userSocketMap[socketId]?.username,
+				status: userSocketMap[socketId]?.status,
 			}
 		}
 	)
 }
 
 io.on("connection", (socket) => {
+	// Handle user actions
 	socket.on(ACTIONS.JOIN, ({ roomId, username }) => {
-		userSocketMap[socket.id] = { username, roomId }
+		userSocketMap[socket.id] = { username, roomId, status: ACTIONS.ONLINE }
 		socket.join(roomId)
 		const clients = getAllConnectedClient(roomId)
 		socket.broadcast.to(roomId).emit(ACTIONS.JOINED, {
@@ -62,6 +64,7 @@ io.on("connection", (socket) => {
 		socket.leave()
 	})
 
+	// Handle file actions
 	socket.on(ACTIONS.SYNC_FILES, ({ files, currentFile, socketId }) => {
 		io.to(socketId).emit(ACTIONS.SYNC_FILES, { files, currentFile })
 	})
@@ -80,6 +83,17 @@ io.on("connection", (socket) => {
 
 	socket.on(ACTIONS.FILE_DELETED, ({ roomId, id }) => {
 		socket.broadcast.to(roomId).emit(ACTIONS.FILE_DELETED, { id })
+	})
+
+	// Handle user status
+	socket.on(ACTIONS.OFFLINE, ({ roomId, socketId }) => {
+		userSocketMap[socketId].status = ACTIONS.OFFLINE
+		socket.broadcast.to(roomId).emit(ACTIONS.OFFLINE, { socketId })
+	})
+
+	socket.on(ACTIONS.ONLINE, ({ roomId, socketId }) => {
+		userSocketMap[socketId].status = ACTIONS.ONLINE
+		socket.broadcast.to(roomId).emit(ACTIONS.ONLINE, { socketId })
 	})
 })
 

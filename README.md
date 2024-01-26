@@ -17,18 +17,18 @@ Code Sync is a collaborative, real-time code editor where users can seamlessly c
 
 ## 🔮 Features
 
--   Real-time collaboration on code editing across multiple files
--   Unique room generation with room ID for collaboration
--   Syntax highlighting for various file types with auto-language detection
--   Instant updates and synchronization of code changes across all files
--   Notifications for user join and leave events
--   Multiple themes for personalized coding experience
--   Comprehensive language support for versatile programming
--   Option to change font size and font family
--   User presence list of users currently in the collaboration session.
--   Open, edit, save, and delete file functionalities
--   Real-time updates of changes made by users to multiple files
--   Option to download files edited within the collaboration session
+-   💻 Real-time collaboration on code editing across multiple files
+-   🚀 Unique room generation with room ID for collaboration
+-   🌈 Syntax highlighting for various file types with auto-language detection
+-   💡 Auto suggestion based on programming language
+-   ⏱️ Instant updates and synchronization of code changes across all files
+-   📣 Notifications for user join and leave events
+-   🎨 Multiple themes for personalized coding experience
+-   🌍 Comprehensive language support for versatile programming
+-   🔠 Option to change font size and font family
+-   👥 User presence list of users currently in the collaboration session, including online/offline status indicators
+-   📁 Open, edit, save, and delete file functionalities
+-   💾 Option to download files edited within the collaboration session
 
 ## 💻 Tech Stack
 
@@ -94,6 +94,7 @@ client/
 │   │   ├── useFileSystem.jsx
 │   │   ├── useLocalStorage.jsx
 │   │   ├── useSocket.jsx
+│   │   ├── useUserActivity.jsx
 │   │   └── useZoom.jsx
 │   ├── layouts/
 │   │   └── EditorLayout.jsx
@@ -181,10 +182,8 @@ README.md
 
 ## 🔮 Features for next release
 
--   **Chatting Group Feature:** Introduce a collaborative chatting group within the platform, allowing users to communicate in real-time while working on code.
+-   **Group Chatting Feature:** Introduce a collaborative group chatting within the platform, allowing users to communicate in real-time while working on code.
 -   **Admin Permission:** Implement an admin permission system to manage user access levels and control over certain platform features.
--   **User Presence Indicators:**
-    -   **Online/Offline Status:** Display a simple indicator next to each username, such as a green dot for online and a grey dot for offline.
 -   **Search and Replace:** Implement a search and replace functionality for efficient code navigation.
 
 ## 🤝 Contribute

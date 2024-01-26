@@ -3,10 +3,13 @@ import { useContext, useEffect, useRef } from "react"
 import Editor from "../components/editor/Editor"
 import Sidebar from "../components/sidebar/Sidebar"
 import { FileContext } from "../context/FileContextProvider"
+import useUserActivity from "../hooks/useUserActivity"
 
 function EditorPage() {
     const sidebarRef = useRef(null)
     const { currentFile } = useContext(FileContext)
+    // Listen user online/offline status
+    useUserActivity()
 
     useEffect(() => {
         // scroll to top for mobile devices
