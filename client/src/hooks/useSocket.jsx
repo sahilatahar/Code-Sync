@@ -10,7 +10,7 @@ function useSocket() {
     const navigate = useNavigate()
     const { roomId } = useParams()
 
-    const { socket, setSocket, setClients, code, setCode } = useContext(Context)
+    const { socket, setSocket, setClients } = useContext(Context)
     const [isLoading, setIsLoading] = useState(true)
     const [isError, setIsError] = useState(false)
 
@@ -79,45 +79,6 @@ function useSocket() {
         roomId,
         setClients,
     ])
-
-    useEffect(() => {
-        if (socket == null) return
-
-        socket.emit(ACTIONS.CODE_CHANGE, {
-            roomId,
-            code,
-        })
-
-        socket.on(ACTIONS.JOINED, ({ username, socketId }) => {
-            toast.success(`${username} joined the room`)
-            // send the code to the server
-            socket.emit(ACTIONS.SYNC_CODE, {
-                code,
-                socketId,
-            })
-        })
-
-        // Listening for code change event
-        socket.on(ACTIONS.CODE_CHANGE, ({ code }) => {
-            if (code !== null) {
-                setCode(code)
-            }
-        })
-
-        // Listening for sync code event once
-        socket.once(ACTIONS.SYNC_CODE, ({ code }) => {
-            if (code !== null) {
-                // update the code in the editor
-                setCode(code)
-            }
-        })
-
-        return () => {
-            socket.off(ACTIONS.JOINED)
-            socket.off(ACTIONS.CODE_CHANGE)
-            socket.off(ACTIONS.SYNC_CODE)
-        }
-    }, [socket, code, setCode, roomId])
 
     return { isLoading, isError }
 }

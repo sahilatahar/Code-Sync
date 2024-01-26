@@ -2,11 +2,12 @@ const ACTIONS = {
     JOIN: "join",
     JOINED: "joined",
     DISCONNECTED: "disconnected",
-    CODE_CHANGE: "code-change",
-    SYNC_CODE: "sync-code",
-    LEAVE: "leave",
+    SYNC_FILES: "sync-files",
     UPDATE_CLIENTS_LIST: "update-clients-list",
-    SCROLL: "scroll",
+    FILE_CREATED: "file-created",
+    FILE_UPDATED: "file-updated",
+    FILE_RENAMED: "file-renamed",
+    FILE_DELETED: "file-deleted",
 }
 
 export default ACTIONS

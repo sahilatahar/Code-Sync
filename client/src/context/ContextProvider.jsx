@@ -1,7 +1,5 @@
 import { createContext, useState } from "react"
 import PropTypes from "prop-types"
-import initialCode from "../utils/initialCode"
-
 export const Context = createContext()
 
 export default function ContextProvider({ children }) {
@@ -14,14 +12,11 @@ export default function ContextProvider({ children }) {
 
     const [socket, setSocket] = useState(null)
     const [clients, setClients] = useState([])
-    const [code, setCode] = useState(initialCode)
     const [settings, updateSettings] = useState(storedSettings)
 
     return (
         <Context.Provider
             value={{
-                code,
-                setCode,
                 socket,
                 setSocket,
                 clients,

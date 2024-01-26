@@ -62,12 +62,24 @@ io.on("connection", (socket) => {
 		socket.leave()
 	})
 
-	socket.on(ACTIONS.CODE_CHANGE, ({ code, roomId }) => {
-		socket.broadcast.in(roomId).emit(ACTIONS.CODE_CHANGE, { code })
+	socket.on(ACTIONS.SYNC_FILES, ({ files, currentFile, socketId }) => {
+		io.to(socketId).emit(ACTIONS.SYNC_FILES, { files, currentFile })
 	})
 
-	socket.on(ACTIONS.SYNC_CODE, ({ code, socketId }) => {
-		io.to(socketId).emit(ACTIONS.SYNC_CODE, { code })
+	socket.on(ACTIONS.FILE_CREATED, ({ roomId, file }) => {
+		socket.broadcast.to(roomId).emit(ACTIONS.FILE_CREATED, { file })
+	})
+
+	socket.on(ACTIONS.FILE_UPDATED, ({ roomId, file }) => {
+		socket.broadcast.to(roomId).emit(ACTIONS.FILE_UPDATED, { file })
+	})
+
+	socket.on(ACTIONS.FILE_RENAMED, ({ roomId, file }) => {
+		socket.broadcast.to(roomId).emit(ACTIONS.FILE_RENAMED, { file })
+	})
+
+	socket.on(ACTIONS.FILE_DELETED, ({ roomId, id }) => {
+		socket.broadcast.to(roomId).emit(ACTIONS.FILE_DELETED, { id })
 	})
 })
 
