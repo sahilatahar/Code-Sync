@@ -4,12 +4,15 @@ import Editor from "../components/editor/Editor"
 import Sidebar from "../components/sidebar/Sidebar"
 import { FileContext } from "../context/FileContextProvider"
 import useUserActivity from "../hooks/useUserActivity"
+import usePageEvents from "../hooks/usePageEvents"
 
 function EditorPage() {
     const sidebarRef = useRef(null)
     const { currentFile } = useContext(FileContext)
     // Listen user online/offline status
     useUserActivity()
+    // Prevent page reload
+    usePageEvents()
 
     useEffect(() => {
         // scroll to top for mobile devices
