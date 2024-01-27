@@ -21,7 +21,7 @@ function Sidebar({ sidebarRef }) {
 
     return (
         <aside
-            className="duration-400 absolute left-0 top-0 z-10 flex h-screen max-h-full min-h-full w-full min-w-[300px] -translate-x-full flex-col overflow-hidden bg-dark p-4 transition-transform sm:static sm:w-[300px] sm:translate-x-0"
+            className="duration-400 absolute left-0 top-0 z-10 flex h-screen max-h-full min-h-full w-full min-w-[300px] -translate-x-full flex-col overflow-auto bg-dark p-4 transition-transform sm:static sm:w-[300px] sm:translate-x-0"
             ref={sidebarRef}
         >
             {/* Close menu button */}

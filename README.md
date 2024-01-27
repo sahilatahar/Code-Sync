@@ -93,6 +93,7 @@ client/
 │   ├── hooks/
 │   │   ├── useFileSystem.jsx
 │   │   ├── useLocalStorage.jsx
+│   │   ├── usePageEvents.jsx
 │   │   ├── useSocket.jsx
 │   │   ├── useUserActivity.jsx
 │   │   └── useZoom.jsx

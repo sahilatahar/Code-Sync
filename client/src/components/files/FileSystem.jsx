@@ -57,7 +57,7 @@ function FileSystem({ hideSidebar }) {
                 </button>
             </div>
             <div
-                className="max-h-[70%] overflow-auto pl-4 pr-2"
+                className="max-h-[70%] min-h-[200px] overflow-auto pl-4 pr-2"
                 onClick={(e) => e.stopPropagation()}
                 ref={filesContentRef}
             >
