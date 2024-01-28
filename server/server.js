@@ -4,7 +4,6 @@ require("dotenv").config()
 const http = require("http")
 const cors = require("cors")
 const ACTIONS = require("./utils/actions")
-const path = require("path")
 
 app.use(express.json())
 
@@ -110,17 +109,9 @@ io.on("connection", (socket) => {
 
 const PORT = process.env.PORT || 3000
 
-if (process.env.NODE_ENV === "production") {
-	app.use(express.static("public"))
-
-	app.get("*", (req, res) => {
-		res.sendFile(path.resolve(__dirname, "public", "index.html"))
-	})
-} else {
-	app.get("/", (req, res) => {
-		res.send("API is running successfully")
-	})
-}
+app.get("/", (req, res) => {
+	res.send("API is running successfully")
+})
 
 server.listen(PORT, () => {
 	console.log(`Listening on port ${PORT}`)
