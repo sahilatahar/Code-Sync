@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "npm install && npm run tailwind:build && npx vite build",
+        "build": "npm install && npm run tailwind:build && npm install -g vite && vite build",
         "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
         "preview": "vite preview",
         "tailwind:build": "npx tailwindcss -i ./src/index.css -o ./public/style.css",
