@@ -8,7 +8,8 @@ export default {
                 darkHover: "#282a36",
                 light: "#f5f5f5",
                 primary: "#d6b8fe",
-                danger: "#ef4444"
+                danger: "#ef4444",
+                success: "#4aee88",
             },
             fontFamily: {
                 poppins: ["Poppins", "sans-serif"],
@@ -19,4 +20,4 @@ export default {
         },
     },
     plugins: [],
-};
+}

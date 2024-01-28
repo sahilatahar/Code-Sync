@@ -1,12 +1,13 @@
-import PropTypes from "prop-types"
 import { useContext, useRef } from "react"
 import { IoSend } from "react-icons/io5"
 import AppContext from "../../context/AppContext"
 import ACTIONS from "../../utils/actions"
 import { formatDate } from "../../utils/formateDate"
+import ChatContext from "../../context/ChatContext"
 
-function ChatInput({ setMessages, messagesContainerRef }) {
+function ChatInput() {
     const { socket, clients, roomId } = useContext(AppContext)
+    const { setMessages } = useContext(ChatContext)
     const inputRef = useRef(null)
 
     const handleSendMessage = (e) => {
@@ -25,8 +26,6 @@ function ChatInput({ setMessages, messagesContainerRef }) {
             socket.emit(ACTIONS.SEND_MESSAGE, { roomId, message })
             setMessages((messages) => [...messages, message])
             inputRef.current.value = ""
-            messagesContainerRef.current.scrollTop =
-                messagesContainerRef.current.scrollHeight
         }
     }
 
@@ -49,11 +48,6 @@ function ChatInput({ setMessages, messagesContainerRef }) {
             </button>
         </form>
     )
-}
-
-ChatInput.propTypes = {
-    setMessages: PropTypes.func.isRequired,
-    messagesContainerRef: PropTypes.object.isRequired,
 }
 
 export default ChatInput
