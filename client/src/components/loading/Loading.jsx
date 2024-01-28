@@ -1,6 +1,6 @@
-import { useLocation, useNavigate } from "react-router-dom"
-import { useEffect, useState } from "react"
 import PropTypes from "prop-types"
+import { useEffect, useState } from "react"
+import { useLocation, useNavigate } from "react-router-dom"
 
 function Loading({ isError }) {
     const location = useLocation()

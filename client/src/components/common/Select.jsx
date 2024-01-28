@@ -6,7 +6,7 @@ function Select({ onChange, value, options, title }) {
         <div className="relative w-full">
             <p className="mb-2">{title}</p>
             <select
-                className="w-full rounded-lg border-none bg-white px-4 py-2 text-black outline-none "
+                className="w-full rounded-lg border-none bg-darkHover px-4 py-2 text-white outline-none"
                 value={value}
                 onChange={onChange}
             >
@@ -23,8 +23,7 @@ function Select({ onChange, value, options, title }) {
             </select>
             <IoIosArrowDown
                 size={14}
-                className="absolute bottom-3 right-4 z-10"
-                color="black"
+                className="absolute bottom-3 right-4 z-10 text-white"
             />
         </div>
     )

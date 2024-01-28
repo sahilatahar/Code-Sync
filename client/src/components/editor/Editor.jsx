@@ -1,21 +1,19 @@
-import CodeMirror from "@uiw/react-codemirror"
-import { useContext } from "react"
-import { Context } from "../../context/ContextProvider"
-import { editorThemes } from "../../resources/Themes"
-import { editorLanguages } from "../../resources/Languages"
 import { color } from "@uiw/codemirror-extensions-color"
 import { hyperLink } from "@uiw/codemirror-extensions-hyper-link"
-import useZoom from "../../hooks/useZoom"
-import { FileContext } from "../../context/FileContextProvider"
+import CodeMirror from "@uiw/react-codemirror"
+import { useContext } from "react"
+import AppContext from "../../context/AppContext"
+import FileContext from "../../context/FileContext"
+import usePageEvents from "../../hooks/usePageEvents"
+import { editorLanguages } from "../../resources/Languages"
+import { editorThemes } from "../../resources/Themes"
 import ACTIONS from "../../utils/actions"
-import { useParams } from "react-router-dom"
 import placeholder from "../../utils/editorPlaceholder"
 
 function Editor() {
-    const { socket, settings } = useContext(Context)
+    const { socket, settings, roomId } = useContext(AppContext)
     const { currentFile, setCurrentFile } = useContext(FileContext)
     const { theme, language, fontSize } = settings
-    const { roomId } = useParams()
 
     const onCodeChange = (code) => {
         const file = { ...currentFile, content: code }
@@ -23,8 +21,8 @@ function Editor() {
         socket.emit(ACTIONS.FILE_UPDATED, { file, roomId })
     }
 
-    // Zoom in/out on ctrl + scroll
-    useZoom()
+    // Listen wheel event to zoom in/out and prevent page reload
+    usePageEvents()
 
     return (
         <CodeMirror
@@ -34,12 +32,12 @@ function Editor() {
             onChange={onCodeChange}
             value={currentFile.content}
             extensions={[editorLanguages[language], color, hyperLink]}
-            minHeight="100vh"
-            maxHeight="100vh"
-            maxWidth="100%"
+            minHeight="100%"
+            maxWidth="100vw"
             style={{
                 fontSize: fontSize + "px",
             }}
+            className="tab-height"
         />
     )
 }

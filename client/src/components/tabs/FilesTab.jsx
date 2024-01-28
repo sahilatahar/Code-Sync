@@ -1,11 +1,10 @@
 import { useContext, useRef } from "react"
+import { v4 as uuidv4 } from "uuid"
+import FileContext from "../../context/FileContext"
 import { fileExtensionsArray as AllowedFileTypes } from "../../resources/Languages"
 import FileSystem from "../files/FileSystem"
-import PropTypes from "prop-types"
-import { FileContext } from "../../context/FileContextProvider"
-import { v4 as uuidv4 } from "uuid"
 
-function FilesTab({ hideSidebar }) {
+function FilesTab() {
     const {
         currentFile,
         setCurrentFile,
@@ -39,8 +38,8 @@ function FilesTab({ hideSidebar }) {
     }
 
     return (
-        <div className="flex h-full select-none flex-col gap-1">
-            <FileSystem hideSidebar={hideSidebar} />
+        <div className="tab-height flex select-none flex-col gap-1 p-4">
+            <FileSystem />
             <button
                 className="flex w-full justify-start rounded-md py-2 transition-all hover:bg-darkHover hover:px-4"
                 onClick={handleOpenFile}
@@ -69,10 +68,6 @@ function FilesTab({ hideSidebar }) {
             />
         </div>
     )
-}
-
-FilesTab.propTypes = {
-    hideSidebar: PropTypes.func.isRequired,
 }
 
 export default FilesTab

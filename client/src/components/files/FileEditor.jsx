@@ -1,9 +1,9 @@
-import { useState, useContext } from "react"
+import PropTypes from "prop-types"
+import { useContext, useState } from "react"
+import toast from "react-hot-toast"
 import { FaCheck } from "react-icons/fa6"
 import { IoClose } from "react-icons/io5"
-import PropTypes from "prop-types"
-import toast from "react-hot-toast"
-import { FileContext } from "../../context/FileContextProvider"
+import FileContext from "../../context/FileContext"
 
 function FileEditor({ editingFileId, setEditingFileId, name }) {
     const [fileName, setFileName] = useState(name || "")

@@ -1,13 +1,13 @@
 import { useContext, useEffect } from "react"
-import { Context } from "../../context/ContextProvider"
+import AppContext from "../../context/AppContext"
 import useLocalStorage from "../../hooks/useLocalStorage"
-import Select from "../common/Select"
-import { editorThemes } from "../../resources/Themes"
-import { editorLanguages } from "../../resources/Languages"
 import { editorFonts } from "../../resources/Fonts"
+import { editorLanguages } from "../../resources/Languages"
+import { editorThemes } from "../../resources/Themes"
+import Select from "../common/Select"
 
 function SettingsTab() {
-    const { settings, updateSettings } = useContext(Context)
+    const { settings, updateSettings } = useContext(AppContext)
     const { theme, language, fontFamily, fontSize } = settings
     const { setItem } = useLocalStorage()
 
@@ -44,7 +44,7 @@ function SettingsTab() {
     }, [fontFamily])
 
     return (
-        <div className="flex flex-col items-center gap-2 pt-3">
+        <div className="tab-height flex flex-col items-center gap-2 p-4">
             {/* Choose Font Family option */}
             <div className="flex w-full items-end gap-2">
                 <Select
@@ -57,7 +57,7 @@ function SettingsTab() {
                 <select
                     value={fontSize}
                     onChange={handleFontSizeChange}
-                    className="rounded-lg border-none bg-white  px-4 py-2 text-black outline-none"
+                    className="rounded-lg border-none bg-darkHover px-4  py-2 text-white outline-none"
                     title="Font Size"
                 >
                     {[...Array(13).keys()].map((size) => {

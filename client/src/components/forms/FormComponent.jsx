@@ -1,35 +1,45 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { v4 as uuidv4 } from "uuid"
 import toast from "react-hot-toast"
+import AppContext from "../../context/AppContext"
 
 function FormComponent() {
     const navigate = useNavigate()
     const location = useLocation()
-    const [roomID, setRoomID] = useState("")
+    const [roomId, setRoomId] = useState("")
     const [username, setUsername] = useState("")
+    const {
+        setRoomId: setRoomIdToContext,
+        setUsername: setUsernameToContext,
+        username: usernameInContext,
+    } = useContext(AppContext)
 
-    const createNewRoomID = () => {
-        setRoomID(uuidv4())
-        toast.success("Created a new ROOM ID")
+    const createNewRoomId = () => {
+        setRoomId(uuidv4())
+        toast.success("Created a new ROOM Id")
     }
 
     const joinRoom = (e) => {
         e.preventDefault()
 
-        if (!roomID || !username) {
-            toast.error("ROOM ID & username is required")
+        if (!roomId || !username) {
+            toast.error("ROOM Id & username is required")
 
             return
-        } else if (roomID.length < 5) {
-            toast.error("ROOM ID must be at least 5 characters long")
+        } else if (roomId.length < 5) {
+            toast.error("ROOM Id must be at least 5 characters long")
             return
         } else if (username.length < 3) {
             toast.error("Username must be at least 3 characters long")
             return
         }
 
-        navigate(`/editor/${roomID}`, {
+        // set roomId & username to context
+        setRoomIdToContext(roomId)
+        setUsernameToContext(username)
+
+        navigate(`/editor/${roomId}`, {
             state: {
                 username,
             },
@@ -38,25 +48,27 @@ function FormComponent() {
 
     useEffect(() => {
         if (location.state?.roomId) {
-            setRoomID(location.state.roomId)
-            toast.success("Enter your username")
+            setRoomId(location.state.roomId)
+            if (usernameInContext.length === 0) {
+                toast.success("Enter your username")
+            }
         }
-    }, [location.state?.roomId])
+    }, [location.state?.roomId, usernameInContext])
 
     return (
         <div className="flex w-full max-w-[500px] flex-col items-center justify-center gap-4 p-4 sm:w-[500px] sm:p-8">
             <h1 className="mb-4 text-3xl md:mb-8 md:text-5xl">Code Sync</h1>
             <h4 className="self-start text-base font-bold">
-                Paste Invitation ROOM ID
+                Paste Invitation ROOM Id
             </h4>
             <form onSubmit={joinRoom} className="flex w-full flex-col gap-4">
                 <input
                     type="text"
-                    name="roomID"
-                    placeholder="ROOM ID"
+                    name="roomId"
+                    placeholder="ROOM Id"
                     className="w-full rounded-lg border-none px-3 py-2 text-black focus:outline-none"
-                    onChange={(e) => setRoomID(e.target.value)}
-                    value={roomID}
+                    onChange={(e) => setRoomId(e.target.value)}
+                    value={roomId}
                 />
                 <input
                     type="text"
@@ -78,7 +90,7 @@ function FormComponent() {
                 {"If you don't have an invite then create"}{" "}
                 <span
                     className="cursor-pointer text-primary underline"
-                    onClick={createNewRoomID}
+                    onClick={createNewRoomId}
                 >
                     new room
                 </span>

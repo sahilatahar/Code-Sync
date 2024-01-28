@@ -1,10 +1,9 @@
-import { createContext, useState } from "react"
 import PropTypes from "prop-types"
-import TABS from "../utils/tabs"
-export const Context = createContext()
+import { createContext, useState } from "react"
 import useLocalStorage from "../hooks/useLocalStorage"
+const AppContext = createContext()
 
-export default function ContextProvider({ children }) {
+function AppContextProvider({ children }) {
     const { getItem } = useLocalStorage()
     // First letter of each value should be capital
     const storedSettings = JSON.parse(getItem("settings")) || {}
@@ -12,14 +11,15 @@ export default function ContextProvider({ children }) {
     storedSettings.language = storedSettings.language || "Javascript"
     storedSettings.fontSize = storedSettings.fontSize || 16
     storedSettings.fontFamily = storedSettings.fontFamily || "Space Mono"
-    storedSettings.lastOpenTab = storedSettings.lastOpenTab || TABS.HOME
 
     const [socket, setSocket] = useState(null)
     const [clients, setClients] = useState([])
     const [settings, updateSettings] = useState(storedSettings)
+    const [roomId, setRoomId] = useState("")
+    const [username, setUsername] = useState("")
 
     return (
-        <Context.Provider
+        <AppContext.Provider
             value={{
                 socket,
                 setSocket,
@@ -27,13 +27,20 @@ export default function ContextProvider({ children }) {
                 setClients,
                 settings,
                 updateSettings,
+                roomId,
+                setRoomId,
+                username,
+                setUsername,
             }}
         >
             {children}
-        </Context.Provider>
+        </AppContext.Provider>
     )
 }
 
-ContextProvider.propTypes = {
+AppContextProvider.propTypes = {
     children: PropTypes.node.isRequired,
 }
+
+export { AppContextProvider }
+export default AppContext

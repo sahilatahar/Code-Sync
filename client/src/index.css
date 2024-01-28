@@ -6,6 +6,9 @@ body {
     background-color: #191722;
     color: #fff;
     font-family: "Poppins", sans-serif;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
 
     --sb-track-color: #191722;
     --sb-thumb-color: #d6b8fe;
@@ -49,4 +52,19 @@ select {
     -webkit-appearance: none;
     -moz-appearance: none;
     cursor: pointer;
+}
+
+.tab-height {
+    height: 100%;
+}
+
+@media screen and (max-width: 768px) {
+    .tab-height {
+        height: calc(100vh - 60px);
+    }
+
+    .cm-editor,
+    .cm-editor .cm-scroller {
+        min-height: calc(100vh - 60px);
+    }
 }

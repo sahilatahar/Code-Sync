@@ -1,11 +1,10 @@
 import { useContext, useRef, useState } from "react"
-import { FileContext } from "../../context/FileContextProvider"
-import { MdModeEditOutline, MdDelete } from "react-icons/md"
 import { IoIosAdd } from "react-icons/io"
+import { MdDelete, MdModeEditOutline } from "react-icons/md"
+import FileContext from "../../context/FileContext"
 import FileEditor from "./FileEditor"
-import PropTypes from "prop-types"
 
-function FileSystem({ hideSidebar }) {
+function FileSystem() {
     const filesContentRef = useRef(null)
     const { files, currentFile, openFile, deleteFile, createFile } =
         useContext(FileContext)
@@ -33,7 +32,6 @@ function FileSystem({ hideSidebar }) {
 
     const handleFileClick = (id) => {
         setEditingFileId(null)
-        hideSidebar()
         openFile(id)
     }
 
@@ -46,7 +44,7 @@ function FileSystem({ hideSidebar }) {
 
     return (
         <>
-            <div className="relative py-2">
+            <div className="relative pb-2">
                 Files
                 <button
                     className="absolute right-0"
@@ -57,7 +55,7 @@ function FileSystem({ hideSidebar }) {
                 </button>
             </div>
             <div
-                className="max-h-[70%] min-h-[200px] overflow-auto pl-4 pr-2"
+                className="max-h-[70%] min-h-[200px] overflow-auto pl-4 pr-2 sm:min-h-0"
                 onClick={(e) => e.stopPropagation()}
                 ref={filesContentRef}
             >
@@ -107,10 +105,6 @@ function FileSystem({ hideSidebar }) {
             </div>
         </>
     )
-}
-
-FileSystem.propTypes = {
-    hideSidebar: PropTypes.func.isRequired,
 }
 
 export default FileSystem

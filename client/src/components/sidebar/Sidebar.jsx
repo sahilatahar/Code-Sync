@@ -1,68 +1,45 @@
-import PropTypes from "prop-types"
-import closeIcon from "../../assets/close.svg"
-import { useContext, useState } from "react"
-import FilesTab from "../tabs/FilesTab"
-import ConnectedTab from "../tabs/ConnectedTab"
-import SettingsTab from "../tabs/SettingsTab"
+import { useContext } from "react"
+import { PiChats } from "react-icons/pi"
+import TabContext from "../../context/TabContext"
+import useResponsive from "../../hooks/useResponsive"
+import useWindowDimensions from "../../hooks/useWindowDimensions"
 import TABS from "../../utils/tabs"
 import TabButton from "../tabs/TabButton"
-import { Context } from "../../context/ContextProvider"
 
-function Sidebar({ sidebarRef }) {
-    const { settings } = useContext(Context)
-    const [activeTab, setActiveTab] = useState(settings.lastOpenTab)
-
-    const hideSidebar = () =>
-        sidebarRef.current.classList.add("-translate-x-full")
-
-    const handleTabClick = (tabName) => {
-        setActiveTab(tabName)
-    }
+function Sidebar() {
+    const { isMobile } = useWindowDimensions()
+    const { activeTab, isSidebarOpen, tabComponents, tabIcons } =
+        useContext(TabContext)
+    const { isMobileSidebarOpen } = useResponsive()
 
     return (
-        <aside
-            className="duration-400 absolute left-0 top-0 z-10 flex h-screen max-h-full min-h-full w-full min-w-[300px] -translate-x-full flex-col overflow-auto bg-dark p-4 transition-transform sm:static sm:w-[300px] sm:translate-x-0"
-            ref={sidebarRef}
-        >
-            {/* Close menu button */}
-            <button className="absolute right-4 top-5 block sm:hidden">
-                <img
-                    src={closeIcon}
-                    alt=""
-                    className="h-6 w-6"
-                    onClick={hideSidebar}
-                />
-            </button>
-
-            {/* Tab buttons */}
-            <div className="mb-4 flex w-[90%] gap-2 border-b-2 border-b-white sm:w-full">
+        <aside className="flex h-full max-h-full min-h-full w-full md:w-auto">
+            <div
+                className="fixed bottom-0 left-0 z-50 flex h-[50px] w-full gap-6 self-end overflow-auto border-t border-primary bg-dark p-3 md:static md:h-full md:w-[50px] md:flex-col md:border-r md:border-t-0 md:p-2 md:pt-4"
+                style={isMobileSidebarOpen ? {} : { display: "none" }}
+            >
+                {isMobile && (
+                    <TabButton
+                        tabName={TABS.Editor}
+                        icon={tabIcons[TABS.Editor]}
+                    />
+                )}
+                <TabButton tabName={TABS.FILES} icon={tabIcons[TABS.FILES]} />
+                <TabButton tabName={TABS.Chat} icon={<PiChats size={32} />} />
+                <TabButton tabName={TABS.USERS} icon={tabIcons[TABS.USERS]} />
                 <TabButton
-                    activeTab={activeTab}
-                    setActiveTab={handleTabClick}
-                    tabName={TABS.HOME}
-                />
-                <TabButton
-                    activeTab={activeTab}
-                    setActiveTab={handleTabClick}
-                    tabName={TABS.FILES}
-                />
-                <TabButton
-                    activeTab={activeTab}
-                    setActiveTab={handleTabClick}
                     tabName={TABS.SETTINGS}
+                    icon={tabIcons[TABS.SETTINGS]}
                 />
             </div>
-
-            {/* Tabs */}
-            {activeTab === TABS.FILES && <FilesTab hideSidebar={hideSidebar} />}
-            {activeTab === TABS.HOME && <ConnectedTab />}
-            {activeTab === TABS.SETTINGS && <SettingsTab />}
+            <div
+                className="absolute left-0 top-0 z-20 h-full w-full flex-grow flex-col bg-dark md:static md:w-[300px]"
+                style={isSidebarOpen ? {} : { display: "none" }}
+            >
+                {tabComponents[activeTab]}
+            </div>
         </aside>
     )
-}
-
-Sidebar.propTypes = {
-    sidebarRef: PropTypes.object.isRequired,
 }
 
 export default Sidebar

@@ -1,8 +1,8 @@
+import PropTypes from "prop-types"
 import { createContext } from "react"
 import useFileSystem from "../hooks/useFileSystem"
-import PropTypes from "prop-types"
 
-export const FileContext = createContext()
+const FileContext = createContext()
 
 function FileContextProvider({ children }) {
     const fileSystem = useFileSystem()
@@ -18,4 +18,5 @@ FileContextProvider.propTypes = {
     children: PropTypes.node.isRequired,
 }
 
-export default FileContextProvider
+export { FileContextProvider }
+export default FileContext

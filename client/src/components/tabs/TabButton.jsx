@@ -1,40 +1,35 @@
 import PropTypes from "prop-types"
 import { useContext } from "react"
-import { Context } from "../../context/ContextProvider"
-import useLocalStorage from "../../hooks/useLocalStorage"
+import TabContext from "../../context/TabContext"
+import useWindowDimensions from "../../hooks/useWindowDimensions"
 
-function TabButton({ tabName, activeTab, setActiveTab }) {
-    const { settings, updateSettings } = useContext(Context)
-    const { setItem } = useLocalStorage()
+function TabButton({ tabName, icon }) {
+    const { activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen } =
+        useContext(TabContext)
+    const { isMobile } = useWindowDimensions()
 
-    const activeTabButtonBorder = (tabName) => {
-        if (activeTab === tabName) return "bg-white text-black"
-        return "text-white"
+    const handleTabClick = (tabName) => {
+        if (tabName === activeTab && !isMobile) {
+            setIsSidebarOpen(!isSidebarOpen)
+        } else {
+            setIsSidebarOpen(true)
+            setActiveTab(tabName)
+        }
     }
-
-    const handleTabButtonClick = (tabName) => {
-        setActiveTab(tabName)
-        const newSettings = { ...settings, lastOpenTab: tabName }
-        updateSettings(newSettings)
-        setItem("settings", JSON.stringify(newSettings))
-    }
-
-    const buttonClassName = "flex-grow pt-1 rounded-t-md"
 
     return (
         <button
-            onClick={() => handleTabButtonClick(tabName)}
-            className={activeTabButtonBorder(tabName) + " " + buttonClassName}
+            onClick={() => handleTabClick(tabName)}
+            className="flex items-center justify-center"
         >
-            {tabName}
+            {icon}
         </button>
     )
 }
 
 TabButton.propTypes = {
     tabName: PropTypes.string.isRequired,
-    activeTab: PropTypes.string.isRequired,
-    setActiveTab: PropTypes.func.isRequired,
+    icon: PropTypes.element.isRequired,
 }
 
 export default TabButton

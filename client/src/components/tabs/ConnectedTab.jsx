@@ -1,9 +1,8 @@
-import Clients from "../common/Clients"
-import { useNavigate } from "react-router-dom"
-import { MdOutlineContentCopy } from "react-icons/md"
-import { BiExit } from "react-icons/bi"
-import { MdOutlineIosShare } from "react-icons/md"
 import toast from "react-hot-toast"
+import { BiExit } from "react-icons/bi"
+import { MdOutlineContentCopy, MdOutlineIosShare } from "react-icons/md"
+import { useNavigate } from "react-router-dom"
+import Clients from "../common/Clients"
 
 function ConnectedTab() {
     const navigate = useNavigate()
@@ -34,7 +33,8 @@ function ConnectedTab() {
     }
 
     return (
-        <>
+        <div className="tab-height flex flex-col p-4">
+            <h1 className="pb-4">Clients</h1>
             {/* List of connected clients */}
             <Clients />
             <div className="flex flex-col items-center gap-4 pt-4">
@@ -65,7 +65,7 @@ function ConnectedTab() {
                     </button>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

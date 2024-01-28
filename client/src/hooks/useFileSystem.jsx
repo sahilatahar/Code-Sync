@@ -1,26 +1,17 @@
-import { useContext, useEffect, useState } from "react"
-import { v4 as uuidv4 } from "uuid"
-import initialCode from "../utils/initialCode"
-import ACTIONS from "../utils/actions"
-import { useParams } from "react-router-dom"
-import { Context } from "../context/ContextProvider"
-import toast from "react-hot-toast"
-import { getLanguageName } from "../resources/Languages"
 import { saveAs } from "file-saver"
 import JSZip from "jszip"
+import { useContext, useEffect, useState } from "react"
+import toast from "react-hot-toast"
+import { v4 as uuidv4 } from "uuid"
+import AppContext from "../context/AppContext"
+import { getLanguageName } from "../resources/Languages"
+import ACTIONS from "../utils/actions"
+import initialFile from "../utils/initialFile"
 
 function useFileSystem() {
-    const { roomId } = useParams()
-    const { updateSettings } = useContext(Context)
-
-    const initialFile = {
-        id: uuidv4(),
-        name: "index.js",
-        content: initialCode,
-    }
+    const { socket, updateSettings, roomId } = useContext(AppContext)
     const [files, setFiles] = useState([initialFile])
     const [currentFile, setCurrentFile] = useState(initialFile)
-    const { socket } = useContext(Context)
 
     const createFile = (name) => {
         // Check if file with same name already exists

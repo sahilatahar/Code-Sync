@@ -87,13 +87,24 @@ io.on("connection", (socket) => {
 
 	// Handle user status
 	socket.on(ACTIONS.OFFLINE, ({ roomId, socketId }) => {
-		userSocketMap[socketId].status = ACTIONS.OFFLINE
+		userSocketMap[socketId] = {
+			...userSocketMap[socketId],
+			status: ACTIONS.OFFLINE,
+		}
 		socket.broadcast.to(roomId).emit(ACTIONS.OFFLINE, { socketId })
 	})
 
 	socket.on(ACTIONS.ONLINE, ({ roomId, socketId }) => {
-		userSocketMap[socketId].status = ACTIONS.ONLINE
+		userSocketMap[socketId] = {
+			...userSocketMap[socketId],
+			status: ACTIONS.ONLINE,
+		}
 		socket.broadcast.to(roomId).emit(ACTIONS.ONLINE, { socketId })
+	})
+
+	// Handle chat actions
+	socket.on(ACTIONS.SEND_MESSAGE, ({ roomId, message }) => {
+		socket.broadcast.to(roomId).emit(ACTIONS.RECEIVE_MESSAGE, { message })
 	})
 })
 

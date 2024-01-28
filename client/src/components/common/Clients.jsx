@@ -1,11 +1,11 @@
-import Avatar from "react-avatar"
 import PropTypes from "prop-types"
 import { useContext } from "react"
-import { Context } from "../../context/ContextProvider"
+import Avatar from "react-avatar"
+import AppContext from "../../context/AppContext"
 import ACTIONS from "../../utils/actions"
 
 function Clients() {
-    const { clients } = useContext(Context)
+    const { clients } = useContext(AppContext)
 
     return (
         <div className="flex min-h-[200px] flex-grow justify-center overflow-y-auto">

@@ -1,11 +1,9 @@
 import { useContext, useEffect } from "react"
-import { Context } from "../context/ContextProvider"
+import AppContext from "../context/AppContext"
 import ACTIONS from "../utils/actions"
-import { useParams } from "react-router-dom"
 
 function useTabVisibility() {
-    const { socket, setClients } = useContext(Context)
-    const { roomId } = useParams()
+    const { socket, setClients, roomId } = useContext(AppContext)
 
     useEffect(() => {
         if (socket === null) return

@@ -1,21 +1,12 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
-import HomePage from "./pages/HomePage"
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom"
+import Toast from "./components/toast/Toast"
 import EditorLayout from "./layouts/EditorLayout"
-import { Toaster } from "react-hot-toast"
+import HomePage from "./pages/HomePage"
 
 function App() {
     return (
         <>
-            <Toaster
-                position="top-right"
-                toastOptions={{
-                    success: {
-                        theme: {
-                            primary: "#4aee88",
-                        },
-                    },
-                }}
-            />
+            <Toast /> {/* Toast component from react-hot-toast */}
             <Router>
                 <Routes>
                     <Route path="/" element={<HomePage />} />
