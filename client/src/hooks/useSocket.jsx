@@ -27,8 +27,6 @@ function useSocket() {
     }, [navigate, roomId, location.state?.username, setUsername, setRoomId])
 
     useEffect(() => {
-        setIsLoading(true)
-        setIsError(false)
         const handleErrs = (err) => {
             console.log("socket error", err)
             console.log("socket connection failed, try again later")
@@ -36,6 +34,9 @@ function useSocket() {
         }
 
         function init() {
+            setIsLoading(true)
+            setIsError(false)
+
             if (socket == null) {
                 const s = initSocket()
                 setSocket(s)
