@@ -29,6 +29,7 @@ Code Sync is a collaborative, real-time code editor where users can seamlessly c
 -   👥 User presence list of users currently in the collaboration session, including online/offline status indicators
 -   📁 Open, edit, save, and delete file functionalities
 -   💾 Option to download files edited within the collaboration session
+-   💬 **Group chatting** allows users to communicate in real-time while working on code.
 
 ## 💻 Tech Stack
 
@@ -66,13 +67,16 @@ client/
 │   ├── assets/
 │   │   └── ...
 │   ├── components/
+│   │   ├── chat/
+│   │   │   ├── ChatInput.jsx
+│   │   │   └── ChatPanel.jsx
 │   │   ├── common/
 │   │   │   ├── Clients.jsx
 │   │   │   ├── Footer.jsx
-│   │   │   ├── MenuButton.jsx
 │   │   │   └── Select.jsx
 │   │   ├── editor/
-│   │   │   └── Editor.jsx
+│   │   │   ├── Editor.jsx
+│   │   │   └── EditorComponent.jsx
 │   │   ├── files/
 │   │   │   ├── FileEditor.jsx
 │   │   │   └── FileSystem.jsx
@@ -82,21 +86,27 @@ client/
 │   │   │   └── Loading.jsx
 │   │   ├── sidebar/
 │   │   │   └── Sidebar.jsx
-│   │   └── tabs/
-│   │       ├── FileTab.jsx
-│   │       ├── SettingsTab.jsx
-│   │       ├── ConnectedTab.jsx
-│   │       └── TabButton.jsx
+│   │   ├── tabs/
+│   │   │   ├── FileTab.jsx
+│   │   │   ├── SettingsTab.jsx
+│   │   │   ├── UsersTab.jsx
+│   │   │   └── TabButton.jsx
+│   │   └── toast/
+│   │       └── Toast.jsx
 │   ├── context/
-│   │   ├── FileContextProvider.jsx
-│   │   └── ContextProvider.jsx
+│   │   ├── AppContext.jsx
+│   │   ├── AppProvider.jsx
+│   │   ├── ChatContext.jsx
+│   │   ├── FileContext.jsx
+│   │   └── TabContext.jsx
 │   ├── hooks/
+│   │   ├── useChatRoom.jsx
 │   │   ├── useFileSystem.jsx
 │   │   ├── useLocalStorage.jsx
 │   │   ├── usePageEvents.jsx
 │   │   ├── useSocket.jsx
 │   │   ├── useUserActivity.jsx
-│   │   └── useZoom.jsx
+│   │   └── useWindowDimensions.jsx
 │   ├── layouts/
 │   │   └── EditorLayout.jsx
 │   ├── pages/
@@ -111,7 +121,8 @@ client/
 │   ├── utils/
 │   │   ├── actions.js
 │   │   ├── editorPlaceholder.js
-│   │   ├── initialCode.js
+│   │   ├── formateDate.js
+│   │   ├── initialFile.js
 │   │   └── tabs.js
 │   ├── App.jsx
 │   ├── index.css
@@ -183,7 +194,6 @@ README.md
 
 ## 🔮 Features for next release
 
--   **Group Chatting Feature:** Introduce a collaborative group chatting within the platform, allowing users to communicate in real-time while working on code.
 -   **Admin Permission:** Implement an admin permission system to manage user access levels and control over certain platform features.
 -   **Search and Replace:** Implement a search and replace functionality for efficient code navigation.
 

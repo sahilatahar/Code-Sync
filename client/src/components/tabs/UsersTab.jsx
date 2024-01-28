@@ -4,7 +4,7 @@ import { MdOutlineContentCopy, MdOutlineIosShare } from "react-icons/md"
 import { useNavigate } from "react-router-dom"
 import Clients from "../common/Clients"
 
-function ConnectedTab() {
+function UsersTab() {
     const navigate = useNavigate()
 
     const copyURL = async () => {
@@ -69,4 +69,4 @@ function ConnectedTab() {
     )
 }
 
-export default ConnectedTab
+export default UsersTab

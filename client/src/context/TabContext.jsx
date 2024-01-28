@@ -7,7 +7,7 @@ import { PiChats } from "react-icons/pi"
 import { VscFiles } from "react-icons/vsc"
 import ChatPanel from "../components/chat/ChatPanel"
 import EditorComponent from "../components/editor/EditorComponent"
-import ConnectedTab from "../components/tabs/ConnectedTab"
+import UsersTab from "../components/tabs/UsersTab"
 import FilesTab from "../components/tabs/FilesTab"
 import SettingsTab from "../components/tabs/SettingsTab"
 import TABS from "../utils/tabs"
@@ -20,7 +20,7 @@ function TabContextProvider({ children }) {
     const [tabComponents, setTabComponents] = useState({
         [TABS.Editor]: <EditorComponent />,
         [TABS.FILES]: <FilesTab />,
-        [TABS.USERS]: <ConnectedTab />,
+        [TABS.USERS]: <UsersTab />,
         [TABS.SETTINGS]: <SettingsTab />,
         [TABS.Chat]: <ChatPanel />,
     })
