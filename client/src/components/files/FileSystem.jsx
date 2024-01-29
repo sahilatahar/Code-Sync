@@ -4,6 +4,7 @@ import { MdDelete, MdModeEditOutline } from "react-icons/md"
 import FileContext from "../../context/FileContext"
 import FileEditor from "./FileEditor"
 import TabContext from "../../context/TabContext"
+import useWindowDimensions from "../../hooks/useWindowDimensions"
 
 function FileSystem() {
     const filesContentRef = useRef(null)
@@ -11,6 +12,7 @@ function FileSystem() {
         useContext(FileContext)
     const [editingFileId, setEditingFileId] = useState(null)
     const { setIsSidebarOpen } = useContext(TabContext)
+    const { isMobile } = useWindowDimensions()
 
     const handleRenameFile = (e, id) => {
         e.stopPropagation()
@@ -35,7 +37,9 @@ function FileSystem() {
     const handleFileClick = (id) => {
         setEditingFileId(null)
         openFile(id)
-        setIsSidebarOpen(false)
+        if (isMobile) {
+            setIsSidebarOpen(false)
+        }
     }
 
     const fileSelectedClass = (id) => {
