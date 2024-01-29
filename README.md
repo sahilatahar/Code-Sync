@@ -31,6 +31,10 @@ Code Sync is a collaborative, real-time code editor where users can seamlessly c
 -   💾 Option to download files edited within the collaboration session
 -   💬 **Group chatting** allows users to communicate in real-time while working on code.
 
+## 🚀 Live Preview
+
+You can view the live preview of the project [here](https://code-sync-live.vercel.app/).
+
 ## 💻 Tech Stack
 
 ### 🖥️ Frontend
