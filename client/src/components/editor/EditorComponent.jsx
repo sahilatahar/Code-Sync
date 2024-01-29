@@ -6,7 +6,7 @@ function EditorComponent() {
     const { currentFile } = useContext(FileContext)
 
     return (
-        <div className="tab-height flex-grow overflow-x-hidden">
+        <div className="tab-height absolute left-0 top-0 w-full flex-grow overflow-x-hidden md:static">
             {currentFile !== null ? (
                 <Editor />
             ) : (

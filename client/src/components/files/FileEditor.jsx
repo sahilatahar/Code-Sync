@@ -41,7 +41,7 @@ function FileEditor({ editingFileId, setEditingFileId, name }) {
         <div className="rounded-md">
             <form
                 onSubmit={handleConfirm}
-                className="flex w-full gap-4 px-4 py-2"
+                className="mb-2 flex w-full gap-4 rounded-md bg-darkHover px-4 py-2"
             >
                 <input
                     type="text"
