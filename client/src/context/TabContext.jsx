@@ -13,19 +13,19 @@ import TABS from "../utils/tabs"
 const TabContext = createContext()
 
 function TabContextProvider({ children }) {
-    const [activeTab, setActiveTab] = useState(TABS.Editor)
+    const [activeTab, setActiveTab] = useState(TABS.FILES)
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
     const [tabComponents, setTabComponents] = useState({
         [TABS.FILES]: <FilesTab />,
         [TABS.USERS]: <UsersTab />,
         [TABS.SETTINGS]: <SettingsTab />,
-        [TABS.Chat]: <ChatPanel />,
+        [TABS.CHAT]: <ChatPanel />,
     })
     const tabIcons = {
         [TABS.FILES]: <VscFiles size={30} />,
         [TABS.USERS]: <HiOutlineUsers size={30} />,
         [TABS.SETTINGS]: <IoSettingsOutline size={30} />,
-        [TABS.Chat]: <PiChats size={32} />,
+        [TABS.CHAT]: <PiChats size={32} />,
     }
 
     return (

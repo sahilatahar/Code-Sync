@@ -1,3 +1,4 @@
+import SplitterComponent from "../components/SplitterComponent"
 import EditorComponent from "../components/editor/EditorComponent"
 import Sidebar from "../components/sidebar/Sidebar"
 import useUserActivity from "../hooks/useUserActivity"
@@ -7,10 +8,10 @@ function EditorPage() {
     useUserActivity()
 
     return (
-        <div className="flex h-screen min-h-screen max-w-full items-center justify-center overflow-x-hidden">
+        <SplitterComponent>
             <Sidebar />
             <EditorComponent />
-        </div>
+        </SplitterComponent>
     )
 }
 

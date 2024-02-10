@@ -1,7 +1,6 @@
 export default {
-    Editor: "Editor",
     FILES: "Files",
     USERS: "Users",
-    Chat: "Chat",
+    CHAT: "Chat",
     SETTINGS: "Settings",
 }

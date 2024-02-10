@@ -26,7 +26,7 @@ function TabButton({ tabName, icon }) {
             {icon}
 
             {/* Show dot for new message in chat Tab Button */}
-            {tabName === TABS.Chat && isNewMessage && (
+            {tabName === TABS.CHAT && isNewMessage && (
                 <div className="absolute  right-0 top-0 h-3 w-3 rounded-full bg-success"></div>
             )}
         </button>
