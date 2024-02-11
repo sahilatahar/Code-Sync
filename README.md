@@ -100,8 +100,9 @@ client/
 │   │   │   ├── SettingsTab.jsx
 │   │   │   ├── UsersTab.jsx
 │   │   │   └── TabButton.jsx
-│   │   └── toast/
-│   │       └── Toast.jsx
+│   │   ├── toast/
+│   │   │   └── Toast.jsx
+│   │   └── SplitterComponent.jsx
 │   ├── context/
 │   │   ├── AppContext.jsx
 │   │   ├── AppProvider.jsx
