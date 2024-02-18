@@ -3,30 +3,32 @@
 @tailwind utilities;
 
 body {
-    background-color: #191722;
-    color: #fff;
-    font-family: "Poppins", sans-serif;
+    font-family: "Space Grotesk", sans-serif;
     width: 100%;
     max-width: 100%;
     overflow-x: hidden;
 
-    --sb-track-color: #191722;
-    --sb-thumb-color: #d6b8fe;
+    --sb-track-color: #3d404a;
+    --sb-thumb-color: #e1e1ffb3;
     --sb-size: 6px;
 }
 
 ::-webkit-scrollbar {
     width: var(--sb-size);
+    height: var(--sb-size);
 }
 
 ::-webkit-scrollbar-track {
     background: var(--sb-track-color);
     border-radius: 5px;
+    height: var(--sb-size);
+    width: var(--sb-size);
 }
 
 ::-webkit-scrollbar-thumb {
     background: var(--sb-thumb-color);
     border-radius: 5px;
+    height: var(--sb-size);
 }
 
 @supports not selector(::-webkit-scrollbar) {

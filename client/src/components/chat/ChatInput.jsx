@@ -41,7 +41,7 @@ function ChatInput() {
                 ref={inputRef}
             />
             <button
-                className="flex items-center justify-center rounded-r-md bg-primary p-2 text-dark"
+                className="flex items-center justify-center rounded-r-md  bg-primary p-2 text-black"
                 type="submit"
             >
                 <IoSend size={24} />

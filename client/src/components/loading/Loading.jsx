@@ -41,13 +41,13 @@ function Loading({ isError }) {
             {isError && (
                 <div className="flex flex-wrap justify-center gap-4">
                     <button
-                        className="mr-4 rounded-lg bg-primary px-8 py-2 text-black"
+                        className="mr-4 rounded-md bg-primary px-8 py-2 text-black"
                         onClick={reloadPage}
                     >
                         Try Again
                     </button>
                     <button
-                        className="rounded-lg bg-primary px-8 py-2 text-black"
+                        className="rounded-md bg-primary px-8 py-2 text-black"
                         onClick={gotoHomePage}
                     >
                         Go to HomePage

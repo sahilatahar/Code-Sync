@@ -26,3 +26,6 @@ dist-ssr
 
 # Tailwind output file
 public/style.css
+
+# TODO 
+TODO.md

@@ -57,7 +57,7 @@ function SettingsTab() {
                 <select
                     value={fontSize}
                     onChange={handleFontSizeChange}
-                    className="rounded-lg border-none bg-darkHover px-4  py-2 text-white outline-none"
+                    className="rounded-md border-none bg-darkHover px-4  py-2 text-white outline-none"
                     title="Font Size"
                 >
                     {[...Array(13).keys()].map((size) => {

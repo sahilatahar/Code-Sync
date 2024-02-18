@@ -41,11 +41,11 @@ function FileEditor({ editingFileId, setEditingFileId, name }) {
         <div className="rounded-md">
             <form
                 onSubmit={handleConfirm}
-                className="mb-2 flex w-full gap-4 rounded-md bg-darkHover px-4 py-2"
+                className="mb-2 flex w-full gap-4 rounded-md bg-darkHover p-2"
             >
                 <input
                     type="text"
-                    className="w-[80%] flex-grow rounded-sm bg-white px-2 text-base text-black outline-none"
+                    className="w-[80%] flex-grow rounded-md bg-white px-2 text-base text-black outline-none"
                     autoFocus
                     value={fileName}
                     onChange={handleOnChange}

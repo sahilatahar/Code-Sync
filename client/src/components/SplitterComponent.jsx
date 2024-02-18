@@ -14,7 +14,7 @@ function SplitterComponent({ children }) {
         const gutter = document.createElement("div")
         gutter.style.height = "100%"
         gutter.style.cursor = "e-resize"
-        gutter.style.backgroundColor = "rgba(225,225,255,0.7)"
+        gutter.style.backgroundColor = "#e1e1ffb3"
         return gutter
     }
 

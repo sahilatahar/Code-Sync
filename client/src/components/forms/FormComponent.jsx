@@ -57,16 +57,16 @@ function FormComponent() {
 
     return (
         <div className="flex w-full max-w-[500px] flex-col items-center justify-center gap-4 p-4 sm:w-[500px] sm:p-8">
-            <h1 className="mb-4 text-3xl md:mb-8 md:text-5xl">Code Sync</h1>
-            <h4 className="self-start text-base font-bold">
-                Paste Invitation ROOM Id
-            </h4>
+            <h1 className="text-4xl sm:text-5xl">Code Sync</h1>
+            <p className="mb-4 md:mb-8">
+                {"Code, Chat, Collaborate. It's All in Sync."}
+            </p>
             <form onSubmit={joinRoom} className="flex w-full flex-col gap-4">
                 <input
                     type="text"
                     name="roomId"
                     placeholder="ROOM Id"
-                    className="w-full rounded-lg border-none px-3 py-2 text-black focus:outline-none"
+                    className="w-full rounded-md border border-gray-500 bg-darkHover px-3 py-3 focus:outline-none"
                     onChange={(e) => setRoomId(e.target.value)}
                     value={roomId}
                 />
@@ -74,27 +74,24 @@ function FormComponent() {
                     type="text"
                     name="username"
                     placeholder="USERNAME"
-                    className="w-full rounded-lg border-none px-3 py-2 text-black focus:outline-none"
+                    className="w-full rounded-md border border-gray-500 bg-darkHover px-3 py-3 focus:outline-none"
                     onChange={(e) => setUsername(e.target.value)}
                     value={username}
                 />
                 <button
                     type="submit"
-                    className="self-end rounded-lg bg-primary px-8 py-2 text-black"
+                    className="mt-2 w-full rounded-md bg-primary px-8 py-3 text-lg font-semibold text-black"
                     onClick={joinRoom}
                 >
                     Join
                 </button>
             </form>
-            <p className="select-none self-start">
-                {"If you don't have an invite then create"}{" "}
-                <span
-                    className="cursor-pointer text-primary underline"
-                    onClick={createNewRoomId}
-                >
-                    new room
-                </span>
-            </p>
+            <button
+                className="cursor-pointer select-none underline"
+                onClick={createNewRoomId}
+            >
+                Generate Unique Room ID
+            </button>
         </div>
     )
 }

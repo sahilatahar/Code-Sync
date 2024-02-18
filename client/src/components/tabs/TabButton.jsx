@@ -27,7 +27,7 @@ function TabButton({ tabName, icon }) {
 
             {/* Show dot for new message in chat Tab Button */}
             {tabName === TABS.CHAT && isNewMessage && (
-                <div className="absolute  right-0 top-0 h-3 w-3 rounded-full bg-success"></div>
+                <div className="absolute right-0 top-0 h-3 w-3 rounded-full bg-primary"></div>
             )}
         </button>
     )

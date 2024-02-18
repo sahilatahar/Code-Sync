@@ -6,7 +6,7 @@ function Select({ onChange, value, options, title }) {
         <div className="relative w-full">
             <p className="mb-2">{title}</p>
             <select
-                className="w-full rounded-lg border-none bg-darkHover px-4 py-2 text-white outline-none"
+                className="w-full rounded-md border-none bg-darkHover px-4 py-2 text-white outline-none"
                 value={value}
                 onChange={onChange}
             >

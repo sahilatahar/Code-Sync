@@ -1,15 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-    content: ["./src/**/*.jsx"],
+    content: ["./src/**/*.jsx", "./*.html"],
     theme: {
         extend: {
             colors: {
-                dark: "#191722",
-                darkHover: "#282a36",
+                dark: "#212429",
+                darkHover: "#3D404A",
                 light: "#f5f5f5",
-                primary: "#d6b8fe",
+                primary: "#39E079",
                 danger: "#ef4444",
-                success: "#4aee88",
             },
             fontFamily: {
                 poppins: ["Poppins", "sans-serif"],

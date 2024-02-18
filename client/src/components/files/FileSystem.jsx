@@ -1,10 +1,12 @@
 import { useContext, useRef, useState } from "react"
-import { IoIosAdd } from "react-icons/io"
+import { LuFiles } from "react-icons/lu"
 import { MdDelete, MdModeEditOutline } from "react-icons/md"
 import FileContext from "../../context/FileContext"
 import FileEditor from "./FileEditor"
 import TabContext from "../../context/TabContext"
 import useWindowDimensions from "../../hooks/useWindowDimensions"
+import { Icon } from "@iconify/react"
+import { getIconClassName } from "../../utils/getIconClassName"
 
 function FileSystem() {
     const filesContentRef = useRef(null)
@@ -51,18 +53,17 @@ function FileSystem() {
 
     return (
         <>
-            <div className="relative pb-2">
-                Files
-                <button
-                    className="absolute right-0"
-                    onClick={handleCreateNewFile}
-                    title="Create new file"
-                >
-                    <IoIosAdd color="white" size={24} />
-                </button>
+            <div className="flex items-center pb-2">
+                <LuFiles size={32} className="mr-2" />
+                <div>
+                    <h1 className="text-lg font-semibold">Files</h1>
+                    <p className="text-sm text-gray-400">
+                        {files.length} files in total
+                    </p>
+                </div>
             </div>
             <div
-                className="max-h-[70%] min-h-[200px] overflow-auto pl-4 pr-2 sm:min-h-0"
+                className="max-h-[70%] min-h-[200px] flex-grow overflow-auto pl-4 pr-2 sm:min-h-0"
                 onClick={(e) => e.stopPropagation()}
                 ref={filesContentRef}
             >
@@ -70,12 +71,17 @@ function FileSystem() {
                     return editingFileId !== file.id ? (
                         <div
                             className={
-                                "mb-2 flex rounded-md px-4 py-2 hover:bg-darkHover " +
+                                "mb-2 flex rounded-md p-2 hover:bg-darkHover " +
                                 fileSelectedClass(file.id)
                             }
                             key={file.id}
                             onClick={() => handleFileClick(file.id)}
                         >
+                            <Icon
+                                icon={getIconClassName(file.name)}
+                                fontSize={24}
+                                className="mr-2"
+                            />
                             <p
                                 className="line-clamp-1 flex-grow cursor-pointer"
                                 title={file.name}
@@ -110,6 +116,12 @@ function FileSystem() {
                     )
                 })}
             </div>
+            <button
+                className="my-2 flex w-full justify-center rounded-md bg-primary p-2 font-bold text-black transition-all"
+                onClick={handleCreateNewFile}
+            >
+                New File
+            </button>
         </>
     )
 }

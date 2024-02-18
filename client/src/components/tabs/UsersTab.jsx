@@ -41,7 +41,7 @@ function UsersTab() {
                 <div className="flex w-full gap-4">
                     {/* Share URL button */}
                     <button
-                        className="flex flex-grow justify-center rounded-lg bg-white p-3 text-black"
+                        className="flex flex-grow justify-center rounded-md bg-white p-3 text-black"
                         onClick={shareURL}
                         title="Share Link"
                     >
@@ -49,7 +49,7 @@ function UsersTab() {
                     </button>
                     {/* Copy URL button */}
                     <button
-                        className="flex flex-grow justify-center rounded-lg bg-white p-3 text-black"
+                        className="flex flex-grow justify-center rounded-md bg-white p-3 text-black"
                         onClick={copyURL}
                         title="Copy Link"
                     >
@@ -57,7 +57,7 @@ function UsersTab() {
                     </button>
                     {/* Leave room button */}
                     <button
-                        className="flex flex-grow justify-center rounded-lg bg-primary p-3 text-black"
+                        className="flex flex-grow justify-center rounded-md bg-primary p-3 text-black"
                         onClick={leaveRoom}
                         title="Leave room"
                     >

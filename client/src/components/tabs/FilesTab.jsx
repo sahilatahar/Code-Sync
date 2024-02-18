@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid"
 import FileContext from "../../context/FileContext"
 import { fileExtensionsArray as AllowedFileTypes } from "../../resources/Languages"
 import FileSystem from "../files/FileSystem"
+import { FiFile, FiDownload } from "react-icons/fi"
 
 function FilesTab() {
     const {
@@ -41,22 +42,23 @@ function FilesTab() {
         <div className="tab-height flex select-none flex-col gap-1 p-4">
             <FileSystem />
             <button
-                className="flex w-full justify-start rounded-md py-2 transition-all hover:bg-darkHover hover:px-4"
+                className="flex w-full justify-start rounded-md p-2 transition-all hover:bg-darkHover"
                 onClick={handleOpenFile}
             >
+                <FiFile className="mr-2" size={22} />
                 Open File
             </button>
             <button
-                className="flex w-full justify-start rounded-md py-2 transition-all hover:bg-darkHover hover:px-4"
+                className="flex w-full justify-start rounded-md p-2 transition-all hover:bg-darkHover"
                 onClick={downloadCurrentFile}
             >
-                Download File
+                <FiDownload className="mr-2" size={22} /> Download File
             </button>
             <button
-                className="flex w-full justify-start rounded-md py-2 transition-all hover:bg-darkHover hover:px-4"
+                className="flex w-full justify-start rounded-md p-2 transition-all hover:bg-darkHover"
                 onClick={downloadAllFiles}
             >
-                Download All Files
+                <FiDownload className="mr-2" size={22} /> Download All Files
             </button>
             {/* Input to choose and open file */}
             <input
