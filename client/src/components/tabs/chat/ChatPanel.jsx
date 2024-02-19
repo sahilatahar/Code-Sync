@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef } from "react"
-import AppContext from "../../context/AppContext"
-import ChatContext from "../../context/ChatContext"
+import AppContext from "../../../context/AppContext"
+import ChatContext from "../../../context/ChatContext"
 import ChatInput from "./ChatInput"
 
 function ChatPanel() {

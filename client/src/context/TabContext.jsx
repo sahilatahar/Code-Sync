@@ -1,7 +1,7 @@
 import PropTypes from "prop-types"
 import { createContext, useState } from "react"
 import { Files, Users, Gear, Chats } from "@phosphor-icons/react"
-import ChatPanel from "../components/chat/ChatPanel"
+import ChatPanel from "../components/tabs/chat/ChatPanel"
 import ClientsTab from "../components/tabs/ClientsTab"
 import FilesTab from "../components/tabs/FilesTab"
 import SettingsTab from "../components/tabs/SettingsTab"

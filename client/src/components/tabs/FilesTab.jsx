@@ -2,7 +2,7 @@ import { useContext, useRef } from "react"
 import { v4 as uuidv4 } from "uuid"
 import FileContext from "../../context/FileContext"
 import { fileExtensionsArray as AllowedFileTypes } from "../../resources/Languages"
-import FileSystem from "../files/FileSystem"
+import FileSystem from "./files/FileSystem"
 import { FileArrowUp, DownloadSimple, ArchiveBox } from "@phosphor-icons/react"
 
 function FilesTab() {

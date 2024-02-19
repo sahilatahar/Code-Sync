@@ -1,9 +1,9 @@
 import { useContext, useRef } from "react"
 import { PaperPlaneRight } from "@phosphor-icons/react"
-import AppContext from "../../context/AppContext"
-import ACTIONS from "../../utils/actions"
-import { formatDate } from "../../utils/formateDate"
-import ChatContext from "../../context/ChatContext"
+import AppContext from "../../../context/AppContext"
+import ACTIONS from "../../../utils/actions"
+import { formatDate } from "../../../utils/formateDate"
+import ChatContext from "../../../context/ChatContext"
 
 function ChatInput() {
     const { socket, clients, roomId } = useContext(AppContext)
