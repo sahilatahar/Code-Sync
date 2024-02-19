@@ -53,6 +53,9 @@ client/
 │   ├── assets/
 │   │   └── ...
 │   ├── components/
+│   │   │   ├── chats/
+│   │   │   │   ├── ChatInput.jsx
+│   │   │   │   └── ChatList.jsx
 │   │   ├── common/
 │   │   │   ├── Clients.jsx
 │   │   │   ├── Footer.jsx
@@ -60,6 +63,9 @@ client/
 │   │   ├── editor/
 │   │   │   ├── Editor.jsx
 │   │   │   └── EditorComponent.jsx
+│   │   │   ├── files/
+│   │   │   │   ├── FileEditor.jsx
+│   │   │   │   └── FileSystem.jsx
 │   │   ├── forms/
 │   │   │   └── FormComponent.jsx
 │   │   ├── loading/
@@ -67,18 +73,14 @@ client/
 │   │   ├── sidebar/
 │   │   │   └── Sidebar.jsx
 │   │   ├── tabs/
-│   │   │   ├── chat/
-│   │   │   │   ├── ChatInput.jsx
-│   │   │   │   └── ChatPanel.jsx
-│   │   │   ├── files/
-│   │   │   │   ├── FileEditor.jsx
-│   │   │   │   └── FileSystem.jsx
+│   │   │   ├── ChatsTab.jsx
+│   │   │   ├── ClientsTab.jsx
 │   │   │   ├── FileTab.jsx
 │   │   │   ├── SettingsTab.jsx
-│   │   │   ├── ClientsTab.jsx
 │   │   │   └── TabButton.jsx
 │   │   ├── toast/
 │   │   │   └── Toast.jsx
+│   │   ├── GitHubCorner.jsx
 │   │   └── SplitterComponent.jsx
 │   ├── context/
 │   │   ├── AppContext.jsx

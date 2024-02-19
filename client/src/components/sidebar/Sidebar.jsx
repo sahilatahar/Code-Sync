@@ -16,8 +16,11 @@ function Sidebar() {
                 style={isMobileSidebarOpen ? {} : { display: "none" }}
             >
                 <TabButton tabName={TABS.FILES} icon={tabIcons[TABS.FILES]} />
-                <TabButton tabName={TABS.CHAT} icon={tabIcons[TABS.CHAT]} />
-                <TabButton tabName={TABS.CLIENTS} icon={tabIcons[TABS.CLIENTS]} />
+                <TabButton tabName={TABS.CHATS} icon={tabIcons[TABS.CHATS]} />
+                <TabButton
+                    tabName={TABS.CLIENTS}
+                    icon={tabIcons[TABS.CLIENTS]}
+                />
                 <TabButton
                     tabName={TABS.SETTINGS}
                     icon={tabIcons[TABS.SETTINGS]}

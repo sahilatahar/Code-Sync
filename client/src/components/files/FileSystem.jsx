@@ -1,11 +1,11 @@
 import { useContext, useRef, useState } from "react"
 import { PencilSimple, Trash } from "@phosphor-icons/react"
-import FileContext from "../../../context/FileContext"
+import FileContext from "../../context/FileContext"
 import FileEditor from "./FileEditor"
-import TabContext from "../../../context/TabContext"
-import useWindowDimensions from "../../../hooks/useWindowDimensions"
+import TabContext from "../../context/TabContext"
+import useWindowDimensions from "../../hooks/useWindowDimensions"
 import { Icon } from "@iconify/react"
-import { getIconClassName } from "../../../utils/getIconClassName"
+import { getIconClassName } from "../../utils/getIconClassName"
 
 function FileSystem() {
     const filesContentRef = useRef(null)

@@ -44,7 +44,7 @@ function ClientsTab() {
                         onClick={shareURL}
                         title="Share Link"
                     >
-                        <Export size={24} />
+                        <Export size={26} />
                     </button>
                     {/* Copy URL button */}
                     <button
@@ -52,7 +52,7 @@ function ClientsTab() {
                         onClick={copyURL}
                         title="Copy Link"
                     >
-                        <Copy size={22} />
+                        <Copy size={26} />
                     </button>
                     {/* Leave room button */}
                     <button
@@ -60,7 +60,7 @@ function ClientsTab() {
                         onClick={leaveRoom}
                         title="Leave room"
                     >
-                        <SignOut size={24} />
+                        <SignOut size={26} />
                     </button>
                 </div>
             </div>

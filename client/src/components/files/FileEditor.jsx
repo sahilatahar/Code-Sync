@@ -2,7 +2,7 @@ import PropTypes from "prop-types"
 import { useContext, useState } from "react"
 import toast from "react-hot-toast"
 import { Check, X } from "@phosphor-icons/react"
-import FileContext from "../../../context/FileContext"
+import FileContext from "../../context/FileContext"
 
 function FileEditor({ editingFileId, setEditingFileId, name }) {
     const [fileName, setFileName] = useState(name || "")
