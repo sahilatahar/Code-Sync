@@ -39,6 +39,7 @@ You can view the live preview of the project [here](https://code-sync-live.verce
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![NodeJS](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
 ![ExpressJS](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)
+![Socket io](https://img.shields.io/badge/Socket.io-ffffff?style=for-the-badge)
 ![Git](https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white)
 ![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
@@ -48,14 +49,16 @@ You can view the live preview of the project [here](https://code-sync-live.verce
 ```
 client/
 ├── public/
-│   └── style.css // Tailwind output
+│   ├── favicon/
+│   │   └── ...
+│   └── style.css    # Tailwind output
 ├── src/
 │   ├── assets/
 │   │   └── ...
 │   ├── components/
-│   │   │   ├── chats/
-│   │   │   │   ├── ChatInput.jsx
-│   │   │   │   └── ChatList.jsx
+│   │   ├── chats/
+│   │   │   ├── ChatInput.jsx
+│   │   │   └── ChatList.jsx
 │   │   ├── common/
 │   │   │   ├── Clients.jsx
 │   │   │   ├── Footer.jsx
@@ -63,9 +66,9 @@ client/
 │   │   ├── editor/
 │   │   │   ├── Editor.jsx
 │   │   │   └── EditorComponent.jsx
-│   │   │   ├── files/
-│   │   │   │   ├── FileEditor.jsx
-│   │   │   │   └── FileSystem.jsx
+│   │   ├── files/
+│   │   │   ├── FileEditor.jsx
+│   │   │   └── FileSystem.jsx
 │   │   ├── forms/
 │   │   │   └── FormComponent.jsx
 │   │   ├── loading/
@@ -123,12 +126,15 @@ client/
 ├── index.html
 ├── package-lock.json
 ├── package.json
+├── postcss.config.js
 ├── tailwind.config.js
+└── vercel.json
 └── vite.config.js
 
 server/
 ├── utils/
 │   └── actions.js
+├── .env
 ├── .gitignore
 ├── package-lock.json
 ├── package.json
