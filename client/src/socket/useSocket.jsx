@@ -16,7 +16,7 @@ function useSocket() {
     const { roomId } = useParams()
 
     useEffect(() => {
-        // if the user is not coming from the home page
+        // if the client is not coming from the home page
         if (!location.state?.username) {
             navigate("/", { state: { roomId } })
         } else {

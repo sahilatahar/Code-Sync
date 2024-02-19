@@ -1,12 +1,11 @@
 import { useContext, useRef, useState } from "react"
-import { LuFiles } from "react-icons/lu"
-import { MdDelete, MdModeEditOutline } from "react-icons/md"
-import FileContext from "../../context/FileContext"
+import { PencilSimple, Trash } from "@phosphor-icons/react"
+import FileContext from "../../../context/FileContext"
 import FileEditor from "./FileEditor"
-import TabContext from "../../context/TabContext"
-import useWindowDimensions from "../../hooks/useWindowDimensions"
+import TabContext from "../../../context/TabContext"
+import useWindowDimensions from "../../../hooks/useWindowDimensions"
 import { Icon } from "@iconify/react"
-import { getIconClassName } from "../../utils/getIconClassName"
+import { getIconClassName } from "../../../utils/getIconClassName"
 
 function FileSystem() {
     const filesContentRef = useRef(null)
@@ -53,14 +52,8 @@ function FileSystem() {
 
     return (
         <>
-            <div className="flex items-center pb-2">
-                <LuFiles size={32} className="mr-2" />
-                <div>
-                    <h1 className="text-lg font-semibold">Files</h1>
-                    <p className="text-sm text-gray-400">
-                        {files.length} files in total
-                    </p>
-                </div>
+            <div className="pb-2">
+                <h1 className="text-lg">Files ({files.length})</h1>
             </div>
             <div
                 className="max-h-[70%] min-h-[200px] flex-grow overflow-auto pl-4 pr-2 sm:min-h-0"
@@ -94,7 +87,7 @@ function FileSystem() {
                                         handleRenameFile(e, file.id)
                                     }
                                 >
-                                    <MdModeEditOutline size={16} />
+                                    <PencilSimple size={18} weight="fill" />
                                 </button>
                                 <button
                                     onClick={(e) =>
@@ -102,7 +95,7 @@ function FileSystem() {
                                     }
                                     className="text-danger"
                                 >
-                                    <MdDelete size={20} />
+                                    <Trash size={18} weight="fill" />
                                 </button>
                             </span>
                         </div>

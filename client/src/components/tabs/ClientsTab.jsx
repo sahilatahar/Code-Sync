@@ -1,10 +1,9 @@
 import toast from "react-hot-toast"
-import { BiExit } from "react-icons/bi"
-import { MdOutlineContentCopy, MdOutlineIosShare } from "react-icons/md"
+import { Copy, Export, SignOut } from "@phosphor-icons/react"
 import { useNavigate } from "react-router-dom"
 import Clients from "../common/Clients"
 
-function UsersTab() {
+function ClientsTab() {
     const navigate = useNavigate()
 
     const copyURL = async () => {
@@ -45,7 +44,7 @@ function UsersTab() {
                         onClick={shareURL}
                         title="Share Link"
                     >
-                        <MdOutlineIosShare size={24} />
+                        <Export size={24} />
                     </button>
                     {/* Copy URL button */}
                     <button
@@ -53,7 +52,7 @@ function UsersTab() {
                         onClick={copyURL}
                         title="Copy Link"
                     >
-                        <MdOutlineContentCopy size={22} />
+                        <Copy size={22} />
                     </button>
                     {/* Leave room button */}
                     <button
@@ -61,7 +60,7 @@ function UsersTab() {
                         onClick={leaveRoom}
                         title="Leave room"
                     >
-                        <BiExit size={24} />
+                        <SignOut size={24} />
                     </button>
                 </div>
             </div>
@@ -69,4 +68,4 @@ function UsersTab() {
     )
 }
 
-export default UsersTab
+export default ClientsTab

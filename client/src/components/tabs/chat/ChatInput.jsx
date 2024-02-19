@@ -1,5 +1,5 @@
 import { useContext, useRef } from "react"
-import { IoSend } from "react-icons/io5"
+import { PaperPlaneRight } from "@phosphor-icons/react"
 import AppContext from "../../context/AppContext"
 import ACTIONS from "../../utils/actions"
 import { formatDate } from "../../utils/formateDate"
@@ -44,7 +44,7 @@ function ChatInput() {
                 className="flex items-center justify-center rounded-r-md  bg-primary p-2 text-black"
                 type="submit"
             >
-                <IoSend size={24} />
+                <PaperPlaneRight size={24} weight="fill" />
             </button>
         </form>
     )

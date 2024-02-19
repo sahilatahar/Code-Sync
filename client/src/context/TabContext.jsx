@@ -1,31 +1,30 @@
 import PropTypes from "prop-types"
 import { createContext, useState } from "react"
-import { HiOutlineUsers } from "react-icons/hi2"
-import { IoSettingsOutline } from "react-icons/io5"
-import { PiChats } from "react-icons/pi"
-import { VscFiles } from "react-icons/vsc"
+import { Files, Users, Gear, Chats } from "@phosphor-icons/react"
 import ChatPanel from "../components/chat/ChatPanel"
-import UsersTab from "../components/tabs/UsersTab"
+import ClientsTab from "../components/tabs/ClientsTab"
 import FilesTab from "../components/tabs/FilesTab"
 import SettingsTab from "../components/tabs/SettingsTab"
 import TABS from "../utils/tabs"
+import useWindowDimensions from "../hooks/useWindowDimensions"
 
 const TabContext = createContext()
 
 function TabContextProvider({ children }) {
+    const { isMobile } = useWindowDimensions()
     const [activeTab, setActiveTab] = useState(TABS.FILES)
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+    const [isSidebarOpen, setIsSidebarOpen] = useState(!isMobile)
     const [tabComponents, setTabComponents] = useState({
         [TABS.FILES]: <FilesTab />,
-        [TABS.USERS]: <UsersTab />,
+        [TABS.CLIENTS]: <ClientsTab />,
         [TABS.SETTINGS]: <SettingsTab />,
         [TABS.CHAT]: <ChatPanel />,
     })
     const tabIcons = {
-        [TABS.FILES]: <VscFiles size={30} />,
-        [TABS.USERS]: <HiOutlineUsers size={30} />,
-        [TABS.SETTINGS]: <IoSettingsOutline size={30} />,
-        [TABS.CHAT]: <PiChats size={32} />,
+        [TABS.FILES]: <Files size={32} />,
+        [TABS.CLIENTS]: <Users size={30} />,
+        [TABS.SETTINGS]: <Gear size={30} />,
+        [TABS.CHAT]: <Chats size={32} />,
     }
 
     return (

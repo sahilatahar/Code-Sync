@@ -53,9 +53,6 @@ client/
 │   ├── assets/
 │   │   └── ...
 │   ├── components/
-│   │   ├── chat/
-│   │   │   ├── ChatInput.jsx
-│   │   │   └── ChatPanel.jsx
 │   │   ├── common/
 │   │   │   ├── Clients.jsx
 │   │   │   ├── Footer.jsx
@@ -63,9 +60,6 @@ client/
 │   │   ├── editor/
 │   │   │   ├── Editor.jsx
 │   │   │   └── EditorComponent.jsx
-│   │   ├── files/
-│   │   │   ├── FileEditor.jsx
-│   │   │   └── FileSystem.jsx
 │   │   ├── forms/
 │   │   │   └── FormComponent.jsx
 │   │   ├── loading/
@@ -73,9 +67,15 @@ client/
 │   │   ├── sidebar/
 │   │   │   └── Sidebar.jsx
 │   │   ├── tabs/
+│   │   │   ├── chat/
+│   │   │   │   ├── ChatInput.jsx
+│   │   │   │   └── ChatPanel.jsx
+│   │   │   ├── files/
+│   │   │   │   ├── FileEditor.jsx
+│   │   │   │   └── FileSystem.jsx
 │   │   │   ├── FileTab.jsx
 │   │   │   ├── SettingsTab.jsx
-│   │   │   ├── UsersTab.jsx
+│   │   │   ├── ClientsTab.jsx
 │   │   │   └── TabButton.jsx
 │   │   ├── toast/
 │   │   │   └── Toast.jsx
@@ -91,7 +91,7 @@ client/
 │   │   ├── useFileSystem.jsx
 │   │   ├── useLocalStorage.jsx
 │   │   ├── usePageEvents.jsx
-│   │   ├── useUserActivity.jsx
+│   │   ├── useClientActivity.jsx
 │   │   └── useWindowDimensions.jsx
 │   ├── layouts/
 │   │   └── EditorLayout.jsx

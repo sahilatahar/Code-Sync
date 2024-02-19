@@ -1,6 +1,6 @@
 export default {
     FILES: "Files",
-    USERS: "Users",
+    CLIENTS: "Clients",
     CHAT: "Chat",
     SETTINGS: "Settings",
 }

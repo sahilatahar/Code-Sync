@@ -1,5 +1,5 @@
 import PropTypes from "prop-types"
-import { IoIosArrowDown } from "react-icons/io"
+import { CaretDown } from "@phosphor-icons/react"
 
 function Select({ onChange, value, options, title }) {
     return (
@@ -21,7 +21,7 @@ function Select({ onChange, value, options, title }) {
                         )
                     })}
             </select>
-            <IoIosArrowDown
+            <CaretDown
                 size={14}
                 className="absolute bottom-3 right-4 z-10 text-white"
             />

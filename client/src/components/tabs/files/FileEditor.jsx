@@ -1,9 +1,8 @@
 import PropTypes from "prop-types"
 import { useContext, useState } from "react"
 import toast from "react-hot-toast"
-import { FaCheck } from "react-icons/fa6"
-import { IoClose } from "react-icons/io5"
-import FileContext from "../../context/FileContext"
+import { Check, X } from "@phosphor-icons/react"
+import FileContext from "../../../context/FileContext"
 
 function FileEditor({ editingFileId, setEditingFileId, name }) {
     const [fileName, setFileName] = useState(name || "")
@@ -52,10 +51,10 @@ function FileEditor({ editingFileId, setEditingFileId, name }) {
                 />
                 <span className="flex gap-4">
                     <button onClick={handleConfirm} type="submit">
-                        <FaCheck size={16} />
+                        <Check size={18} weight="bold" />
                     </button>
                     <button onClick={handleCancel} type="reset">
-                        <IoClose size={20} />
+                        <X size={18} weight="bold" />
                     </button>
                 </span>
             </form>

@@ -1,11 +1,11 @@
 import SplitterComponent from "../components/SplitterComponent"
 import EditorComponent from "../components/editor/EditorComponent"
 import Sidebar from "../components/sidebar/Sidebar"
-import useUserActivity from "../hooks/useUserActivity"
+import useClientActivity from "../hooks/useClientActivity"
 
 function EditorPage() {
-    // Listen user online/offline status
-    useUserActivity()
+    // Listen client online/offline status
+    useClientActivity()
 
     return (
         <SplitterComponent>
