@@ -43,31 +43,6 @@ You can view the live preview of the project [here](https://code-sync-live.verce
 ![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 
-### 🖥️ Frontend
-
--   **React JS:** A JavaScript library for building user interfaces, facilitating the creation of dynamic and efficient web applications.
--   **React Router:** Enables navigation and routing in React applications, managing the UI based on the URL.
--   **Tailwind CSS:** A utility-first CSS framework that streamlines the styling process with pre-defined classes.
--   **Vite:** A build tool for modern web development, providing faster development and better performance.
--   **PropTypes:** Runtime type checking for React props, helping to catch bugs early in development.
--   **UUID:** Generates unique identifiers, useful for key assignments in databases or component instances.
--   **Socket.io-client:** Implements real-time communication between the client and server using WebSockets.
--   **React-hot-toast:** A React library for creating customizable and responsive toast notifications.
--   **React-avatar:** Simplifies the display of avatars or profile pictures in React applications.
--   **@uiw/react-codemirror:** A versatile text editor implemented in React, providing an embeddable code editor for web applications.
--   **@uiw/codemirror-extensions:** Extensions for CodeMirror, enhancing the editor with additional features and capabilities.
--   **React Icons:** A collection of popular icons for React projects, providing easy integration of icons into the user interface.
--   **JSZIP**: A JavaScript library for creating, reading, and editing .zip files, useful for downloading multiple files as a single .zip file.
--   **@iconify/react**: Integrates diverse icon packs into React apps for enhanced UI and user experience.
-
-### 🌐 Backend
-
--   **Node.js:** A server-side JavaScript runtime, allowing the execution of JavaScript code outside the browser.
--   **Express:** A web application framework for Node.js, simplifying the creation of robust and scalable APIs.
--   **Socket.io:** Facilitates real-time bidirectional communication between clients and servers using WebSockets.
--   **Dotenv:** Loads environment variables from a .env file, enhancing the configuration of Node.js applications.
--   **CORS:** Stands for Cross-Origin Resource Sharing, a mechanism that permits or restricts web page access to resources on another domain.
-
 ## 📂 Folder Structure
 
 ```
@@ -116,7 +91,6 @@ client/
 │   │   ├── useFileSystem.jsx
 │   │   ├── useLocalStorage.jsx
 │   │   ├── usePageEvents.jsx
-│   │   ├── useSocket.jsx
 │   │   ├── useUserActivity.jsx
 │   │   └── useWindowDimensions.jsx
 │   ├── layouts/
@@ -128,13 +102,15 @@ client/
 │   │   ├── Font.js
 │   │   ├── Languages.js
 │   │   └── Themes.js
-│   ├── services/
+│   ├── socket/
+│   │   ├── useSocket.jsx
 │   │   └── socket.js
 │   ├── utils/
 │   │   ├── actions.js
 │   │   ├── editorPlaceholder.js
 │   │   ├── formateDate.js
 │   │   ├── initialFile.js
+│   │   ├── socketStatus.js
 │   │   └── tabs.js
 │   ├── App.jsx
 │   ├── index.css
@@ -164,11 +140,12 @@ README.md
 
 ## ⚙️ Installation
 
-1. **Clone the repository:**
+1. **Fork this repository:** Click the Fork button located in the top-right corner of this page to fork the repository.
+2. **Clone the repository:**
     ```bash
-    git clone https://github.com/sahilatahar/Code-Sync.git
+    git clone https://github.com/<your-username>/Code-Sync.git
     ```
-2. **Set .env file:**
+3. **Set .env file:**
    Inside the client and server directory, create or edit the .env file and add the following line:  
    Frontend:
 
@@ -182,12 +159,12 @@ README.md
     PORT=3000
     ```
 
-3. **Install dependencies:**
+4. **Install dependencies:**
    Navigate to the frontend and backend directories separately and run:
     ```bash
      npm install
     ```
-4. **Start the frontend and backend servers:**  
+5. **Start the frontend and backend servers:**  
    Frontend:
     ```bash
     cd client
@@ -198,7 +175,7 @@ README.md
     cd server
     npm run dev
     ```
-5. **Access the application:**
+6. **Access the application:**
    Open a browser and enter the following URL:
     ```bash
     http://localhost:5173/
@@ -213,6 +190,10 @@ README.md
 
 We welcome contributions to make Code Sync even better! Whether you're reporting a bug, suggesting a new feature, or fixing a typo, your input is valuable to us. Follow the [contribution guidelines](CONTRIBUTING.md) to get started.
 
+## 🌟 Support Us
+
+If you find this helpful or valuable, please consider 🌟 starring the repository. It helps us gain visibility and encourages further development. We appreciate your support!
+
 ## 🧾 License
 
 This project is licensed under the [MIT License](LICENSE).
@@ -220,5 +201,5 @@ This project is licensed under the [MIT License](LICENSE).
 ## ✍️ About Developer
 
 -   Sahil Atahar (Aspiring Full Stack Developer)  
-    [![GitHub](https://img.shields.io/badge/GitHub-100000.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sahilatahar)
+     [![GitHub](https://img.shields.io/badge/GitHub-100000.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sahilatahar)
     [![LinkedIn-social](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/sahilatahar)

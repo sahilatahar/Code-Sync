@@ -1,11 +1,16 @@
 import Loading from "../components/loading/Loading"
-import useSocket from "../hooks/useSocket"
+import useSocket from "../socket/useSocket"
 import EditorPage from "../pages/EditorPage"
+import socketStatus from "../utils/socketStatus"
 
 function EditorLayout() {
-    const { isLoading, isError } = useSocket()
+    const { status } = useSocket()
 
-    return isLoading ? <Loading isError={isError} /> : <EditorPage />
+    return status !== socketStatus.CONNECTED ? (
+        <Loading status={status} />
+    ) : (
+        <EditorPage />
+    )
 }
 
 export default EditorLayout

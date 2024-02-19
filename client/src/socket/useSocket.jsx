@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from "react"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
-import { initSocket } from "../services/socket"
+import { initSocket } from "./socket"
 import ACTIONS from "../utils/actions"
 import { toast } from "react-hot-toast"
 import AppContext from "../context/AppContext"
+import socketStatus from "../utils/socketStatus"
 
 function useSocket() {
     const location = useLocation()
@@ -11,8 +12,7 @@ function useSocket() {
 
     const { socket, setSocket, setClients, username, setUsername, setRoomId } =
         useContext(AppContext)
-    const [isLoading, setIsLoading] = useState(true)
-    const [isError, setIsError] = useState(false)
+    const [status, setStatus] = useState(socketStatus.CONNECTING)
     const { roomId } = useParams()
 
     useEffect(() => {
@@ -30,12 +30,11 @@ function useSocket() {
         const handleErrs = (err) => {
             console.log("socket error", err)
             console.log("socket connection failed, try again later")
-            setIsError(true)
+            setStatus(socketStatus.FAILED)
         }
 
         function init() {
-            setIsLoading(true)
-            setIsError(false)
+            setStatus(socketStatus.CONNECTING)
 
             if (socket == null) {
                 const s = initSocket()
@@ -44,7 +43,7 @@ function useSocket() {
 
             if (socket == null) return
 
-            socket.on("connect", () => setIsLoading(false))
+            socket.on("connect", () => setStatus(socketStatus.CONNECTED))
             socket.on("connect_error", handleErrs)
             socket.on("connect_failed", handleErrs)
 
@@ -79,7 +78,7 @@ function useSocket() {
         }
     }, [socket, setSocket, navigate, roomId, setClients, username])
 
-    return { isLoading, isError }
+    return { status }
 }
 
 export default useSocket
