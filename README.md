@@ -51,7 +51,6 @@ client/
 ├── public/
 │   ├── favicon/
 │   │   └── ...
-│   └── style.css    # Tailwind output
 ├── src/
 │   ├── assets/
 │   │   └── ...
@@ -94,8 +93,9 @@ client/
 │   ├── hooks/
 │   │   ├── useChatRoom.jsx
 │   │   ├── useFileSystem.jsx
-│   │   ├── useLocalStorage.jsx
 │   │   ├── usePageEvents.jsx
+│   │   ├── useResponsive.jsx
+│   │   ├── useLocalStorage.jsx
 │   │   ├── useClientActivity.jsx
 │   │   └── useWindowDimensions.jsx
 │   ├── layouts/
@@ -115,6 +115,7 @@ client/
 │   │   ├── editorPlaceholder.js
 │   │   ├── formateDate.js
 │   │   ├── initialFile.js
+│   │   ├── getIconClassName.js
 │   │   ├── socketStatus.js
 │   │   └── tabs.js
 │   ├── App.jsx
