@@ -5,7 +5,7 @@ function useWindowDimensions() {
         width: window.innerWidth,
         height: window.innerHeight,
     })
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 640)
     const tabHeight = isMobile
         ? windowDimensions.height - 50
         : windowDimensions.height

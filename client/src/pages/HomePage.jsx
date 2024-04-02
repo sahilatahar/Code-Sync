@@ -8,7 +8,9 @@ function HomePage() {
     const { socket, setSocket } = useContext(AppContext)
 
     useEffect(() => {
-        document.title = "Code Sync - Realtime Code Collaboration"
+        if (socket != null) {
+            socket.disconnect()
+        }
         setSocket(null)
     }, [setSocket, socket])
 

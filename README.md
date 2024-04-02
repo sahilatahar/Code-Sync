@@ -1,6 +1,6 @@
 # Code Sync - A Realtime Code Editor
 
-![screenshot](./screenshots/preview.png)
+![Preview Gif](./preview.gif)
 
 Code Sync is a collaborative, real-time code editor where users can seamlessly code together. It provides a platform for multiple users to enter a room, share a unique room ID, and collaborate on code simultaneously.
 
@@ -26,6 +26,7 @@ Code Sync is a collaborative, real-time code editor where users can seamlessly c
 -   📁 Open, edit, save, and delete file functionalities
 -   💾 Option to download files edited within the collaboration session
 -   💬 **Group chatting** allows users to communicate in real-time while working on code.
+
 
 ## 🚀 Live Preview
 
@@ -91,15 +92,15 @@ client/
 │   │   ├── FileContext.jsx
 │   │   └── TabContext.jsx
 │   ├── hooks/
+│   │   ├── useSocket.jsx
 │   │   ├── useChatRoom.jsx
 │   │   ├── useFileSystem.jsx
 │   │   ├── usePageEvents.jsx
+│   │   ├── useFullScreen.jsx
 │   │   ├── useResponsive.jsx
 │   │   ├── useLocalStorage.jsx
 │   │   ├── useClientActivity.jsx
 │   │   └── useWindowDimensions.jsx
-│   ├── layouts/
-│   │   └── EditorLayout.jsx
 │   ├── pages/
 │   │   ├── EditorPage.jsx
 │   │   └── HomePage.jsx
@@ -108,7 +109,6 @@ client/
 │   │   ├── Languages.js
 │   │   └── Themes.js
 │   ├── socket/
-│   │   ├── useSocket.jsx
 │   │   └── socket.js
 │   ├── utils/
 │   │   ├── actions.js
@@ -141,7 +141,6 @@ server/
 ├── package.json
 └── server.js
 
-screenshots/
 CONTRIBUTING.md
 LICENSE
 README.md
@@ -209,6 +208,25 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## ✍️ About Developer
 
--   Sahil Atahar (Aspiring Full Stack Developer)  
-     [![GitHub](https://img.shields.io/badge/GitHub-100000.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sahilatahar)
-    [![LinkedIn-social](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/sahilatahar)
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top">
+        <img src="https://github.com/sahilatahar.png" width="120px;" alt="Sahil Atahar"/>
+        <br />
+        <b>Sahil Atahar</b>
+      </td>
+    </tr>
+    <tr>
+        <td align="center">
+            <a href="https://github.com/sahilatahar">
+            <img src="https://img.shields.io/badge/GitHub-100000.svg?style=for-the-badge&logo=github&logoColor=white"/>
+        </a>
+        <br/>
+        <a href="https://linkedin.com/in/sahilatahar">
+            <img src="https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white"/>
+        </a>
+        </td>
+    </tr>
+  </tbody>
+</table>

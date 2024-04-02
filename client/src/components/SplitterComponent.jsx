@@ -12,8 +12,7 @@ function SplitterComponent({ children }) {
 
     const getGutter = () => {
         const gutter = document.createElement("div")
-        gutter.style.height = "100%"
-        gutter.style.cursor = "e-resize"
+        gutter.className = "h-full cursor-e-resizer hidden md:block"
         gutter.style.backgroundColor = "#e1e1ffb3"
         return gutter
     }
@@ -40,7 +39,7 @@ function SplitterComponent({ children }) {
 
     const getGutterStyle = () => ({
         width: "5px",
-        display: isSidebarOpen && !isMobile ? "block cursor-e-resize" : "none",
+        display: isSidebarOpen ? "block" : "none",
     })
 
     return (
