@@ -64,15 +64,7 @@ select {
     cursor: pointer;
 }
 
-.tab-height {
-    height: 100%;
-}
-
 @media screen and (max-width: 768px) {
-    .tab-height {
-        height: calc(100vh - 60px);
-    }
-
     .cm-editor {
         max-height: calc(100vh - 60px);
     }

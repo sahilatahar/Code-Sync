@@ -1,6 +1,7 @@
 import PropTypes from "prop-types"
 import { createContext, useState } from "react"
 import useLocalStorage from "../hooks/useLocalStorage"
+import socketStatus from "../utils/socketStatus"
 const AppContext = createContext()
 
 function AppContextProvider({ children }) {
@@ -17,6 +18,7 @@ function AppContextProvider({ children }) {
     const [settings, updateSettings] = useState(storedSettings)
     const [roomId, setRoomId] = useState("")
     const [username, setUsername] = useState("")
+    const [status, setStatus] = useState(socketStatus.CONNECTING)
 
     return (
         <AppContext.Provider
@@ -31,6 +33,8 @@ function AppContextProvider({ children }) {
                 setRoomId,
                 username,
                 setUsername,
+                status,
+                setStatus,
             }}
         >
             {children}

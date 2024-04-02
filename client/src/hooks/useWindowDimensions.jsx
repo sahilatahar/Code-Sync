@@ -6,6 +6,9 @@ function useWindowDimensions() {
         height: window.innerHeight,
     })
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
+    const tabHeight = isMobile
+        ? windowDimensions.height - 50
+        : windowDimensions.height
 
     useEffect(() => {
         const updateWindowDimensions = () => {
@@ -22,7 +25,7 @@ function useWindowDimensions() {
             window.removeEventListener("resize", updateWindowDimensions)
         }
     }, [])
-    return { ...windowDimensions, isMobile }
+    return { ...windowDimensions, isMobile, tabHeight }
 }
 
 export default useWindowDimensions

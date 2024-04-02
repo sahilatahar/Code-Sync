@@ -1,6 +1,6 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect } from "react"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
-import { initSocket } from "./socket"
+import { initSocket } from "../socket/socket"
 import ACTIONS from "../utils/actions"
 import { toast } from "react-hot-toast"
 import AppContext from "../context/AppContext"
@@ -9,10 +9,15 @@ import socketStatus from "../utils/socketStatus"
 function useSocket() {
     const location = useLocation()
     const navigate = useNavigate()
-
-    const { socket, setSocket, setClients, username, setUsername, setRoomId } =
-        useContext(AppContext)
-    const [status, setStatus] = useState(socketStatus.CONNECTING)
+    const {
+        socket,
+        setSocket,
+        setClients,
+        username,
+        setUsername,
+        setRoomId,
+        setStatus,
+    } = useContext(AppContext)
     const { roomId } = useParams()
 
     useEffect(() => {
@@ -34,22 +39,25 @@ function useSocket() {
         }
 
         function init() {
-            setStatus(socketStatus.CONNECTING)
-
             if (socket == null) {
+                setStatus(socketStatus.CONNECTING)
                 const s = initSocket()
                 setSocket(s)
+                return
             }
 
-            if (socket == null) return
-
-            socket.on("connect", () => setStatus(socketStatus.CONNECTED))
+            // socket.on("connect", () => setStatus(socketStatus.CONNECTED))
             socket.on("connect_error", handleErrs)
             socket.on("connect_failed", handleErrs)
 
             socket.emit(ACTIONS.JOIN, {
                 roomId,
                 username,
+            })
+
+            // This event is emitted by the server when a client successfully joins the room
+            socket.on(ACTIONS.JOIN_SUCCESS, () => {
+                setStatus(socketStatus.CONNECTED)
             })
 
             socket.on(ACTIONS.UPDATE_CLIENTS_LIST, ({ clients }) => {
@@ -73,12 +81,11 @@ function useSocket() {
             socket.off("connect")
             socket.off("connect_error")
             socket.off("connect_failed")
+            socket.off(ACTIONS.JOIN_SUCCESS)
             socket.off(ACTIONS.DISCONNECTED)
             socket.off(ACTIONS.UPDATE_CLIENTS_LIST)
         }
-    }, [socket, setSocket, navigate, roomId, setClients, username])
-
-    return { status }
+    }, [socket, setSocket, navigate, roomId, setClients, username, setStatus])
 }
 
 export default useSocket

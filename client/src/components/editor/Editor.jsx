@@ -9,11 +9,13 @@ import { editorLanguages } from "../../resources/Languages"
 import { editorThemes } from "../../resources/Themes"
 import ACTIONS from "../../utils/actions"
 import placeholder from "../../utils/editorPlaceholder"
+import useWindowDimensions from "../../hooks/useWindowDimensions"
 
 function Editor() {
     const { socket, settings, roomId } = useContext(AppContext)
     const { currentFile, setCurrentFile } = useContext(FileContext)
     const { theme, language, fontSize } = settings
+    const { tabHeight } = useWindowDimensions()
 
     const onCodeChange = (code) => {
         const file = { ...currentFile, content: code }
@@ -36,8 +38,8 @@ function Editor() {
             maxWidth="100vw"
             style={{
                 fontSize: fontSize + "px",
+                height: tabHeight,
             }}
-            className="tab-height"
         />
     )
 }

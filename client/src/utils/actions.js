@@ -1,5 +1,6 @@
 const ACTIONS = {
     JOIN: "join",
+    JOIN_SUCCESS: "join-success",
     JOINED: "joined",
     DISCONNECTED: "disconnected",
     SYNC_FILES: "sync-files",

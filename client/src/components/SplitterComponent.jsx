@@ -40,7 +40,7 @@ function SplitterComponent({ children }) {
 
     const getGutterStyle = () => ({
         width: "5px",
-        display: isSidebarOpen && !isMobile ? "block" : "none",
+        display: isSidebarOpen && !isMobile ? "block cursor-e-resize" : "none",
     })
 
     return (

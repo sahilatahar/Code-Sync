@@ -45,6 +45,7 @@ io.on("connection", (socket) => {
 
 		// Send clients list to all sockets in room
 		io.to(roomId).emit(ACTIONS.UPDATE_CLIENTS_LIST, { clients })
+		io.to(socket.id).emit(ACTIONS.JOIN_SUCCESS)
 	})
 
 	socket.on("disconnecting", () => {

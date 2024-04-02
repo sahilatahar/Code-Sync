@@ -2,7 +2,7 @@ function GitHubCorner() {
     return (
         <a
             href="https://github.com/sahilatahar/Code-Sync"
-            className="github-corner block"
+            className="github-corner md:block hidden"
             aria-label="View source on GitHub"
             target="_blank"
             rel="noreferrer"

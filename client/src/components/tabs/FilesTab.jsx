@@ -4,6 +4,7 @@ import FileContext from "../../context/FileContext"
 import { fileExtensionsArray as AllowedFileTypes } from "../../resources/Languages"
 import FileSystem from "../files/FileSystem"
 import { FileArrowUp, DownloadSimple, ArchiveBox } from "@phosphor-icons/react"
+import useWindowDimensions from "../../hooks/useWindowDimensions"
 
 function FilesTab() {
     const {
@@ -15,6 +16,7 @@ function FilesTab() {
         downloadAllFiles,
     } = useContext(FileContext)
     const fileInputRef = useRef(null)
+    const { tabHeight } = useWindowDimensions()
 
     const handleOpenFile = () => {
         fileInputRef.current.click()
@@ -39,7 +41,10 @@ function FilesTab() {
     }
 
     return (
-        <div className="tab-height flex select-none flex-col gap-1 p-4">
+        <div
+            className="flex select-none flex-col gap-1 p-4"
+            style={{ height: tabHeight }}
+        >
             <FileSystem />
             <button
                 className="flex w-full justify-start rounded-md p-2 transition-all hover:bg-darkHover"

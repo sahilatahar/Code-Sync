@@ -5,11 +5,13 @@ import { editorFonts } from "../../resources/Fonts"
 import { editorLanguages } from "../../resources/Languages"
 import { editorThemes } from "../../resources/Themes"
 import Select from "../common/Select"
+import useWindowDimensions from "../../hooks/useWindowDimensions"
 
 function SettingsTab() {
     const { settings, updateSettings } = useContext(AppContext)
     const { theme, language, fontFamily, fontSize } = settings
     const { setItem } = useLocalStorage()
+    const { tabHeight } = useWindowDimensions()
 
     const handleFontFamilyChange = (e) => {
         const fontFamily = e.target.value
@@ -44,7 +46,10 @@ function SettingsTab() {
     }, [fontFamily])
 
     return (
-        <div className="tab-height flex flex-col items-center gap-2 p-4">
+        <div
+            className="flex flex-col items-center gap-2 p-4"
+            style={{ height: tabHeight }}
+        >
             {/* Choose Font Family option */}
             <div className="flex w-full items-end gap-2">
                 <Select

@@ -2,9 +2,11 @@ import toast from "react-hot-toast"
 import { Copy, Export, SignOut } from "@phosphor-icons/react"
 import { useNavigate } from "react-router-dom"
 import Clients from "../common/Clients"
+import useWindowDimensions from "../../hooks/useWindowDimensions"
 
 function ClientsTab() {
     const navigate = useNavigate()
+    const { tabHeight } = useWindowDimensions()
 
     const copyURL = async () => {
         const url = window.location.href
@@ -32,7 +34,7 @@ function ClientsTab() {
     }
 
     return (
-        <div className="tab-height flex flex-col p-4">
+        <div className="flex flex-col p-4" style={{ height: tabHeight }}>
             <h1 className="pb-4">Clients</h1>
             {/* List of connected clients */}
             <Clients />
