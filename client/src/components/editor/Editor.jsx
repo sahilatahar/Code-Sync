@@ -1,21 +1,20 @@
+import useAppContext from "@/hooks/useAppContext"
+import useFileSystem from "@/hooks/useFileSystem"
+import usePageEvents from "@/hooks/usePageEvents"
+import useSetting from "@/hooks/useSetting"
+import useWindowDimensions from "@/hooks/useWindowDimensions"
+import { editorLanguages } from "@/resources/Languages"
+import { editorThemes } from "@/resources/Themes"
+import ACTIONS from "@/utils/actions"
+import placeholder from "@/utils/editorPlaceholder"
 import { color } from "@uiw/codemirror-extensions-color"
 import { hyperLink } from "@uiw/codemirror-extensions-hyper-link"
 import CodeMirror from "@uiw/react-codemirror"
-import { useContext } from "react"
-import AppContext from "../../context/AppContext"
-import FileContext from "../../context/FileContext"
-import usePageEvents from "../../hooks/usePageEvents"
-import { editorLanguages } from "../../resources/Languages"
-import { editorThemes } from "../../resources/Themes"
-import ACTIONS from "../../utils/actions"
-import placeholder from "../../utils/editorPlaceholder"
-import useWindowDimensions from "../../hooks/useWindowDimensions"
-import SettingContext from "../../context/SettingContext"
 
 function Editor() {
-    const { socket, roomId } = useContext(AppContext)
-    const { currentFile, setCurrentFile } = useContext(FileContext)
-    const { theme, language, fontSize } = useContext(SettingContext)
+    const { socket, roomId } = useAppContext()
+    const { currentFile, setCurrentFile } = useFileSystem()
+    const { theme, language, fontSize } = useSetting()
     const { tabHeight } = useWindowDimensions()
 
     const onCodeChange = (code) => {

@@ -1,13 +1,12 @@
-import SplitterComponent from "../components/SplitterComponent"
-import Sidebar from "../components/sidebar/Sidebar"
-import useClientActivity from "../hooks/useClientActivity"
-import useSocket from "../hooks/useSocket"
-import socketStatus from "../utils/socketStatus"
-import Loading from "../components/loading/Loading"
-import { useContext } from "react"
-import AppContext from "../context/AppContext"
-import EditorComponent from "../components/editor/EditorComponent"
-import useFullScreen from "../hooks/useFullScreen"
+import SplitterComponent from "@/components/SplitterComponent"
+import EditorComponent from "@/components/editor/EditorComponent"
+import Loading from "@/components/loading/Loading"
+import Sidebar from "@/components/sidebar/Sidebar"
+import useAppContext from "@/hooks/useAppContext"
+import useClientActivity from "@/hooks/useClientActivity"
+import useFullScreen from "@/hooks/useFullScreen"
+import useSocket from "@/hooks/useSocket"
+import socketStatus from "@/utils/socketStatus"
 
 function EditorPage() {
     // Listen client online/offline status
@@ -17,7 +16,7 @@ function EditorPage() {
     // Enable fullscreen mode
     useFullScreen()
 
-    const { status } = useContext(AppContext)
+    const { status } = useAppContext()
 
     if (!(status === socketStatus.CONNECTED)) {
         return <Loading status={status} />

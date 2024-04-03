@@ -1,12 +1,12 @@
-import PropTypes from "prop-types"
-import { useContext, useState } from "react"
-import toast from "react-hot-toast"
+import useFileSystem from "@/hooks/useFileSystem"
 import { Check, X } from "@phosphor-icons/react"
-import FileContext from "../../context/FileContext"
+import PropTypes from "prop-types"
+import { useState } from "react"
+import toast from "react-hot-toast"
 
 function FileEditor({ editingFileId, setEditingFileId, name }) {
     const [fileName, setFileName] = useState(name || "")
-    const { renameFile, openFile } = useContext(FileContext)
+    const { renameFile, openFile } = useFileSystem()
 
     const handleOnChange = (e) => {
         setFileName(e.target.value)

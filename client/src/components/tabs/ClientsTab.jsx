@@ -1,8 +1,8 @@
 import toast from "react-hot-toast"
 import { Copy, Export, SignOut } from "@phosphor-icons/react"
 import { useNavigate } from "react-router-dom"
-import Clients from "../common/Clients"
-import useWindowDimensions from "../../hooks/useWindowDimensions"
+import Clients from "@/components/common/Clients"
+import useWindowDimensions from "@/hooks/useWindowDimensions"
 
 function ClientsTab() {
     const navigate = useNavigate()
@@ -35,7 +35,7 @@ function ClientsTab() {
 
     return (
         <div className="flex flex-col p-4" style={{ height: tabHeight }}>
-            <h1 className="pb-4">Clients</h1>
+            <h1 className="tab-title">Clients</h1>
             {/* List of connected clients */}
             <Clients />
             <div className="flex flex-col items-center gap-4 pt-4">

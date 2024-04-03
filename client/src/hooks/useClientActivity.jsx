@@ -1,9 +1,9 @@
-import { useContext, useEffect } from "react"
-import AppContext from "../context/AppContext"
-import ACTIONS from "../utils/actions"
+import ACTIONS from "@/utils/actions"
+import { useEffect } from "react"
+import useAppContext from "./useAppContext"
 
 function useTabVisibility() {
-    const { socket, setClients, roomId } = useContext(AppContext)
+    const { socket, setClients, roomId } = useAppContext()
 
     useEffect(() => {
         if (socket === null) return

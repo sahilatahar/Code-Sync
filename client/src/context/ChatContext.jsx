@@ -1,12 +1,12 @@
 import { createContext, useState } from "react"
 import PropTypes from "prop-types"
-import useChatRoom from "../hooks/useChatRoom"
+import useChatRoomContext from "@/hooks/useChatRoomContext"
 
 const ChatContext = createContext()
 
 function ChatContextProvider({ children }) {
     const { messages, setMessages, isNewMessage, setIsNewMessage } =
-        useChatRoom()
+        useChatRoomContext()
     const [lastScrollHeight, setLastScrollHeight] = useState(0)
 
     return (

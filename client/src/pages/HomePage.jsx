@@ -1,11 +1,11 @@
-import illustration from "../assets/illustration.svg"
-import FormComponent from "../components/forms/FormComponent"
-import { useContext, useEffect } from "react"
-import AppContext from "../context/AppContext"
-// import Footer from "../components/common/Footer";
+import illustration from "@/assets/illustration.svg"
+import FormComponent from "@/components/forms/FormComponent"
+import useAppContext from "@/hooks/useAppContext"
+import { useEffect } from "react"
+// import Footer from "@/components/common/Footer";
 
 function HomePage() {
-    const { socket, setSocket } = useContext(AppContext)
+    const { socket, setSocket } = useAppContext()
 
     useEffect(() => {
         if (socket != null) {

@@ -1,8 +1,8 @@
-import { useContext, useEffect } from "react"
-import SettingContext from "../context/SettingContext"
+import { useEffect } from "react"
+import useSetting from "./useSetting"
 
 function usePageEvents() {
-    const { fontSize, setFontSize } = useContext(SettingContext)
+    const { fontSize, setFontSize } = useSetting()
 
     useEffect(() => {
         // Prevent client from leaving the page

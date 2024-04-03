@@ -1,12 +1,10 @@
-import { useContext } from "react"
-import TabContext from "../../context/TabContext"
-import useResponsive from "../../hooks/useResponsive"
-import TABS from "../../utils/tabs"
-import TabButton from "../tabs/TabButton"
+import useResponsive from "@/hooks/useResponsive"
+import useTab from "@/hooks/useTabs"
+import TabButton from "@/components/tabs/TabButton"
+import TABS from "@/utils/tabs"
 
 function Sidebar() {
-    const { activeTab, isSidebarOpen, tabComponents, tabIcons } =
-        useContext(TabContext)
+    const { activeTab, isSidebarOpen, tabComponents, tabIcons } = useTab()
     const { showSidebar } = useResponsive()
 
     return (

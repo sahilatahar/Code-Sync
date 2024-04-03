@@ -1,13 +1,13 @@
-import { useContext, useRef } from "react"
+import { useRef } from "react"
 import { PaperPlaneRight } from "@phosphor-icons/react"
-import AppContext from "../../context/AppContext"
-import ACTIONS from "../../utils/actions"
-import { formatDate } from "../../utils/formateDate"
-import ChatContext from "../../context/ChatContext"
+import ACTIONS from "@/utils/actions"
+import { formatDate } from "@/utils/formateDate"
+import useAppContext from "@/hooks/useAppContext"
+import useChatRoom from "@/hooks/useChatRoom"
 
 function ChatInput() {
-    const { socket, clients, roomId } = useContext(AppContext)
-    const { setMessages } = useContext(ChatContext)
+    const { socket, clients, roomId } = useAppContext()
+    const { setMessages } = useChatRoom()
     const inputRef = useRef(null)
 
     const handleSendMessage = (e) => {

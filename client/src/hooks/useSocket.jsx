@@ -1,10 +1,10 @@
-import { useContext, useEffect } from "react"
-import { useLocation, useNavigate, useParams } from "react-router-dom"
-import { initSocket } from "../socket/socket"
-import ACTIONS from "../utils/actions"
+import { initSocket } from "@/socket/socket"
+import ACTIONS from "@/utils/actions"
+import socketStatus from "@/utils/socketStatus"
+import { useEffect } from "react"
 import { toast } from "react-hot-toast"
-import AppContext from "../context/AppContext"
-import socketStatus from "../utils/socketStatus"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
+import useAppContext from "./useAppContext"
 
 function useSocket() {
     const location = useLocation()
@@ -17,7 +17,7 @@ function useSocket() {
         setUsername,
         setRoomId,
         setStatus,
-    } = useContext(AppContext)
+    } = useAppContext()
     const { roomId } = useParams()
 
     useEffect(() => {

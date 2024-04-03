@@ -1,14 +1,13 @@
 import PropTypes from "prop-types"
-import { useContext } from "react"
 import Avatar from "react-avatar"
-import AppContext from "../../context/AppContext"
-import ACTIONS from "../../utils/actions"
+import ACTIONS from "@/utils/actions"
+import useAppContext from "@/hooks/useAppContext"
 
 function Clients() {
-    const { clients } = useContext(AppContext)
+    const { clients } = useAppContext()
 
     return (
-        <div className="flex min-h-[200px] flex-grow justify-center overflow-y-auto">
+        <div className="flex min-h-[200px] flex-grow justify-center overflow-y-auto py-2">
             <div className="flex h-full w-full flex-wrap items-start gap-x-2 gap-y-6">
                 {clients.map((client) => {
                     return <Client key={client.socketId} client={client} />

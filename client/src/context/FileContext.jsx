@@ -1,11 +1,11 @@
 import PropTypes from "prop-types"
 import { createContext } from "react"
-import useFileSystem from "../hooks/useFileSystem"
+import useFileSystemContext from "@/hooks/useFileSystemContext"
 
 const FileContext = createContext()
 
 function FileContextProvider({ children }) {
-    const fileSystem = useFileSystem()
+    const fileSystem = useFileSystemContext()
 
     return (
         <FileContext.Provider value={fileSystem}>

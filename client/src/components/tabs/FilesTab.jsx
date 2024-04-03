@@ -1,10 +1,10 @@
-import { useContext, useRef } from "react"
+import FileSystem from "@/components/files/FileSystem"
+import useFileSystem from "@/hooks/useFileSystem"
+import useWindowDimensions from "@/hooks/useWindowDimensions"
+import { fileExtensionsArray as AllowedFileTypes } from "@/resources/Languages"
+import { ArchiveBox, DownloadSimple, FileArrowUp } from "@phosphor-icons/react"
+import { useRef } from "react"
 import { v4 as uuidv4 } from "uuid"
-import FileContext from "../../context/FileContext"
-import { fileExtensionsArray as AllowedFileTypes } from "../../resources/Languages"
-import FileSystem from "../files/FileSystem"
-import { FileArrowUp, DownloadSimple, ArchiveBox } from "@phosphor-icons/react"
-import useWindowDimensions from "../../hooks/useWindowDimensions"
 
 function FilesTab() {
     const {
@@ -14,7 +14,7 @@ function FilesTab() {
         setFiles,
         downloadCurrentFile,
         downloadAllFiles,
-    } = useContext(FileContext)
+    } = useFileSystem()
     const fileInputRef = useRef(null)
     const { tabHeight } = useWindowDimensions()
 

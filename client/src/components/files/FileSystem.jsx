@@ -1,18 +1,18 @@
-import { useContext, useRef, useState } from "react"
-import { PencilSimple, Trash } from "@phosphor-icons/react"
-import FileContext from "../../context/FileContext"
-import FileEditor from "./FileEditor"
-import TabContext from "../../context/TabContext"
-import useWindowDimensions from "../../hooks/useWindowDimensions"
+import useFileSystem from "@/hooks/useFileSystem"
+import useTab from "@/hooks/useTabs"
+import useWindowDimensions from "@/hooks/useWindowDimensions"
+import { getIconClassName } from "@/utils/getIconClassName"
 import { Icon } from "@iconify/react"
-import { getIconClassName } from "../../utils/getIconClassName"
+import { PencilSimple, Trash } from "@phosphor-icons/react"
+import { useRef, useState } from "react"
+import FileEditor from "./FileEditor"
 
 function FileSystem() {
     const filesContentRef = useRef(null)
     const { files, currentFile, openFile, deleteFile, createFile } =
-        useContext(FileContext)
+        useFileSystem()
     const [editingFileId, setEditingFileId] = useState(null)
-    const { setIsSidebarOpen } = useContext(TabContext)
+    const { setIsSidebarOpen } = useTab()
     const { isMobile } = useWindowDimensions()
 
     const handleRenameFile = (e, id) => {

@@ -1,13 +1,12 @@
+import useChatRoom from "@/hooks/useChatRoom"
+import useTab from "@/hooks/useTabs"
+import TABS from "@/utils/tabs"
 import PropTypes from "prop-types"
-import { useContext } from "react"
-import TabContext from "../../context/TabContext"
-import TABS from "../../utils/tabs"
-import ChatContext from "../../context/ChatContext"
 
 function TabButton({ tabName, icon }) {
     const { activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen } =
-        useContext(TabContext)
-    const { isNewMessage } = useContext(ChatContext)
+        useTab()
+    const { isNewMessage } = useChatRoom()
 
     const handleTabClick = (tabName) => {
         if (tabName === activeTab) {

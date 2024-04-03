@@ -1,10 +1,10 @@
-import { useContext, useEffect } from "react"
-import { editorFonts } from "../../resources/Fonts"
-import { editorLanguages } from "../../resources/Languages"
-import { editorThemes } from "../../resources/Themes"
-import Select from "../common/Select"
-import useWindowDimensions from "../../hooks/useWindowDimensions"
-import SettingContext from "../../context/SettingContext"
+import Select from "@/components/common/Select"
+import useSetting from "@/hooks/useSetting"
+import useWindowDimensions from "@/hooks/useWindowDimensions"
+import { editorFonts } from "@/resources/Fonts"
+import { editorLanguages } from "@/resources/Languages"
+import { editorThemes } from "@/resources/Themes"
+import { useEffect } from "react"
 
 function SettingsTab() {
     const {
@@ -19,7 +19,7 @@ function SettingsTab() {
         showGitHubCorner,
         setShowGitHubCorner,
         resetSettings,
-    } = useContext(SettingContext)
+    } = useSetting()
     const { tabHeight } = useWindowDimensions()
 
     const handleFontFamilyChange = (e) => setFontFamily(e.target.value)
@@ -42,9 +42,7 @@ function SettingsTab() {
             className="flex flex-col items-center gap-2 p-4"
             style={{ height: tabHeight }}
         >
-            <h1 className="mb-2 w-full border-b pb-2 text-start text-lg">
-                Settings
-            </h1>
+            <h1 className="tab-title">Settings</h1>
             {/* Choose Font Family option */}
             <div className="flex w-full items-end gap-2">
                 <Select

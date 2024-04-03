@@ -1,6 +1,6 @@
 import PropTypes from "prop-types"
 import { createContext, useState } from "react"
-import socketStatus from "../utils/socketStatus"
+import socketStatus from "@/utils/socketStatus"
 const AppContext = createContext()
 
 function AppContextProvider({ children }) {

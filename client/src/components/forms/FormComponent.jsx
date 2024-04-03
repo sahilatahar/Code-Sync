@@ -1,8 +1,8 @@
-import { useContext, useEffect, useRef, useState } from "react"
+import useAppContext from "@/hooks/useAppContext"
+import { useEffect, useRef, useState } from "react"
+import toast from "react-hot-toast"
 import { useLocation, useNavigate } from "react-router-dom"
 import { v4 as uuidv4 } from "uuid"
-import toast from "react-hot-toast"
-import AppContext from "../../context/AppContext"
 
 function FormComponent() {
     const navigate = useNavigate()
@@ -13,7 +13,7 @@ function FormComponent() {
         setRoomId: setRoomIdToContext,
         setUsername: setUsernameToContext,
         username: usernameInContext,
-    } = useContext(AppContext)
+    } = useAppContext()
     const usernameRef = useRef(null)
 
     const createNewRoomId = () => {

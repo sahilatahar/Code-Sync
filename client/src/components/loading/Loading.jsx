@@ -1,6 +1,6 @@
 import PropTypes from "prop-types"
 import { useLocation, useNavigate } from "react-router-dom"
-import socketStatus from "../../utils/socketStatus"
+import socketStatus from "@/utils/socketStatus"
 
 function Loading({ status }) {
     const location = useLocation()

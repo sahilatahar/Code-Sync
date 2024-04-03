@@ -1,6 +1,6 @@
-import { useContext, useEffect, useRef } from "react"
-import AppContext from "../../context/AppContext"
-import ChatContext from "../../context/ChatContext"
+import { useEffect, useRef } from "react"
+import useChatRoom from "@/hooks/useChatRoom"
+import useAppContext from "@/hooks/useAppContext"
 
 function ChatList() {
     const {
@@ -9,8 +9,8 @@ function ChatList() {
         setIsNewMessage,
         lastScrollHeight,
         setLastScrollHeight,
-    } = useContext(ChatContext)
-    const { socket } = useContext(AppContext)
+    } = useChatRoom()
+    const { socket } = useAppContext()
     const messagesContainerRef = useRef(null)
 
     const handleScroll = (e) => {

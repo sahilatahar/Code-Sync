@@ -1,12 +1,11 @@
 import PropTypes from "prop-types"
-import { useContext } from "react"
 import Split from "react-split"
-import TabContext from "../context/TabContext"
-import useLocalStorage from "../hooks/useLocalStorage"
-import useWindowDimensions from "../hooks/useWindowDimensions"
+import useLocalStorage from "@/hooks/useLocalStorage"
+import useWindowDimensions from "@/hooks/useWindowDimensions"
+import useTabs from "@/hooks/useTabs"
 
 function SplitterComponent({ children }) {
-    const { isSidebarOpen } = useContext(TabContext)
+    const { isSidebarOpen } = useTabs()
     const { isMobile, width } = useWindowDimensions()
     const { setItem, getItem } = useLocalStorage()
 

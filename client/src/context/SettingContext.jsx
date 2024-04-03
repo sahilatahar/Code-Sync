@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react"
 import PropTypes from "prop-types"
-import useLocalStorage from "../hooks/useLocalStorage"
+import useLocalStorage from "@/hooks/useLocalStorage"
 
 const SettingContext = createContext()
 

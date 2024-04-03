@@ -1,10 +1,9 @@
-import { useContext } from "react"
-import FileContext from "../../context/FileContext"
+import useFileSystem from "@/hooks/useFileSystem"
+import useWindowDimensions from "@/hooks/useWindowDimensions"
 import Editor from "./Editor"
-import useWindowDimensions from "../../hooks/useWindowDimensions"
 
 function EditorComponent() {
-    const { currentFile } = useContext(FileContext)
+    const { currentFile } = useFileSystem()
     const { tabHeight } = useWindowDimensions()
 
     return (

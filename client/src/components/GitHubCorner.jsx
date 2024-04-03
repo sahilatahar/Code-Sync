@@ -1,8 +1,7 @@
-import { useContext } from "react"
-import SettingContext from "../context/SettingContext"
+import useSetting from "@/hooks/useSetting"
 
 function GitHubCorner() {
-    const { showGitHubCorner } = useContext(SettingContext)
+    const { showGitHubCorner } = useSetting()
 
     return (
         <a
