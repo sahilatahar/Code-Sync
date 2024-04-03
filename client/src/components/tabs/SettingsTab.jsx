@@ -1,41 +1,33 @@
 import { useContext, useEffect } from "react"
-import AppContext from "../../context/AppContext"
-import useLocalStorage from "../../hooks/useLocalStorage"
 import { editorFonts } from "../../resources/Fonts"
 import { editorLanguages } from "../../resources/Languages"
 import { editorThemes } from "../../resources/Themes"
 import Select from "../common/Select"
 import useWindowDimensions from "../../hooks/useWindowDimensions"
+import SettingContext from "../../context/SettingContext"
 
 function SettingsTab() {
-    const { settings, updateSettings } = useContext(AppContext)
-    const { theme, language, fontFamily, fontSize } = settings
-    const { setItem } = useLocalStorage()
+    const {
+        theme,
+        setTheme,
+        language,
+        setLanguage,
+        fontSize,
+        setFontSize,
+        fontFamily,
+        setFontFamily,
+        showGitHubCorner,
+        setShowGitHubCorner,
+        resetSettings,
+    } = useContext(SettingContext)
     const { tabHeight } = useWindowDimensions()
 
-    const handleFontFamilyChange = (e) => {
-        const fontFamily = e.target.value
-        updateSettings((prev) => ({ ...prev, fontFamily }))
-        setItem("settings", JSON.stringify({ ...settings, fontFamily }))
-    }
-
-    const handleThemeChange = (e) => {
-        const theme = e.target.value
-        updateSettings((prev) => ({ ...prev, theme }))
-        setItem("settings", JSON.stringify({ ...settings, theme }))
-    }
-
-    const handleLanguageChange = (e) => {
-        const language = e.target.value
-        updateSettings((prev) => ({ ...prev, language }))
-        setItem("settings", JSON.stringify({ ...settings, language }))
-    }
-
-    const handleFontSizeChange = (e) => {
-        const fontSize = e.target.value
-        updateSettings((prev) => ({ ...prev, fontSize }))
-        setItem("settings", JSON.stringify({ ...settings, fontSize }))
-    }
+    const handleFontFamilyChange = (e) => setFontFamily(e.target.value)
+    const handleThemeChange = (e) => setTheme(e.target.value)
+    const handleLanguageChange = (e) => setLanguage(e.target.value)
+    const handleFontSizeChange = (e) => setFontSize(e.target.value)
+    const handleShowGitHubCornerChange = (e) =>
+        setShowGitHubCorner(e.target.checked)
 
     useEffect(() => {
         // Set editor font family
@@ -50,6 +42,9 @@ function SettingsTab() {
             className="flex flex-col items-center gap-2 p-4"
             style={{ height: tabHeight }}
         >
+            <h1 className="mb-2 w-full border-b pb-2 text-start text-lg">
+                Settings
+            </h1>
             {/* Choose Font Family option */}
             <div className="flex w-full items-end gap-2">
                 <Select
@@ -62,7 +57,7 @@ function SettingsTab() {
                 <select
                     value={fontSize}
                     onChange={handleFontSizeChange}
-                    className="rounded-md border-none bg-darkHover px-4  py-2 text-white outline-none"
+                    className="rounded-md border-none bg-darkHover px-4 py-2 text-white outline-none"
                     title="Font Size"
                 >
                     {[...Array(13).keys()].map((size) => {
@@ -88,6 +83,25 @@ function SettingsTab() {
                 options={editorLanguages}
                 title="Languages"
             />
+            {/* Show GitHub corner option */}
+            <div className="mt-4 flex w-full items-center justify-between">
+                <label>Show github corner</label>
+                <label className="relative inline-flex cursor-pointer items-center">
+                    <input
+                        className="peer sr-only"
+                        type="checkbox"
+                        onChange={handleShowGitHubCornerChange}
+                        checked={showGitHubCorner}
+                    />
+                    <div className="peer h-6 w-12 rounded-full bg-darkHover outline-none duration-100 after:absolute after:left-1 after:top-1 after:flex after:h-4 after:w-4 after:items-center after:justify-center after:rounded-full after:bg-white after:font-bold after:outline-none after:duration-500 peer-checked:after:translate-x-6 peer-checked:after:border-white peer-focus:outline-none"></div>
+                </label>
+            </div>
+            <button
+                className="mt-auto w-full rounded-md border-none bg-darkHover px-4 py-2 text-white outline-none"
+                onClick={resetSettings}
+            >
+                Reset to default
+            </button>
         </div>
     )
 }

@@ -10,11 +10,12 @@ import { editorThemes } from "../../resources/Themes"
 import ACTIONS from "../../utils/actions"
 import placeholder from "../../utils/editorPlaceholder"
 import useWindowDimensions from "../../hooks/useWindowDimensions"
+import SettingContext from "../../context/SettingContext"
 
 function Editor() {
-    const { socket, settings, roomId } = useContext(AppContext)
+    const { socket, roomId } = useContext(AppContext)
     const { currentFile, setCurrentFile } = useContext(FileContext)
-    const { theme, language, fontSize } = settings
+    const { theme, language, fontSize } = useContext(SettingContext)
     const { tabHeight } = useWindowDimensions()
 
     const onCodeChange = (code) => {

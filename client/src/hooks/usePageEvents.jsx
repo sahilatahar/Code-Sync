@@ -1,11 +1,8 @@
 import { useContext, useEffect } from "react"
-import AppContext from "../context/AppContext"
-import useLocalStorage from "./useLocalStorage"
+import SettingContext from "../context/SettingContext"
 
 function usePageEvents() {
-    const { settings, updateSettings } = useContext(AppContext)
-    const { fontSize } = settings
-    const { setItem } = useLocalStorage()
+    const { fontSize, setFontSize } = useContext(SettingContext)
 
     useEffect(() => {
         // Prevent client from leaving the page
@@ -28,17 +25,10 @@ function usePageEvents() {
                 e.preventDefault()
                 if (!e.target.closest(".cm-editor")) return
                 if (e.deltaY > 0) {
-                    updateSettings((prev) => ({
-                        ...prev,
-                        fontSize: Math.max(fontSize - 1, 12),
-                    }))
+                    setFontSize(Math.max(fontSize - 1, 12))
                 } else {
-                    updateSettings((prev) => ({
-                        ...prev,
-                        fontSize: Math.min(fontSize + 1, 24),
-                    }))
+                    setFontSize(Math.min(fontSize + 1, 24))
                 }
-                setItem("settings", JSON.stringify({ ...settings, fontSize }))
             }
         }
 
@@ -47,7 +37,7 @@ function usePageEvents() {
         return () => {
             window.removeEventListener("wheel", handleWheel)
         }
-    }, [fontSize, settings, setItem, updateSettings])
+    }, [fontSize, setFontSize])
 }
 
 export default usePageEvents

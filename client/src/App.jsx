@@ -6,14 +6,14 @@ import GitHubCorner from "./components/GitHubCorner"
 function App() {
     return (
         <>
-            <Toast /> {/* Toast component from react-hot-toast */}
-            <GitHubCorner />
             <Router>
                 <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/editor/:roomId" element={<EditorPage />} />
                 </Routes>
             </Router>
+            <Toast /> {/* Toast component from react-hot-toast */}
+            <GitHubCorner />
         </>
     )
 }

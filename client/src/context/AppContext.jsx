@@ -1,21 +1,11 @@
 import PropTypes from "prop-types"
 import { createContext, useState } from "react"
-import useLocalStorage from "../hooks/useLocalStorage"
 import socketStatus from "../utils/socketStatus"
 const AppContext = createContext()
 
 function AppContextProvider({ children }) {
-    const { getItem } = useLocalStorage()
-    // First letter of each value should be capital
-    const storedSettings = JSON.parse(getItem("settings")) || {}
-    storedSettings.theme = storedSettings.theme || "Dracula"
-    storedSettings.language = storedSettings.language || "Javascript"
-    storedSettings.fontSize = storedSettings.fontSize || 16
-    storedSettings.fontFamily = storedSettings.fontFamily || "Space Mono"
-
     const [socket, setSocket] = useState(null)
     const [clients, setClients] = useState([])
-    const [settings, updateSettings] = useState(storedSettings)
     const [roomId, setRoomId] = useState("")
     const [username, setUsername] = useState("")
     const [status, setStatus] = useState(socketStatus.CONNECTING)
@@ -27,8 +17,6 @@ function AppContextProvider({ children }) {
                 setSocket,
                 clients,
                 setClients,
-                settings,
-                updateSettings,
                 roomId,
                 setRoomId,
                 username,

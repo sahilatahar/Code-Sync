@@ -7,9 +7,11 @@ import AppContext from "../context/AppContext"
 import { getLanguageName } from "../resources/Languages"
 import ACTIONS from "../utils/actions"
 import initialFile from "../utils/initialFile"
+import SettingContext from "../context/SettingContext"
 
 function useFileSystem() {
-    const { socket, updateSettings, roomId } = useContext(AppContext)
+    const { socket, roomId } = useContext(AppContext)
+    const { setLanguage } = useContext(SettingContext)
     const [files, setFiles] = useState([initialFile])
     const [currentFile, setCurrentFile] = useState(initialFile)
 
@@ -116,9 +118,9 @@ function useFileSystem() {
         // Get file extension on file open and set language when file is opened
         const language = getLanguageName(currentFile.name)
         if (language != null) {
-            updateSettings((prev) => ({ ...prev, language }))
+            setLanguage(language)
         }
-    }, [currentFile, updateSettings])
+    }, [currentFile, setLanguage])
 
     useEffect(() => {
         if (socket === null) return

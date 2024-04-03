@@ -4,7 +4,7 @@ import { CaretDown } from "@phosphor-icons/react"
 function Select({ onChange, value, options, title }) {
     return (
         <div className="relative w-full">
-            <p className="mb-2">{title}</p>
+            <label className="mb-2">{title}</label>
             <select
                 className="w-full rounded-md border-none bg-darkHover px-4 py-2 text-white outline-none"
                 value={value}

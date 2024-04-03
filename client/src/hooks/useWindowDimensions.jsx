@@ -16,7 +16,7 @@ function useWindowDimensions() {
                 width: window.innerWidth,
                 height: window.innerHeight,
             })
-            setIsMobile(window.innerWidth < 768)
+            setIsMobile(window.innerWidth < 640)
         }
 
         window.addEventListener("resize", updateWindowDimensions)

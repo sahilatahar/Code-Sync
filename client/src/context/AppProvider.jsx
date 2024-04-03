@@ -3,15 +3,18 @@ import { AppContextProvider } from "./AppContext.jsx"
 import { ChatContextProvider } from "./ChatContext.jsx"
 import { FileContextProvider } from "./FileContext.jsx"
 import { TabContextProvider } from "./TabContext.jsx"
+import { SettingContextProvider } from "./SettingContext.jsx"
 
 function AppProvider({ children }) {
     return (
         <AppContextProvider>
-            <FileContextProvider>
-                <TabContextProvider>
-                    <ChatContextProvider>{children}</ChatContextProvider>
-                </TabContextProvider>
-            </FileContextProvider>
+            <SettingContextProvider>
+                <FileContextProvider>
+                    <TabContextProvider>
+                        <ChatContextProvider>{children}</ChatContextProvider>
+                    </TabContextProvider>
+                </FileContextProvider>
+            </SettingContextProvider>
         </AppContextProvider>
     )
 }
