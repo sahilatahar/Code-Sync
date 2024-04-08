@@ -1,19 +1,8 @@
 import illustration from "@/assets/illustration.svg"
 import FormComponent from "@/components/forms/FormComponent"
-import useAppContext from "@/hooks/useAppContext"
-import { useEffect } from "react"
 // import Footer from "@/components/common/Footer";
 
 function HomePage() {
-    const { socket, setSocket } = useAppContext()
-
-    useEffect(() => {
-        if (socket != null) {
-            socket.disconnect()
-        }
-        setSocket(null)
-    }, [setSocket, socket])
-
     return (
         <div className="flex min-h-screen flex-col items-center justify-center gap-16">
             <div className="my-12 flex h-full min-w-full flex-col items-center justify-evenly sm:flex-row sm:pt-0">

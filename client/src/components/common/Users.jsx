@@ -3,22 +3,22 @@ import Avatar from "react-avatar"
 import ACTIONS from "@/utils/actions"
 import useAppContext from "@/hooks/useAppContext"
 
-function Clients() {
-    const { clients } = useAppContext()
+function Users() {
+    const { users } = useAppContext()
 
     return (
         <div className="flex min-h-[200px] flex-grow justify-center overflow-y-auto py-2">
             <div className="flex h-full w-full flex-wrap items-start gap-x-2 gap-y-6">
-                {clients.map((client) => {
-                    return <Client key={client.socketId} client={client} />
+                {users.map((user) => {
+                    return <User key={user.socketId} user={user} />
                 })}
             </div>
         </div>
     )
 }
 
-const Client = ({ client }) => {
-    const { username, status } = client
+const User = ({ user }) => {
+    const { username, status } = user
     const title = `${username} - ${status === ACTIONS.ONLINE ? ACTIONS.ONLINE : ACTIONS.OFFLINE}`
 
     return (
@@ -39,8 +39,8 @@ const Client = ({ client }) => {
     )
 }
 
-Client.propTypes = {
-    client: PropTypes.object.isRequired,
+User.propTypes = {
+    user: PropTypes.object.isRequired,
 }
 
-export default Clients
+export default Users

@@ -3,6 +3,7 @@ import Toast from "./components/toast/Toast"
 import HomePage from "./pages/HomePage"
 import EditorPage from "./pages/EditorPage"
 import GitHubCorner from "./components/GitHubCorner"
+
 function App() {
     return (
         <>

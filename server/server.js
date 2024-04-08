@@ -18,49 +18,42 @@ const io = new Server(server, {
 	},
 })
 
-const userSocketMap = {}
+let userSocketMap = []
 
-function getAllConnectedClient(roomId) {
-	return Array.from(io.sockets.adapter.rooms.get(roomId) || []).map(
-		(socketId) => {
-			return {
-				socketId,
-				username: userSocketMap[socketId]?.username,
-				status: userSocketMap[socketId]?.status,
-			}
-		}
-	)
+function getUsersInRoom(roomId) {
+	return userSocketMap.filter((user) => user.roomId == roomId)
+}
+
+function getRoomId(socketId) {
+	const user = userSocketMap.find((user) => user.socketId === socketId)
+	return user?.roomId
 }
 
 io.on("connection", (socket) => {
 	// Handle user actions
 	socket.on(ACTIONS.JOIN, ({ roomId, username }) => {
-		userSocketMap[socket.id] = { username, roomId, status: ACTIONS.ONLINE }
-		socket.join(roomId)
-		const clients = getAllConnectedClient(roomId)
-		socket.broadcast.to(roomId).emit(ACTIONS.JOINED, {
+		const user = {
 			username,
+			roomId,
+			status: ACTIONS.ONLINE,
+			cursorPosition: 0,
+			typing: false,
 			socketId: socket.id,
-		})
-
-		// Send clients list to all sockets in room
-		io.to(roomId).emit(ACTIONS.UPDATE_CLIENTS_LIST, { clients })
-		io.to(socket.id).emit(ACTIONS.JOIN_SUCCESS)
+			currentFile: null,
+		}
+		userSocketMap.push(user)
+		socket.join(roomId)
+		socket.broadcast.to(roomId).emit(ACTIONS.JOINED, { user })
+		const users = getUsersInRoom(roomId)
+		io.to(socket.id).emit(ACTIONS.JOIN_SUCCESS, { user, users })
 	})
 
 	socket.on("disconnecting", () => {
-		const rooms = [...socket.rooms]
-		rooms.forEach((roomId) => {
-			const clients = getAllConnectedClient(roomId)
-			clients.forEach(({ socketId }) => {
-				io.to(socketId).emit(ACTIONS.DISCONNECTED, {
-					username: userSocketMap[socket.id]?.username,
-					socketId: socket.id,
-				})
-			})
-		})
-
-		delete userSocketMap[socket.id]
+		const user = userSocketMap.find((user) => user.socketId === socket.id)
+		const roomId = user?.roomId
+		if (roomId === undefined || user === undefined) return
+		socket.broadcast.to(roomId).emit(ACTIONS.DISCONNECTED, { user })
+		userSocketMap = userSocketMap.filter((u) => u.socketId !== socket.id)
 		socket.leave()
 	})
 
@@ -69,42 +62,78 @@ io.on("connection", (socket) => {
 		io.to(socketId).emit(ACTIONS.SYNC_FILES, { files, currentFile })
 	})
 
-	socket.on(ACTIONS.FILE_CREATED, ({ roomId, file }) => {
+	socket.on(ACTIONS.FILE_CREATED, ({ file }) => {
+		const roomId = getRoomId(socket.id)
 		socket.broadcast.to(roomId).emit(ACTIONS.FILE_CREATED, { file })
 	})
 
-	socket.on(ACTIONS.FILE_UPDATED, ({ roomId, file }) => {
+	socket.on(ACTIONS.FILE_UPDATED, ({ file }) => {
+		const roomId = getRoomId(socket.id)
 		socket.broadcast.to(roomId).emit(ACTIONS.FILE_UPDATED, { file })
 	})
 
-	socket.on(ACTIONS.FILE_RENAMED, ({ roomId, file }) => {
+	socket.on(ACTIONS.FILE_RENAMED, ({ file }) => {
+		const roomId = getRoomId(socket.id)
 		socket.broadcast.to(roomId).emit(ACTIONS.FILE_RENAMED, { file })
 	})
 
-	socket.on(ACTIONS.FILE_DELETED, ({ roomId, id }) => {
+	socket.on(ACTIONS.FILE_DELETED, ({ id }) => {
+		const roomId = getRoomId(socket.id)
 		socket.broadcast.to(roomId).emit(ACTIONS.FILE_DELETED, { id })
 	})
 
 	// Handle user status
-	socket.on(ACTIONS.OFFLINE, ({ roomId, socketId }) => {
-		userSocketMap[socketId] = {
-			...userSocketMap[socketId],
-			status: ACTIONS.OFFLINE,
-		}
+	socket.on(ACTIONS.OFFLINE, ({ socketId }) => {
+		userSocketMap = userSocketMap.map((user) => {
+			if (user.socketId === socketId) {
+				return { ...user, status: ACTIONS.OFFLINE }
+			}
+			return user
+		})
+		const roomId = getRoomId(socketId)
 		socket.broadcast.to(roomId).emit(ACTIONS.OFFLINE, { socketId })
 	})
 
-	socket.on(ACTIONS.ONLINE, ({ roomId, socketId }) => {
-		userSocketMap[socketId] = {
-			...userSocketMap[socketId],
-			status: ACTIONS.ONLINE,
-		}
+	socket.on(ACTIONS.ONLINE, ({ socketId }) => {
+		userSocketMap = userSocketMap.map((user) => {
+			if (user.socketId === socketId) {
+				return { ...user, status: ACTIONS.ONLINE }
+			}
+			return user
+		})
+		const roomId = getRoomId(socketId)
 		socket.broadcast.to(roomId).emit(ACTIONS.ONLINE, { socketId })
 	})
 
 	// Handle chat actions
-	socket.on(ACTIONS.SEND_MESSAGE, ({ roomId, message }) => {
+	socket.on(ACTIONS.SEND_MESSAGE, ({ message }) => {
+		const roomId = getRoomId(socket.id)
 		socket.broadcast.to(roomId).emit(ACTIONS.RECEIVE_MESSAGE, { message })
+	})
+
+	// Handle cursor position
+	socket.on(ACTIONS.TYPING_START, ({ cursorPosition }) => {
+		userSocketMap = userSocketMap.map((user) => {
+			if (user.socketId === socket.id) {
+				return { ...user, typing: true, cursorPosition }
+			}
+			return user
+		})
+		const user = userSocketMap.find((user) => user.socketId === socket.id)
+		const roomId = user.roomId
+		socket.broadcast.to(roomId).emit(ACTIONS.TYPING_START, { user })
+	})
+
+	socket.on(ACTIONS.TYPING_PAUSE, () => {
+		userSocketMap = userSocketMap.map((user) => {
+			if (user.socketId === socket.id) {
+				return { ...user, typing: false }
+			}
+			return user
+		})
+		const user = userSocketMap.find((user) => user.socketId === socket.id)
+		const roomId = user.roomId
+		socket.broadcast.to(roomId).emit(ACTIONS.TYPING_PAUSE, { user })
 	})
 })
 

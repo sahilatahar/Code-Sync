@@ -1,61 +1,76 @@
 import useAppContext from "@/hooks/useAppContext"
-import { useEffect, useRef, useState } from "react"
-import toast from "react-hot-toast"
+import useSocket from "@/hooks/useSocket"
+import ACTIONS from "@/utils/actions"
+import UserStatus from "@/utils/status"
+import { useEffect, useRef } from "react"
+import { toast } from "react-hot-toast"
 import { useLocation, useNavigate } from "react-router-dom"
 import { v4 as uuidv4 } from "uuid"
 
 function FormComponent() {
-    const navigate = useNavigate()
     const location = useLocation()
-    const [roomId, setRoomId] = useState("")
-    const [username, setUsername] = useState("")
-    const {
-        setRoomId: setRoomIdToContext,
-        setUsername: setUsernameToContext,
-        username: usernameInContext,
-    } = useAppContext()
+    const { currentUser, setCurrentUser, status } = useAppContext()
+    const { socket } = useSocket()
     const usernameRef = useRef(null)
+    const navigate = useNavigate()
 
     const createNewRoomId = () => {
-        setRoomId(uuidv4())
-        toast.success("Created a new ROOM Id")
+        setCurrentUser({ ...currentUser, roomId: uuidv4() })
+        toast.success("Created a new Room Id")
         usernameRef.current.focus()
+    }
+
+    const handleInputChanges = (e) => {
+        const name = e.target.name
+        const value = e.target.value
+        setCurrentUser({ ...currentUser, [name]: value })
+    }
+
+    const validateForm = () => {
+        if (currentUser.username.length === 0) {
+            toast.error("Enter your username")
+            return false
+        } else if (currentUser.roomId.length === 0) {
+            toast.error("Enter a room id")
+            return false
+        } else if (currentUser.roomId.length < 5) {
+            toast.error("ROOM Id must be at least 5 characters long")
+            return false
+        } else if (currentUser.username.length < 3) {
+            toast.error("Username must be at least 3 characters long")
+            return false
+        }
+        return true
     }
 
     const joinRoom = (e) => {
         e.preventDefault()
-
-        if (!roomId || !username) {
-            toast.error("ROOM Id & username is required")
-
-            return
-        } else if (roomId.length < 5) {
-            toast.error("ROOM Id must be at least 5 characters long")
-            return
-        } else if (username.length < 3) {
-            toast.error("Username must be at least 3 characters long")
-            return
-        }
-
-        // set roomId & username to context
-        setRoomIdToContext(roomId)
-        setUsernameToContext(username)
-
-        navigate(`/editor/${roomId}`, {
-            state: {
-                username,
-            },
-        })
+        if (!validateForm()) return
+        socket.emit(ACTIONS.JOIN, currentUser)
     }
 
     useEffect(() => {
+        if (currentUser.roomId.length > 0) return
         if (location.state?.roomId) {
-            setRoomId(location.state.roomId)
-            if (usernameInContext.length === 0) {
+            setCurrentUser({ ...currentUser, roomId: location.state.roomId })
+            if (currentUser.username.length === 0) {
                 toast.success("Enter your username")
             }
         }
-    }, [location.state?.roomId, usernameInContext])
+    }, [currentUser, location.state?.roomId, setCurrentUser])
+
+    useEffect(() => {
+        if (status === UserStatus.DISCONNECTED && !socket.connected) {
+            socket.connect()
+            return
+        }
+        if (status === UserStatus.CONNECTED) {
+            const username = currentUser.username
+            navigate(`/editor/${currentUser.roomId}`, {
+                state: { username },
+            })
+        }
+    }, [currentUser, navigate, socket, status])
 
     return (
         <div className="flex w-full max-w-[500px] flex-col items-center justify-center gap-4 p-4 sm:w-[500px] sm:p-8">
@@ -67,24 +82,23 @@ function FormComponent() {
                 <input
                     type="text"
                     name="roomId"
-                    placeholder="ROOM Id"
+                    placeholder="Room Id"
                     className="w-full rounded-md border border-gray-500 bg-darkHover px-3 py-3 focus:outline-none"
-                    onChange={(e) => setRoomId(e.target.value)}
-                    value={roomId}
+                    onChange={handleInputChanges}
+                    value={currentUser.roomId}
                 />
                 <input
                     type="text"
                     name="username"
-                    placeholder="USERNAME"
+                    placeholder="Username"
                     className="w-full rounded-md border border-gray-500 bg-darkHover px-3 py-3 focus:outline-none"
-                    onChange={(e) => setUsername(e.target.value)}
-                    value={username}
+                    onChange={handleInputChanges}
+                    value={currentUser.username}
                     ref={usernameRef}
                 />
                 <button
                     type="submit"
                     className="mt-2 w-full rounded-md bg-primary px-8 py-3 text-lg font-semibold text-black"
-                    onClick={joinRoom}
                 >
                     Join
                 </button>
@@ -93,7 +107,7 @@ function FormComponent() {
                 className="cursor-pointer select-none underline"
                 onClick={createNewRoomId}
             >
-                Generate Unique Room ID
+                Generate Unique Room Id
             </button>
         </div>
     )

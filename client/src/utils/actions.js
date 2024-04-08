@@ -4,7 +4,7 @@ const ACTIONS = {
     JOINED: "joined",
     DISCONNECTED: "disconnected",
     SYNC_FILES: "sync-files",
-    UPDATE_CLIENTS_LIST: "update-clients-list",
+    UPDATE_CLIENTS_LIST: "update-users-list",
     FILE_CREATED: "file-created",
     FILE_UPDATED: "file-updated",
     FILE_RENAMED: "file-renamed",
@@ -13,6 +13,8 @@ const ACTIONS = {
     ONLINE: "online",
     SEND_MESSAGE: "send-message",
     RECEIVE_MESSAGE: "receive-message",
+    TYPING_START: "typing-start",
+    TYPING_PAUSE: "typing-pause",
 }
 
 export default ACTIONS

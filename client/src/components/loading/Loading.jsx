@@ -1,14 +1,14 @@
 import PropTypes from "prop-types"
 import { useLocation, useNavigate } from "react-router-dom"
-import socketStatus from "@/utils/socketStatus"
+import UserStatus from "@/utils/status"
 
 function Loading({ status }) {
     const location = useLocation()
-    const username = location?.state?.username || ""
+    const username = location.state?.username || ""
 
     return (
         <div className="flex h-screen min-h-screen flex-col items-center justify-center gap-6 px-4 text-center">
-            {status === socketStatus.CONNECTING ? (
+            {status === UserStatus.CONNECTING ? (
                 <ConnectingStatus username={username} />
             ) : (
                 <ConnectionErrorOptions />
@@ -50,6 +50,7 @@ const ConnectionErrorOptions = () => {
     const gotoHomePage = () => {
         navigate("/")
     }
+
     return (
         <>
             <span className="whitespace-break-spaces text-lg font-medium text-slate-300">

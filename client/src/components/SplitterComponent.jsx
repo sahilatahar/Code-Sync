@@ -37,7 +37,7 @@ function SplitterComponent({ children }) {
     }
 
     const getGutterStyle = () => ({
-        width: "5px",
+        width: "7px",
         display: isSidebarOpen ? "block" : "none",
     })
 

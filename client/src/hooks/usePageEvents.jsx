@@ -5,7 +5,7 @@ function usePageEvents() {
     const { fontSize, setFontSize } = useSetting()
 
     useEffect(() => {
-        // Prevent client from leaving the page
+        // Prevent user from leaving the page
         const beforeUnloadHandler = (e) => {
             const msg = "Changes you made may not be saved"
             return (e.returnValue = msg)

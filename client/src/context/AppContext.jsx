@@ -1,26 +1,23 @@
 import PropTypes from "prop-types"
 import { createContext, useState } from "react"
-import socketStatus from "@/utils/socketStatus"
+import UserStatus from "@/utils/status"
 const AppContext = createContext()
 
 function AppContextProvider({ children }) {
-    const [socket, setSocket] = useState(null)
-    const [clients, setClients] = useState([])
-    const [roomId, setRoomId] = useState("")
-    const [username, setUsername] = useState("")
-    const [status, setStatus] = useState(socketStatus.CONNECTING)
+    const [users, setUsers] = useState([])
+    const [status, setStatus] = useState(UserStatus.CONNECTING)
+    const [currentUser, setCurrentUser] = useState({
+        username: "",
+        roomId: "",
+    })
 
     return (
         <AppContext.Provider
             value={{
-                socket,
-                setSocket,
-                clients,
-                setClients,
-                roomId,
-                setRoomId,
-                username,
-                setUsername,
+                users,
+                setUsers,
+                currentUser,
+                setCurrentUser,
                 status,
                 setStatus,
             }}

@@ -59,7 +59,7 @@ client/
 │   │   │   ├── ChatInput.jsx
 │   │   │   └── ChatList.jsx
 │   │   ├── common/
-│   │   │   ├── Clients.jsx
+│   │   │   ├── Users.jsx
 │   │   │   ├── Footer.jsx
 │   │   │   └── Select.jsx
 │   │   ├── editor/
@@ -76,7 +76,7 @@ client/
 │   │   │   └── Sidebar.jsx
 │   │   ├── tabs/
 │   │   │   ├── ChatsTab.jsx
-│   │   │   ├── ClientsTab.jsx
+│   │   │   ├── UsersTab.jsx
 │   │   │   ├── FileTab.jsx
 │   │   │   ├── SettingsTab.jsx
 │   │   │   └── TabButton.jsx
@@ -95,7 +95,7 @@ client/
 │   │   ├── useAppContext.jsx
 │   │   ├── useChatRoom.jsx
 │   │   ├── useChatRoomContext.jsx
-│   │   ├── useClientActivity.jsx
+│   │   ├── useUserActivity.jsx
 │   │   ├── useFileSystem.jsx
 │   │   ├── useFileSystemContext.jsx
 │   │   ├── useFullScreen.jsx
@@ -121,7 +121,7 @@ client/
 │   │   ├── formateDate.js
 │   │   ├── initialFile.js
 │   │   ├── getIconClassName.js
-│   │   ├── socketStatus.js
+│   │   ├── status.js
 │   │   └── tabs.js
 │   ├── App.jsx
 │   ├── index.css

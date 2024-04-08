@@ -10,7 +10,7 @@ function ChatList() {
         lastScrollHeight,
         setLastScrollHeight,
     } = useChatRoom()
-    const { socket } = useAppContext()
+    const { currentUser } = useAppContext()
     const messagesContainerRef = useRef(null)
 
     const handleScroll = (e) => {
@@ -32,7 +32,7 @@ function ChatList() {
 
     return (
         <div
-            className="flex-grow overflow-auto rounded-md border-t-4 border-primary bg-darkHover p-2"
+            className="flex-grow overflow-auto rounded-md bg-darkHover p-2"
             ref={messagesContainerRef}
             onScroll={handleScroll}
         >
@@ -43,7 +43,9 @@ function ChatList() {
                         key={index}
                         className={
                             "mb-2 w-[80%] self-end break-words rounded-md bg-dark px-3 py-2" +
-                            (message.socketId === socket.id ? " ml-auto " : "")
+                            (message.username === currentUser.username
+                                ? " ml-auto "
+                                : "")
                         }
                     >
                         <div className="flex justify-between">

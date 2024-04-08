@@ -4,9 +4,11 @@ import ACTIONS from "@/utils/actions"
 import { formatDate } from "@/utils/formateDate"
 import useAppContext from "@/hooks/useAppContext"
 import useChatRoom from "@/hooks/useChatRoom"
+import useSocket from "@/hooks/useSocket"
 
 function ChatInput() {
-    const { socket, clients, roomId } = useAppContext()
+    const { currentUser } = useAppContext()
+    const { socket } = useSocket()
     const { setMessages } = useChatRoom()
     const inputRef = useRef(null)
 
@@ -14,16 +16,14 @@ function ChatInput() {
         e.preventDefault()
 
         const inputVal = inputRef.current.value.trim()
-        const client = clients.find((client) => client.socketId === socket.id)
 
         if (inputVal.length > 0) {
             const message = {
                 message: inputVal,
-                username: client?.username || "Unknown",
-                socketId: socket.id,
+                username: currentUser.username,
                 timestamp: formatDate(new Date()),
             }
-            socket.emit(ACTIONS.SEND_MESSAGE, { roomId, message })
+            socket.emit(ACTIONS.SEND_MESSAGE, { message })
             setMessages((messages) => [...messages, message])
             inputRef.current.value = ""
         }

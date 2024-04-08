@@ -2,7 +2,7 @@ import PropTypes from "prop-types"
 import { createContext, useState } from "react"
 import { Files, Users, Gear, Chats } from "@phosphor-icons/react"
 import ChatsTab from "@/components/tabs/ChatsTab"
-import ClientsTab from "@/components/tabs/ClientsTab"
+import UsersTab from "@/components/tabs/UsersTab"
 import FilesTab from "@/components/tabs/FilesTab"
 import SettingsTab from "@/components/tabs/SettingsTab"
 import TABS from "@/utils/tabs"
@@ -16,7 +16,7 @@ function TabContextProvider({ children }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(!isMobile)
     const [tabComponents, setTabComponents] = useState({
         [TABS.FILES]: <FilesTab />,
-        [TABS.CLIENTS]: <ClientsTab />,
+        [TABS.CLIENTS]: <UsersTab />,
         [TABS.SETTINGS]: <SettingsTab />,
         [TABS.CHATS]: <ChatsTab />,
     })
