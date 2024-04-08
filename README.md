@@ -26,6 +26,7 @@ Code Sync is a collaborative, real-time code editor where users can seamlessly c
 -   📁 Open, edit, save, and delete file functionalities
 -   💾 Option to download files edited within the collaboration session
 -   💬 **Group chatting** allows users to communicate in real-time while working on code.
+-   🎩 Real-time tooltip displaying users currently editing
 
 ## 🚀 Live Preview
 
@@ -63,6 +64,7 @@ client/
 │   │   │   ├── Footer.jsx
 │   │   │   └── Select.jsx
 │   │   ├── editor/
+│   │   │   ├── tooltip.js
 │   │   │   ├── Editor.jsx
 │   │   │   └── EditorComponent.jsx
 │   │   ├── files/
@@ -90,14 +92,12 @@ client/
 │   │   ├── ChatContext.jsx
 │   │   ├── FileContext.jsx
 │   │   ├── SettingContext.jsx
+│   │   ├── SocketContext.jsx
 │   │   └── TabContext.jsx
 │   ├── hooks/
 │   │   ├── useAppContext.jsx
 │   │   ├── useChatRoom.jsx
-│   │   ├── useChatRoomContext.jsx
-│   │   ├── useUserActivity.jsx
 │   │   ├── useFileSystem.jsx
-│   │   ├── useFileSystemContext.jsx
 │   │   ├── useFullScreen.jsx
 │   │   ├── useLocalStorage.jsx
 │   │   ├── usePageEvents.jsx
@@ -105,6 +105,7 @@ client/
 │   │   ├── useSetting.jsx
 │   │   ├── useSocket.jsx
 │   │   ├── useTab.jsx
+│   │   ├── useUserActivity.jsx
 │   │   └── useWindowDimensions.jsx
 │   ├── pages/
 │   │   ├── EditorPage.jsx
@@ -148,6 +149,7 @@ server/
 
 CONTRIBUTING.md
 LICENSE
+preview.png
 README.md
 ```
 
