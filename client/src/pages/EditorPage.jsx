@@ -1,6 +1,6 @@
 import SplitterComponent from "@/components/SplitterComponent"
+import ConnectionStatusPage from "@/components/connection/ConnectionStatusPage"
 import EditorComponent from "@/components/editor/EditorComponent"
-import Loading from "@/components/loading/Loading"
 import Sidebar from "@/components/sidebar/Sidebar"
 import useAppContext from "@/hooks/useAppContext"
 import useFullScreen from "@/hooks/useFullScreen"
@@ -43,8 +43,8 @@ function EditorPage() {
         socket,
     ])
 
-    if (!(status === UserStatus.CONNECTED)) {
-        return <Loading status={status} />
+    if (status === UserStatus.CONNECTION_FAILED) {
+        return <ConnectionStatusPage />
     }
 
     return (

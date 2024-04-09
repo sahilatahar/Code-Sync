@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from "uuid"
 
 function FormComponent() {
     const location = useLocation()
-    const { currentUser, setCurrentUser, status } = useAppContext()
+    const { currentUser, setCurrentUser, status, setStatus } = useAppContext()
     const { socket } = useSocket()
     const usernameRef = useRef(null)
     const navigate = useNavigate()
@@ -45,8 +45,10 @@ function FormComponent() {
 
     const joinRoom = (e) => {
         e.preventDefault()
+        if (status === UserStatus.ATTEMPTING_JOIN) return
         if (!validateForm()) return
-        console.log("submit")
+        toast.loading("Joining room...")
+        setStatus(UserStatus.ATTEMPTING_JOIN)
         socket.emit(ACTIONS.JOIN_REQUEST, currentUser)
     }
 
@@ -65,7 +67,7 @@ function FormComponent() {
             socket.connect()
             return
         }
-        if (status === UserStatus.CONNECTED) {
+        if (status === UserStatus.JOINED) {
             const username = currentUser.username
             navigate(`/editor/${currentUser.roomId}`, {
                 state: { username },

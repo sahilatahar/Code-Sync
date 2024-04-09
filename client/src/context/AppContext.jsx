@@ -5,7 +5,7 @@ const AppContext = createContext()
 
 function AppContextProvider({ children }) {
     const [users, setUsers] = useState([])
-    const [status, setStatus] = useState(UserStatus.CONNECTING)
+    const [status, setStatus] = useState(UserStatus.INITIAL)
     const [currentUser, setCurrentUser] = useState({
         username: "",
         roomId: "",

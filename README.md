@@ -63,6 +63,8 @@ client/
 │   │   │   ├── Users.jsx
 │   │   │   ├── Footer.jsx
 │   │   │   └── Select.jsx
+│   │   ├── connection/
+│   │   │   └── ConnectionStatusPage.jsx
 │   │   ├── editor/
 │   │   │   ├── tooltip.js
 │   │   │   ├── Editor.jsx
@@ -70,8 +72,6 @@ client/
 │   │   ├── files/
 │   │   │   ├── FileEditor.jsx
 │   │   │   └── FileSystem.jsx
-│   │   ├── forms/
-│   │   │   └── FormComponent.jsx
 │   │   ├── loading/
 │   │   │   └── Loading.jsx
 │   │   ├── sidebar/

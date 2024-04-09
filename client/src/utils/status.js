@@ -1,7 +1,9 @@
 const UserStatus = {
+    INITIAL: "initial",
     CONNECTING: "connecting",
-    CONNECTED: "connected",
-    FAILED: "failed",
+    ATTEMPTING_JOIN: "attempting-join",
+    JOINED: "joined",
+    CONNECTION_FAILED: "connection-failed",
     DISCONNECTED: "disconnected",
 }
 

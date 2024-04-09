@@ -23,7 +23,7 @@ const SocketProvider = ({ children }) => {
     const handleError = useCallback(
         (err) => {
             console.log("socket error", err)
-            setStatus(UserStatus.FAILED)
+            setStatus(UserStatus.CONNECTION_FAILED)
             toast.dismiss()
             toast.error("Failed to connect to the server")
         },
@@ -31,17 +31,19 @@ const SocketProvider = ({ children }) => {
     )
 
     const handleUsernameExist = useCallback(() => {
+        toast.dismiss()
+        setStatus(UserStatus.INITIAL)
         toast.error(
             "The username you chose already exists in the room. Please choose a different username.",
         )
-    }, [])
+    }, [setStatus])
 
     const handleJoiningAccept = useCallback(
         ({ user, users }) => {
             setCurrentUser(user)
             setUsers(users)
-            // This event is emitted by the server when a user successfully joins the room
-            setStatus(UserStatus.CONNECTED)
+            toast.dismiss()
+            setStatus(UserStatus.JOINED)
         },
         [setCurrentUser, setStatus, setUsers],
     )
