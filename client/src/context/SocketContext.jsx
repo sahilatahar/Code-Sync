@@ -30,7 +30,13 @@ const SocketProvider = ({ children }) => {
         [setStatus],
     )
 
-    const handleJoiningSuccess = useCallback(
+    const handleUsernameExist = useCallback(() => {
+        toast.error(
+            "The username you chose already exists in the room. Please choose a different username.",
+        )
+    }, [])
+
+    const handleJoiningAccept = useCallback(
         ({ user, users }) => {
             setCurrentUser(user)
             setUsers(users)
@@ -53,16 +59,25 @@ const SocketProvider = ({ children }) => {
     useEffect(() => {
         socket.on("connect_error", handleError)
         socket.on("connect_failed", handleError)
-        socket.on(ACTIONS.JOIN_SUCCESS, handleJoiningSuccess)
-        socket.on(ACTIONS.DISCONNECTED, handleUserLeft)
+        socket.on(ACTIONS.USERNAME_EXISTS, handleUsernameExist)
+        socket.on(ACTIONS.JOIN_ACCEPTED, handleJoiningAccept)
+        socket.on(ACTIONS.USER_DISCONNECTED, handleUserLeft)
 
         return () => {
             socket.off("connect_error")
             socket.off("connect_failed")
-            socket.off(ACTIONS.JOIN_SUCCESS)
-            socket.off(ACTIONS.DISCONNECTED)
+            socket.off(ACTIONS.USERNAME_EXISTS)
+            socket.off(ACTIONS.JOIN_ACCEPTED)
+            socket.off(ACTIONS.USER_DISCONNECTED)
         }
-    }, [handleError, handleJoiningSuccess, handleUserLeft, setUsers, socket])
+    }, [
+        handleError,
+        handleJoiningAccept,
+        handleUserLeft,
+        handleUsernameExist,
+        setUsers,
+        socket,
+    ])
 
     return (
         <SocketContext.Provider

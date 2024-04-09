@@ -9,9 +9,9 @@ function useUserActivity() {
 
     const handleUserVisibilityChange = useCallback(() => {
         if (document.visibilityState === "visible")
-            socket.emit(ACTIONS.ONLINE, { socketId: socket.id })
+            socket.emit(ACTIONS.USER_ONLINE, { socketId: socket.id })
         else if (document.visibilityState === "hidden") {
-            socket.emit(ACTIONS.OFFLINE, { socketId: socket.id })
+            socket.emit(ACTIONS.USER_OFFLINE, { socketId: socket.id })
         }
     }, [socket])
 
@@ -20,7 +20,7 @@ function useUserActivity() {
             setUsers((users) => {
                 return users.map((user) => {
                     if (user.socketId === socketId) {
-                        return { ...user, status: ACTIONS.ONLINE }
+                        return { ...user, status: ACTIONS.USER_ONLINE }
                     }
                     return user
                 })
@@ -34,7 +34,7 @@ function useUserActivity() {
             setUsers((users) => {
                 return users.map((user) => {
                     if (user.socketId === socketId) {
-                        return { ...user, status: ACTIONS.OFFLINE }
+                        return { ...user, status: ACTIONS.USER_OFFLINE }
                     }
                     return user
                 })
@@ -63,8 +63,8 @@ function useUserActivity() {
             handleUserVisibilityChange,
         )
 
-        socket.on(ACTIONS.ONLINE, handleUserOnline)
-        socket.on(ACTIONS.OFFLINE, handleUserOffline)
+        socket.on(ACTIONS.USER_ONLINE, handleUserOnline)
+        socket.on(ACTIONS.USER_OFFLINE, handleUserOffline)
         socket.on(ACTIONS.TYPING_START, handleUserTyping)
         socket.on(ACTIONS.TYPING_PAUSE, handleUserTyping)
 
@@ -74,8 +74,8 @@ function useUserActivity() {
                 handleUserVisibilityChange,
             )
 
-            socket.off(ACTIONS.ONLINE)
-            socket.off(ACTIONS.OFFLINE)
+            socket.off(ACTIONS.USER_ONLINE)
+            socket.off(ACTIONS.USER_OFFLINE)
             socket.off(ACTIONS.TYPING_START)
             socket.off(ACTIONS.TYPING_PAUSE)
         }

@@ -19,7 +19,7 @@ function Users() {
 
 const User = ({ user }) => {
     const { username, status } = user
-    const title = `${username} - ${status === ACTIONS.ONLINE ? ACTIONS.ONLINE : ACTIONS.OFFLINE}`
+    const title = `${username} - ${status === ACTIONS.USER_ONLINE ? "online" : "offline"}`
 
     return (
         <div
@@ -32,7 +32,7 @@ const User = ({ user }) => {
             </p>
             <div
                 className={`absolute right-5 top-0 h-3 w-3 rounded-full ${
-                    status === ACTIONS.ONLINE ? "bg-green-500" : "bg-danger"
+                    status === ACTIONS.USER_ONLINE ? "bg-green-500" : "bg-danger"
                 }`}
             ></div>
         </div>

@@ -46,7 +46,8 @@ function FormComponent() {
     const joinRoom = (e) => {
         e.preventDefault()
         if (!validateForm()) return
-        socket.emit(ACTIONS.JOIN, currentUser)
+        console.log("submit")
+        socket.emit(ACTIONS.JOIN_REQUEST, currentUser)
     }
 
     useEffect(() => {

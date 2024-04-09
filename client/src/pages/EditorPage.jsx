@@ -32,7 +32,7 @@ function EditorPage() {
         } else {
             const user = { username, roomId }
             setCurrentUser(user)
-            socket.emit(ACTIONS.JOIN, user)
+            socket.emit(ACTIONS.JOIN_REQUEST, user)
         }
     }, [
         currentUser.username,

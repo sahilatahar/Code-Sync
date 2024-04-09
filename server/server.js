@@ -31,11 +31,20 @@ function getRoomId(socketId) {
 
 io.on("connection", (socket) => {
 	// Handle user actions
-	socket.on(ACTIONS.JOIN, ({ roomId, username }) => {
+	socket.on(ACTIONS.JOIN_REQUEST, ({ roomId, username }) => {
+		// Check is username exist in the room
+		const isUsernameExist = getUsersInRoom(roomId).filter(
+			(u) => u.username === username
+		)
+		if (isUsernameExist.length > 0) {
+			io.to(socket.id).emit(ACTIONS.USERNAME_EXISTS)
+			return
+		}
+
 		const user = {
 			username,
 			roomId,
-			status: ACTIONS.ONLINE,
+			status: ACTIONS.USER_ONLINE,
 			cursorPosition: 0,
 			typing: false,
 			socketId: socket.id,
@@ -43,16 +52,16 @@ io.on("connection", (socket) => {
 		}
 		userSocketMap.push(user)
 		socket.join(roomId)
-		socket.broadcast.to(roomId).emit(ACTIONS.JOINED, { user })
+		socket.broadcast.to(roomId).emit(ACTIONS.USER_JOINED, { user })
 		const users = getUsersInRoom(roomId)
-		io.to(socket.id).emit(ACTIONS.JOIN_SUCCESS, { user, users })
+		io.to(socket.id).emit(ACTIONS.JOIN_ACCEPTED, { user, users })
 	})
 
 	socket.on("disconnecting", () => {
 		const user = userSocketMap.find((user) => user.socketId === socket.id)
 		const roomId = user?.roomId
 		if (roomId === undefined || user === undefined) return
-		socket.broadcast.to(roomId).emit(ACTIONS.DISCONNECTED, { user })
+		socket.broadcast.to(roomId).emit(ACTIONS.USER_DISCONNECTED, { user })
 		userSocketMap = userSocketMap.filter((u) => u.socketId !== socket.id)
 		socket.leave()
 	})
@@ -83,26 +92,26 @@ io.on("connection", (socket) => {
 	})
 
 	// Handle user status
-	socket.on(ACTIONS.OFFLINE, ({ socketId }) => {
+	socket.on(ACTIONS.USER_OFFLINE, ({ socketId }) => {
 		userSocketMap = userSocketMap.map((user) => {
 			if (user.socketId === socketId) {
-				return { ...user, status: ACTIONS.OFFLINE }
+				return { ...user, status: ACTIONS.USER_OFFLINE }
 			}
 			return user
 		})
 		const roomId = getRoomId(socketId)
-		socket.broadcast.to(roomId).emit(ACTIONS.OFFLINE, { socketId })
+		socket.broadcast.to(roomId).emit(ACTIONS.USER_OFFLINE, { socketId })
 	})
 
-	socket.on(ACTIONS.ONLINE, ({ socketId }) => {
+	socket.on(ACTIONS.USER_ONLINE, ({ socketId }) => {
 		userSocketMap = userSocketMap.map((user) => {
 			if (user.socketId === socketId) {
-				return { ...user, status: ACTIONS.ONLINE }
+				return { ...user, status: ACTIONS.USER_ONLINE }
 			}
 			return user
 		})
 		const roomId = getRoomId(socketId)
-		socket.broadcast.to(roomId).emit(ACTIONS.ONLINE, { socketId })
+		socket.broadcast.to(roomId).emit(ACTIONS.USER_ONLINE, { socketId })
 	})
 
 	// Handle chat actions

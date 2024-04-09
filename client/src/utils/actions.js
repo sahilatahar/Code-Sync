@@ -1,20 +1,20 @@
 const ACTIONS = {
-    JOIN: "join",
-    JOIN_SUCCESS: "join-success",
-    JOINED: "joined",
-    DISCONNECTED: "disconnected",
+    JOIN_REQUEST: "join-request",
+    JOIN_ACCEPTED: "join-accepted",
+    USER_JOINED: "user-joined",
+    USER_DISCONNECTED: "user-disconnected",
     SYNC_FILES: "sync-files",
-    UPDATE_CLIENTS_LIST: "update-users-list",
     FILE_CREATED: "file-created",
     FILE_UPDATED: "file-updated",
     FILE_RENAMED: "file-renamed",
     FILE_DELETED: "file-deleted",
-    OFFLINE: "offline",
-    ONLINE: "online",
+    USER_OFFLINE: "offline",
+    USER_ONLINE: "online",
     SEND_MESSAGE: "send-message",
     RECEIVE_MESSAGE: "receive-message",
     TYPING_START: "typing-start",
     TYPING_PAUSE: "typing-pause",
+    USERNAME_EXISTS: "username-exists",
 }
 
 export default ACTIONS

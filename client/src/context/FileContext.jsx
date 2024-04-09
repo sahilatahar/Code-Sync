@@ -193,14 +193,14 @@ function FileContextProvider({ children }) {
 
     useEffect(() => {
         socket.once(ACTIONS.SYNC_FILES, handleFileSync)
-        socket.on(ACTIONS.JOINED, handleUserJoined)
+        socket.on(ACTIONS.USER_JOINED, handleUserJoined)
         socket.on(ACTIONS.FILE_CREATED, handleFileCreated)
         socket.on(ACTIONS.FILE_UPDATED, handleFileUpdated)
         socket.on(ACTIONS.FILE_RENAMED, handleFileRenamed)
         socket.on(ACTIONS.FILE_DELETED, handleFileDeleted)
 
         return () => {
-            socket.off(ACTIONS.JOINED)
+            socket.off(ACTIONS.USER_JOINED)
             socket.off(ACTIONS.FILE_CREATED)
             socket.off(ACTIONS.FILE_UPDATED)
             socket.off(ACTIONS.FILE_RENAMED)

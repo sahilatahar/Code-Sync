@@ -45,6 +45,7 @@ export const cursorTooltipBaseTheme = EditorView.baseTheme({
         border: "none",
         padding: "2px 7px",
         borderRadius: "4px",
+        zIndex: "10",
         "& .cm-tooltip-arrow:before": {
             borderTopColor: "#66b",
         },
