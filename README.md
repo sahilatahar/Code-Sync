@@ -45,7 +45,10 @@ You can view the live preview of the project [here](https://code-sync-live.verce
 ![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 
-## 📂 Folder Structure
+<details>
+    <summary>
+        <h2>📂 Folder Structure</h2>
+    </summary>
 
 ```
 client/
@@ -152,6 +155,7 @@ LICENSE
 preview.png
 README.md
 ```
+</details>
 
 ## ⚙️ Installation
 
