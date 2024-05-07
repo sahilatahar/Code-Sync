@@ -67,13 +67,23 @@ function FormComponent() {
             socket.connect()
             return
         }
-        if (status === UserStatus.JOINED) {
+
+        const isRedirect = sessionStorage.getItem("redirect") || false
+
+        if (status === UserStatus.JOINED && !isRedirect) {
             const username = currentUser.username
+            sessionStorage.setItem("redirect", true)
             navigate(`/editor/${currentUser.roomId}`, {
-                state: { username },
+                state: {
+                    username,
+                },
             })
+        } else if (status === UserStatus.JOINED && isRedirect) {
+            sessionStorage.removeItem("redirect")
+            socket.disconnect()
+            socket.connect()
         }
-    }, [currentUser, navigate, socket, status])
+    }, [currentUser, location.state?.redirect, navigate, socket, status])
 
     return (
         <div className="flex w-full max-w-[500px] flex-col items-center justify-center gap-4 p-4 sm:w-[500px] sm:p-8">
