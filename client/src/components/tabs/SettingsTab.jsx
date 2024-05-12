@@ -2,7 +2,7 @@ import Select from "@/components/common/Select"
 import useSetting from "@/hooks/useSetting"
 import useWindowDimensions from "@/hooks/useWindowDimensions"
 import { editorFonts } from "@/resources/Fonts"
-import { editorLanguages } from "@/resources/Languages"
+import { editorLangExtensions } from "@/resources/Languages"
 import { editorThemes } from "@/resources/Themes"
 import { useEffect } from "react"
 
@@ -78,8 +78,8 @@ function SettingsTab() {
             <Select
                 onChange={handleLanguageChange}
                 value={language}
-                options={editorLanguages}
-                title="Languages"
+                options={editorLangExtensions}
+                title="Editor Languages"
             />
             {/* Show GitHub corner option */}
             <div className="mt-4 flex w-full items-center justify-between">

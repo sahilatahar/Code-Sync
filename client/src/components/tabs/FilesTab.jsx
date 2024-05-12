@@ -1,7 +1,7 @@
 import FileSystem from "@/components/files/FileSystem"
 import useFileSystem from "@/hooks/useFileSystem"
 import useWindowDimensions from "@/hooks/useWindowDimensions"
-import { fileExtensionsArray as AllowedFileTypes } from "@/resources/Languages"
+import langMap from "lang-map"
 import { ArchiveBox, DownloadSimple, FileArrowUp } from "@phosphor-icons/react"
 import { useRef } from "react"
 import { v4 as uuidv4 } from "uuid"
@@ -40,6 +40,8 @@ function FilesTab() {
         reader.readAsText(selectedFile)
     }
 
+    const allowedFileExtensions = Object.keys(langMap().languages).join(",")
+
     return (
         <div
             className="flex select-none flex-col gap-1 p-4"
@@ -71,7 +73,7 @@ function FilesTab() {
                 hidden
                 onChange={onFileChange}
                 ref={fileInputRef}
-                accept={AllowedFileTypes.join(",")}
+                accept={allowedFileExtensions}
             />
         </div>
     )

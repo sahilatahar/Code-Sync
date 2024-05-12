@@ -13,9 +13,13 @@ function Select({ onChange, value, options, title }) {
                 {Object.entries(options)
                     .sort()
                     .map((option) => {
-                        const name = option[0]
+                        const value = option[0]
+                        const name =
+                            option[0].charAt(0).toUpperCase() +
+                            option[0].slice(1)
+
                         return (
-                            <option key={name} value={name}>
+                            <option key={name} value={value}>
                                 {name}
                             </option>
                         )

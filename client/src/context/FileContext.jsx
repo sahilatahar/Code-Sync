@@ -1,15 +1,15 @@
-import { getLanguageName } from "@/resources/Languages"
+import useAppContext from "@/hooks/useAppContext"
+import useSetting from "@/hooks/useSetting"
+import useSocket from "@/hooks/useSocket"
 import ACTIONS from "@/utils/actions"
 import initialFile from "@/utils/initialFile"
 import { saveAs } from "file-saver"
 import JSZip from "jszip"
+import langMap from "lang-map"
 import PropTypes from "prop-types"
 import { createContext, useCallback, useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
 import { v4 as uuidv4 } from "uuid"
-import useSetting from "@/hooks/useSetting"
-import useSocket from "@/hooks/useSocket"
-import useAppContext from "@/hooks/useAppContext"
 
 const FileContext = createContext()
 
@@ -185,10 +185,8 @@ function FileContextProvider({ children }) {
     useEffect(() => {
         if (currentFile === null) return
         // Get file extension on file open and set language when file is opened
-        const language = getLanguageName(currentFile.name)
-        if (language != null) {
-            setLanguage(language)
-        }
+        const language = langMap.languages(currentFile.name.split(".").pop())
+        setLanguage(language[0])
     }, [currentFile, setLanguage])
 
     useEffect(() => {

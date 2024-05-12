@@ -5,6 +5,7 @@ import { FileContextProvider } from "./FileContext.jsx"
 import { SettingContextProvider } from "./SettingContext.jsx"
 import { SocketProvider } from "./SocketContext.jsx"
 import { TabContextProvider } from "./TabContext.jsx"
+import { RunCodeContextProvider } from "./RunCodeContext.jsx"
 
 function AppProvider({ children }) {
     return (
@@ -12,11 +13,13 @@ function AppProvider({ children }) {
             <SocketProvider>
                 <SettingContextProvider>
                     <FileContextProvider>
-                        <TabContextProvider>
-                            <ChatContextProvider>
-                                {children}
-                            </ChatContextProvider>
-                        </TabContextProvider>
+                        <RunCodeContextProvider>
+                            <TabContextProvider>
+                                <ChatContextProvider>
+                                    {children}
+                                </ChatContextProvider>
+                            </TabContextProvider>
+                        </RunCodeContextProvider>
                     </FileContextProvider>
                 </SettingContextProvider>
             </SocketProvider>
