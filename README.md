@@ -27,6 +27,7 @@ Code Sync is a collaborative, real-time code editor where users can seamlessly c
 -   💾 Option to download files edited within the collaboration session
 -   💬 **Group chatting** allows users to communicate in real-time while working on code.
 -   🎩 Real-time tooltip displaying users currently editing
+-   🚀 **Code Execution:** Users can execute the code directly within the collaboration environment, providing instant feedback and results.
 
 ## 🚀 Live Preview
 
@@ -56,6 +57,8 @@ client/
 │   ├── favicon/
 │   │   └── ...
 ├── src/
+│   ├── api/
+│   │   └── index.jsx
 │   ├── assets/
 │   │   └── ...
 │   ├── components/
@@ -83,6 +86,7 @@ client/
 │   │   │   ├── ChatsTab.jsx
 │   │   │   ├── UsersTab.jsx
 │   │   │   ├── FileTab.jsx
+│   │   │   ├── RunTab.jsx
 │   │   │   ├── SettingsTab.jsx
 │   │   │   └── TabButton.jsx
 │   │   ├── toast/
@@ -94,6 +98,7 @@ client/
 │   │   ├── AppProvider.jsx
 │   │   ├── ChatContext.jsx
 │   │   ├── FileContext.jsx
+│   │   ├── RunContext.jsx
 │   │   ├── SettingContext.jsx
 │   │   ├── SocketContext.jsx
 │   │   └── TabContext.jsx
@@ -105,6 +110,7 @@ client/
 │   │   ├── useLocalStorage.jsx
 │   │   ├── usePageEvents.jsx
 │   │   ├── useResponsive.jsx
+│   │   ├── useRunCode.jsx
 │   │   ├── useSetting.jsx
 │   │   ├── useSocket.jsx
 │   │   ├── useTab.jsx
@@ -155,6 +161,7 @@ LICENSE
 preview.png
 README.md
 ```
+
 </details>
 
 ## ⚙️ Installation
@@ -216,6 +223,13 @@ If you find this helpful or valuable, please consider 🌟 starring the reposito
 ## 🧾 License
 
 This project is licensed under the [MIT License](LICENSE).
+
+## 🌟 Appreciation for Resources
+
+Thanks to EMKC for providing the Piston API, which enables code execution. For more information, visit the following links:
+
+-   [Piston Repository](https://github.com/engineer-man/piston)
+-   [Piston Docs](https://piston.readthedocs.io/en/latest/api-v2/)
 
 ## ✍️ About Developer
 
