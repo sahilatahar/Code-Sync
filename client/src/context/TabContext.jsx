@@ -27,7 +27,7 @@ function TabContextProvider({ children }) {
         [TABS.CLIENTS]: <Users size={30} />,
         [TABS.SETTINGS]: <Gear size={30} />,
         [TABS.CHATS]: <Chats size={32} />,
-        [TABS.RUN]: <Play width={24} height={28} weight="bold" />,
+        [TABS.RUN]: <Play size={28} weight="bold" />,
     }
 
     return (
