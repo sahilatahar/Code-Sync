@@ -13,7 +13,7 @@ const TabContext = createContext()
 
 function TabContextProvider({ children }) {
     const { isMobile } = useWindowDimensions()
-    const [activeTab, setActiveTab] = useState(TABS.RUN)
+    const [activeTab, setActiveTab] = useState(TABS.FILES)
     const [isSidebarOpen, setIsSidebarOpen] = useState(!isMobile)
     const [tabComponents, setTabComponents] = useState({
         [TABS.FILES]: <FilesTab />,

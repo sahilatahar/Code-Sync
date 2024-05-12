@@ -158,7 +158,7 @@ function FileContextProvider({ children }) {
                 setCurrentFile(null)
             }
         },
-        [currentFile.id],
+        [currentFile?.id],
     )
 
     const handleFileCreated = useCallback(({ file }) => {
@@ -179,7 +179,7 @@ function FileContextProvider({ children }) {
                 setCurrentFile(file)
             }
         },
-        [currentFile.id],
+        [currentFile?.id],
     )
 
     useEffect(() => {

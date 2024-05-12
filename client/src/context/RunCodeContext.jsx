@@ -31,7 +31,7 @@ const RunCodeContextProvider = ({ children }) => {
 
     // Set the selected language based on the file extension
     useEffect(() => {
-        if (supportedLanguages.length === 0 || !currentFile) return
+        if (supportedLanguages.length === 0 || !currentFile?.name) return
 
         const extension = currentFile.name.split(".").pop()
         const languageName = langMap.languages(extension)
@@ -43,12 +43,14 @@ const RunCodeContextProvider = ({ children }) => {
 
         if (language) setSelectedLanguage(language)
         else setSelectedLanguage("")
-    }, [currentFile.name, currentFile, supportedLanguages])
+    }, [currentFile?.name, supportedLanguages])
 
     const runCode = async () => {
         try {
             if (!selectedLanguage) {
                 return toast.error("Please select a language to run the code")
+            } else if (!currentFile) {
+                return toast.error("Please open a file to run the code")
             } else {
                 toast.loading("Running code...")
             }

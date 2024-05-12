@@ -12,15 +12,15 @@ function AppProvider({ children }) {
         <AppContextProvider>
             <SocketProvider>
                 <SettingContextProvider>
-                    <FileContextProvider>
-                        <RunCodeContextProvider>
-                            <TabContextProvider>
+                    <TabContextProvider>
+                        <FileContextProvider>
+                            <RunCodeContextProvider>
                                 <ChatContextProvider>
                                     {children}
                                 </ChatContextProvider>
-                            </TabContextProvider>
-                        </RunCodeContextProvider>
-                    </FileContextProvider>
+                            </RunCodeContextProvider>
+                        </FileContextProvider>
+                    </TabContextProvider>
                 </SettingContextProvider>
             </SocketProvider>
         </AppContextProvider>
