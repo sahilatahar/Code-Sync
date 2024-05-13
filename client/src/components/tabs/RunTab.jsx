@@ -1,7 +1,8 @@
 import { useRunCode } from "@/hooks/useRunCode"
 import useWindowDimensions from "@/hooks/useWindowDimensions"
-import { CaretDown, Copy } from "@phosphor-icons/react"
 import toast from "react-hot-toast"
+import { PiCaretDownBold } from "react-icons/pi"
+import { LuCopy } from "react-icons/lu"
 
 function RunTab() {
     const { tabHeight } = useWindowDimensions()
@@ -54,8 +55,8 @@ function RunTab() {
                                 )
                             })}
                     </select>
-                    <CaretDown
-                        size={14}
+                    <PiCaretDownBold
+                        size={16}
                         className="absolute bottom-3 right-4 z-10 text-white"
                     />
                 </div>
@@ -75,7 +76,10 @@ function RunTab() {
                 <label className="flex w-full justify-between">
                     Output :
                     <button onClick={copyOutput} title="Copy Output">
-                        <Copy size={20} className="cursor-pointer text-white" />
+                        <LuCopy
+                            size={18}
+                            className="cursor-pointer text-white"
+                        />
                     </button>
                 </label>
                 <div className="w-full flex-grow resize-none overflow-y-auto rounded-md border-none bg-darkHover p-2 text-white outline-none">

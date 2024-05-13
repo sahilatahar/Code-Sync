@@ -1,8 +1,9 @@
 import useFileSystem from "@/hooks/useFileSystem"
-import { Check, X } from "@phosphor-icons/react"
 import PropTypes from "prop-types"
 import { useState } from "react"
 import toast from "react-hot-toast"
+import { FaCheck } from "react-icons/fa6"
+import { IoClose } from "react-icons/io5"
 
 function FileEditor({ editingFileId, setEditingFileId, name }) {
     const [fileName, setFileName] = useState(name || "")
@@ -44,17 +45,17 @@ function FileEditor({ editingFileId, setEditingFileId, name }) {
             >
                 <input
                     type="text"
-                    className="w-[80%] flex-grow rounded-md bg-white px-2 text-base text-black outline-none"
+                    className="w-[80%] flex-grow rounded-sm bg-white px-2 text-base text-black outline-none"
                     autoFocus
                     value={fileName}
                     onChange={handleOnChange}
                 />
                 <span className="flex gap-4">
                     <button onClick={handleConfirm} type="submit">
-                        <Check size={18} weight="bold" />
+                        <FaCheck size={18} />
                     </button>
                     <button onClick={handleCancel} type="reset">
-                        <X size={18} weight="bold" />
+                        <IoClose size={22} />
                     </button>
                 </span>
             </form>

@@ -1,5 +1,5 @@
 import PropTypes from "prop-types"
-import { CaretDown } from "@phosphor-icons/react"
+import { PiCaretDownBold } from "react-icons/pi"
 
 function Select({ onChange, value, options, title }) {
     return (
@@ -25,8 +25,8 @@ function Select({ onChange, value, options, title }) {
                         )
                     })}
             </select>
-            <CaretDown
-                size={14}
+            <PiCaretDownBold
+                size={16}
                 className="absolute bottom-3 right-4 z-10 text-white"
             />
         </div>

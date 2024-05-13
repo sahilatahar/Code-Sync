@@ -1,13 +1,15 @@
+import ChatsTab from "@/components/tabs/ChatsTab"
+import FilesTab from "@/components/tabs/FilesTab"
+import RunTab from "@/components/tabs/RunTab"
+import SettingsTab from "@/components/tabs/SettingsTab"
+import UsersTab from "@/components/tabs/UsersTab"
+import useWindowDimensions from "@/hooks/useWindowDimensions"
+import TABS from "@/utils/tabs"
 import PropTypes from "prop-types"
 import { createContext, useState } from "react"
-import { Files, Users, Gear, Chats, Play } from "@phosphor-icons/react"
-import ChatsTab from "@/components/tabs/ChatsTab"
-import UsersTab from "@/components/tabs/UsersTab"
-import FilesTab from "@/components/tabs/FilesTab"
-import SettingsTab from "@/components/tabs/SettingsTab"
-import TABS from "@/utils/tabs"
-import useWindowDimensions from "@/hooks/useWindowDimensions"
-import RunTab from "@/components/tabs/RunTab"
+import { IoSettingsOutline } from "react-icons/io5"
+import { LuFiles } from "react-icons/lu"
+import { PiChats, PiPlay, PiUsers } from "react-icons/pi"
 
 const TabContext = createContext()
 
@@ -23,11 +25,11 @@ function TabContextProvider({ children }) {
         [TABS.RUN]: <RunTab />,
     })
     const tabIcons = {
-        [TABS.FILES]: <Files size={32} />,
-        [TABS.CLIENTS]: <Users size={30} />,
-        [TABS.SETTINGS]: <Gear size={30} />,
-        [TABS.CHATS]: <Chats size={32} />,
-        [TABS.RUN]: <Play size={28} weight="bold" />,
+        [TABS.FILES]: <LuFiles size={28} />,
+        [TABS.CLIENTS]: <PiUsers size={30} />,
+        [TABS.SETTINGS]: <IoSettingsOutline size={28} />,
+        [TABS.CHATS]: <PiChats size={30} />,
+        [TABS.RUN]: <PiPlay size={28} />,
     }
 
     return (

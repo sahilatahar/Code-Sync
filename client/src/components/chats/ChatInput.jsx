@@ -1,10 +1,10 @@
-import { useRef } from "react"
-import { PaperPlaneRight } from "@phosphor-icons/react"
-import ACTIONS from "@/utils/actions"
-import { formatDate } from "@/utils/formateDate"
 import useAppContext from "@/hooks/useAppContext"
 import useChatRoom from "@/hooks/useChatRoom"
 import useSocket from "@/hooks/useSocket"
+import ACTIONS from "@/utils/actions"
+import { formatDate } from "@/utils/formateDate"
+import { useRef } from "react"
+import { LuSendHorizonal } from "react-icons/lu"
 
 function ChatInput() {
     const { currentUser } = useAppContext()
@@ -44,7 +44,7 @@ function ChatInput() {
                 className="flex items-center justify-center rounded-r-md  bg-primary p-2 text-black"
                 type="submit"
             >
-                <PaperPlaneRight size={24} weight="fill" />
+                <LuSendHorizonal size={24} />
             </button>
         </form>
     )

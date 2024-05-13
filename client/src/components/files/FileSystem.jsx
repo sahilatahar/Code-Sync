@@ -3,8 +3,9 @@ import useTab from "@/hooks/useTabs"
 import useWindowDimensions from "@/hooks/useWindowDimensions"
 import { getIconClassName } from "@/utils/getIconClassName"
 import { Icon } from "@iconify/react"
-import { PencilSimple, Trash } from "@phosphor-icons/react"
 import { useRef, useState } from "react"
+import { MdDelete } from "react-icons/md"
+import { PiPencilSimpleFill } from "react-icons/pi"
 import FileEditor from "./FileEditor"
 
 function FileSystem() {
@@ -87,7 +88,7 @@ function FileSystem() {
                                         handleRenameFile(e, file.id)
                                     }
                                 >
-                                    <PencilSimple size={18} weight="fill" />
+                                    <PiPencilSimpleFill size={18} />
                                 </button>
                                 <button
                                     onClick={(e) =>
@@ -95,7 +96,7 @@ function FileSystem() {
                                     }
                                     className="text-danger"
                                 >
-                                    <Trash size={18} weight="fill" />
+                                    <MdDelete size={20} />
                                 </button>
                             </span>
                         </div>
