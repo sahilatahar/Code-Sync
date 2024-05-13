@@ -10,20 +10,17 @@ function Select({ onChange, value, options, title }) {
                 value={value}
                 onChange={onChange}
             >
-                {Object.entries(options)
-                    .sort()
-                    .map((option) => {
-                        const value = option[0]
-                        const name =
-                            option[0].charAt(0).toUpperCase() +
-                            option[0].slice(1)
+                {options?.sort().map((option) => {
+                    const value = option
+                    const name =
+                        option.charAt(0).toUpperCase() + option.slice(1)
 
-                        return (
-                            <option key={name} value={value}>
-                                {name}
-                            </option>
-                        )
-                    })}
+                    return (
+                        <option key={name} value={value}>
+                            {name}
+                        </option>
+                    )
+                })}
             </select>
             <PiCaretDownBold
                 size={16}
@@ -36,7 +33,7 @@ function Select({ onChange, value, options, title }) {
 Select.propTypes = {
     onChange: PropTypes.func.isRequired,
     value: PropTypes.string.isRequired,
-    options: PropTypes.object.isRequired,
+    options: PropTypes.array.isRequired,
     title: PropTypes.string.isRequired,
 }
 

@@ -1,4 +1,4 @@
-const fonts = [
+const editorFonts = [
     "Anonymous Pro",
     "Cousine",
     "Fira Code",
@@ -10,10 +10,5 @@ const fonts = [
     "Space Mono",
     "Ubuntu Mono",
 ]
-
-const editorFonts = {}
-for (const font of fonts) {
-    editorFonts[font] = font
-}
 
 export { editorFonts }

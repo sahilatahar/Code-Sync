@@ -4,16 +4,16 @@ import usePageEvents from "@/hooks/usePageEvents"
 import useSetting from "@/hooks/useSetting"
 import useSocket from "@/hooks/useSocket"
 import useWindowDimensions from "@/hooks/useWindowDimensions"
-import { editorLangExtensions } from "@/resources/Languages"
 import { editorThemes } from "@/resources/Themes"
 import ACTIONS from "@/utils/actions"
 import placeholder from "@/utils/editorPlaceholder"
 import { color } from "@uiw/codemirror-extensions-color"
 import { hyperLink } from "@uiw/codemirror-extensions-hyper-link"
+import { loadLanguage } from "@uiw/codemirror-extensions-langs"
 import CodeMirror from "@uiw/react-codemirror"
 import { useState } from "react"
-import { cursorTooltipBaseTheme, tooltipField } from "./tooltip"
 import toast from "react-hot-toast"
+import { cursorTooltipBaseTheme, tooltipField } from "./tooltip"
 
 function Editor() {
     const { users, currentUser } = useAppContext()
@@ -50,8 +50,7 @@ function Editor() {
             tooltipField(filteredUsers),
             cursorTooltipBaseTheme,
         ]
-
-        const langExt = editorLangExtensions[language.toLowerCase()]
+        const langExt = loadLanguage(language.toLowerCase())
         if (langExt) {
             extensions.push(langExt)
         } else {

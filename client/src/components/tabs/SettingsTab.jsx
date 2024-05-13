@@ -2,9 +2,9 @@ import Select from "@/components/common/Select"
 import useSetting from "@/hooks/useSetting"
 import useWindowDimensions from "@/hooks/useWindowDimensions"
 import { editorFonts } from "@/resources/Fonts"
-import { editorLangExtensions } from "@/resources/Languages"
 import { editorThemes } from "@/resources/Themes"
 import { useEffect } from "react"
+import { langNames } from "@uiw/codemirror-extensions-langs"
 
 function SettingsTab() {
     const {
@@ -71,14 +71,14 @@ function SettingsTab() {
             <Select
                 onChange={handleThemeChange}
                 value={theme}
-                options={editorThemes}
+                options={Object.keys(editorThemes)}
                 title="Themes"
             />
             {/* Choose language option */}
             <Select
                 onChange={handleLanguageChange}
                 value={language}
-                options={editorLangExtensions}
+                options={langNames}
                 title="Editor Languages"
             />
             {/* Show GitHub corner option */}

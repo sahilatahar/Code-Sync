@@ -42,6 +42,8 @@ import { whiteLight } from "@uiw/codemirror-themes-all"
 import { xcodeDark } from "@uiw/codemirror-themes-all"
 import { xcodeLight } from "@uiw/codemirror-themes-all"
 
+import {} from "@uiw/codemirror-themes-all"
+
 export const editorThemes = {
     Abcdef: abcdef,
     Abyss: abyss,
