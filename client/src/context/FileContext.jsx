@@ -18,7 +18,7 @@ function FileContextProvider({ children }) {
     const { setLanguage } = useSetting()
     const [files, setFiles] = useState([initialFile])
     const [currentFile, setCurrentFile] = useState(initialFile)
-    const { setUsers } = useAppContext()
+    const { setUsers, drawingData } = useAppContext()
 
     const createFile = (name) => {
         // Check if file with same name already exists
@@ -121,10 +121,14 @@ function FileContextProvider({ children }) {
     const handleUserJoined = useCallback(
         ({ user }) => {
             toast.success(`${user.username} joined the room`)
-            // send the code to the server
+            // send the code and drawing data to the server
             socket.emit(ACTIONS.SYNC_FILES, {
                 files,
                 currentFile,
+                socketId: user.socketId,
+            })
+            socket.emit(ACTIONS.SYNC_DRAWING, {
+                drawingData,
                 socketId: user.socketId,
             })
 
@@ -132,10 +136,10 @@ function FileContextProvider({ children }) {
                 return [...pre, user]
             })
         },
-        [currentFile, files, setUsers, socket],
+        [currentFile, drawingData, files, setUsers, socket],
     )
 
-    const handleFileSync = useCallback(({ files, currentFile }) => {
+    const handleFilesSync = useCallback(({ files, currentFile }) => {
         setFiles(files)
         setCurrentFile(currentFile)
     }, [])
@@ -190,7 +194,7 @@ function FileContextProvider({ children }) {
     }, [currentFile, setLanguage])
 
     useEffect(() => {
-        socket.once(ACTIONS.SYNC_FILES, handleFileSync)
+        socket.once(ACTIONS.SYNC_FILES, handleFilesSync)
         socket.on(ACTIONS.USER_JOINED, handleUserJoined)
         socket.on(ACTIONS.FILE_CREATED, handleFileCreated)
         socket.on(ACTIONS.FILE_UPDATED, handleFileUpdated)
@@ -208,7 +212,7 @@ function FileContextProvider({ children }) {
         handleFileCreated,
         handleFileDeleted,
         handleFileRenamed,
-        handleFileSync,
+        handleFilesSync,
         handleFileUpdated,
         handleUserJoined,
         socket,

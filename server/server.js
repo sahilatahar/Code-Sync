@@ -68,7 +68,10 @@ io.on("connection", (socket) => {
 
 	// Handle file actions
 	socket.on(ACTIONS.SYNC_FILES, ({ files, currentFile, socketId }) => {
-		io.to(socketId).emit(ACTIONS.SYNC_FILES, { files, currentFile })
+		io.to(socketId).emit(ACTIONS.SYNC_FILES, {
+			files,
+			currentFile,
+		})
 	})
 
 	socket.on(ACTIONS.FILE_CREATED, ({ file }) => {
@@ -143,6 +146,26 @@ io.on("connection", (socket) => {
 		const user = userSocketMap.find((user) => user.socketId === socket.id)
 		const roomId = user.roomId
 		socket.broadcast.to(roomId).emit(ACTIONS.TYPING_PAUSE, { user })
+	})
+
+	socket.on(ACTIONS.REQUEST_DRAWING, () => {
+		const roomId = getRoomId(socket.id)
+		socket.broadcast
+			.to(roomId)
+			.emit(ACTIONS.REQUEST_DRAWING, { socketId: socket.id })
+	})
+
+	socket.on(ACTIONS.SYNC_DRAWING, ({ drawingData, socketId }) => {
+		socket.broadcast
+			.to(socketId)
+			.emit(ACTIONS.SYNC_DRAWING, { drawingData })
+	})
+
+	socket.on(ACTIONS.DRAWING_UPDATE, ({ snapshot }) => {
+		const roomId = getRoomId(socket.id)
+		socket.broadcast.to(roomId).emit(ACTIONS.DRAWING_UPDATE, {
+			snapshot,
+		})
 	})
 })
 

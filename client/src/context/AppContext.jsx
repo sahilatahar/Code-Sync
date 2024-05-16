@@ -1,6 +1,7 @@
+import STATE from "@/utils/states"
+import UserStatus from "@/utils/status"
 import PropTypes from "prop-types"
 import { createContext, useState } from "react"
-import UserStatus from "@/utils/status"
 const AppContext = createContext()
 
 function AppContextProvider({ children }) {
@@ -10,6 +11,9 @@ function AppContextProvider({ children }) {
         username: "",
         roomId: "",
     })
+    // For drawing state
+    const [state, setState] = useState(STATE.CODING)
+    const [drawingData, setDrawingData] = useState(null)
 
     return (
         <AppContext.Provider
@@ -20,6 +24,10 @@ function AppContextProvider({ children }) {
                 setCurrentUser,
                 status,
                 setStatus,
+                state,
+                setState,
+                drawingData,
+                setDrawingData,
             }}
         >
             {children}

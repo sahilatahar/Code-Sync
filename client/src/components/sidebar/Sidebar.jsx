@@ -1,11 +1,28 @@
-import useResponsive from "@/hooks/useResponsive"
-import useTab from "@/hooks/useTabs"
 import TabButton from "@/components/tabs/TabButton"
+import useAppContext from "@/hooks/useAppContext"
+import useResponsive from "@/hooks/useResponsive"
+import useSocket from "@/hooks/useSocket"
+import useTab from "@/hooks/useTabs"
+import ACTIONS from "@/utils/actions"
+import STATES from "@/utils/states"
 import TABS from "@/utils/tabs"
+import { IoCodeSlash } from "react-icons/io5"
+import { MdOutlineDraw } from "react-icons/md"
 
 function Sidebar() {
     const { activeTab, isSidebarOpen, tabComponents, tabIcons } = useTab()
     const { showSidebar } = useResponsive()
+    const { state, setState } = useAppContext()
+    const { socket } = useSocket()
+
+    const changeState = () => {
+        if (state === STATES.CODING) {
+            setState(STATES.DRAWING)
+            socket.emit(ACTIONS.REQUEST_DRAWING)
+        } else {
+            setState(STATES.CODING)
+        }
+    }
 
     return (
         <aside className="flex w-full md:h-full md:max-h-full md:min-h-full md:w-auto">
@@ -24,6 +41,15 @@ function Sidebar() {
                     tabName={TABS.SETTINGS}
                     icon={tabIcons[TABS.SETTINGS]}
                 />
+
+                {/* Button to change state coding | drawing */}
+                <button className="self-end" onClick={changeState}>
+                    {state === STATES.CODING ? (
+                        <MdOutlineDraw size={30} />
+                    ) : (
+                        <IoCodeSlash size={30} />
+                    )}
+                </button>
             </div>
             <div
                 className="absolute left-0 top-0 z-20 w-full flex-grow flex-col bg-dark md:static md:w-[300px]"

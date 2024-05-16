@@ -11,7 +11,8 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 const SocketContext = createContext()
 
 const SocketProvider = ({ children }) => {
-    const { setUsers, setStatus, setCurrentUser } = useAppContext()
+    const { setUsers, setStatus, setCurrentUser, drawingData, setDrawingData } =
+        useAppContext()
     const socket = useMemo(
         () =>
             io(BACKEND_URL, {
@@ -58,12 +59,28 @@ const SocketProvider = ({ children }) => {
         [setUsers],
     )
 
+    const handleRequestDrawing = useCallback(
+        ({ socketId }) => {
+            socket.emit(ACTIONS.SYNC_DRAWING, { socketId, drawingData })
+        },
+        [drawingData, socket],
+    )
+
+    const handleDrawingSync = useCallback(
+        ({ drawingData }) => {
+            setDrawingData(drawingData)
+        },
+        [setDrawingData],
+    )
+
     useEffect(() => {
         socket.on("connect_error", handleError)
         socket.on("connect_failed", handleError)
         socket.on(ACTIONS.USERNAME_EXISTS, handleUsernameExist)
         socket.on(ACTIONS.JOIN_ACCEPTED, handleJoiningAccept)
         socket.on(ACTIONS.USER_DISCONNECTED, handleUserLeft)
+        socket.on(ACTIONS.REQUEST_DRAWING, handleRequestDrawing)
+        socket.on(ACTIONS.SYNC_DRAWING, handleDrawingSync)
 
         return () => {
             socket.off("connect_error")
@@ -71,10 +88,14 @@ const SocketProvider = ({ children }) => {
             socket.off(ACTIONS.USERNAME_EXISTS)
             socket.off(ACTIONS.JOIN_ACCEPTED)
             socket.off(ACTIONS.USER_DISCONNECTED)
+            socket.off(ACTIONS.REQUEST_DRAWING)
+            socket.off(ACTIONS.SYNC_DRAWING)
         }
     }, [
+        handleDrawingSync,
         handleError,
         handleJoiningAccept,
+        handleRequestDrawing,
         handleUserLeft,
         handleUsernameExist,
         setUsers,
