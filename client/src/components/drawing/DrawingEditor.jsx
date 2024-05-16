@@ -9,7 +9,12 @@ function DrawingEditor() {
     const { isMobile } = useWindowDimensions()
 
     return (
-        <Tldraw inferDarkMode forceMobile={isMobile} defaultName="Editor">
+        <Tldraw
+            inferDarkMode
+            forceMobile={isMobile}
+            defaultName="Editor"
+            className="z-0"
+        >
             <ReachEditor />
         </Tldraw>
     )
