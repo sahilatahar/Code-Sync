@@ -18,7 +18,7 @@ function Users() {
 
 const User = ({ user }: { user: RemoteUser }) => {
     const { username, status } = user
-    const title = `${username} - ${status === USER_CONNECTION_STATUS.USER_ONLINE ? "online" : "offline"}`
+    const title = `${username} - ${status === USER_CONNECTION_STATUS.ONLINE ? "online" : "offline"}`
 
     return (
         <div
@@ -31,7 +31,7 @@ const User = ({ user }: { user: RemoteUser }) => {
             </p>
             <div
                 className={`absolute right-5 top-0 h-3 w-3 rounded-full ${
-                    status === USER_CONNECTION_STATUS.USER_ONLINE
+                    status === USER_CONNECTION_STATUS.ONLINE
                         ? "bg-green-500"
                         : "bg-danger"
                 }`}

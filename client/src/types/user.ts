@@ -1,6 +1,6 @@
 enum USER_CONNECTION_STATUS {
-    USER_OFFLINE = "offline",
-    USER_ONLINE = "online",
+    OFFLINE = "offline",
+    ONLINE = "online",
 }
 
 interface User {

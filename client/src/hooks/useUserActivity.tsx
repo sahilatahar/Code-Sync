@@ -23,7 +23,7 @@ function useUserActivity() {
                     if (user.socketId === socketId) {
                         return {
                             ...user,
-                            status: USER_CONNECTION_STATUS.USER_ONLINE,
+                            status: USER_CONNECTION_STATUS.ONLINE,
                         }
                     }
                     return user
@@ -40,7 +40,7 @@ function useUserActivity() {
                     if (user.socketId === socketId) {
                         return {
                             ...user,
-                            status: USER_CONNECTION_STATUS.USER_OFFLINE,
+                            status: USER_CONNECTION_STATUS.OFFLINE,
                         }
                     }
                     return user
