@@ -82,9 +82,9 @@ io.on("connection", (socket) => {
 	})
 
 	socket.on("disconnecting", () => {
-		const user = userSocketMap.find((user) => user.socketId === socket.id)
-		const roomId = user?.roomId
-		if (roomId === undefined || user === undefined) return
+		const user = getUserBySocketId(socket.id)
+		if (!user) return
+		const roomId = user.roomId
 		socket.broadcast
 			.to(roomId)
 			.emit(MessageEvent.USER_DISCONNECTED, { user })
