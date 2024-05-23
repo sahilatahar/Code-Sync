@@ -4,7 +4,7 @@ import { EditorView, showTooltip } from "@codemirror/view"
 
 export function tooltipField(users: RemoteUser[]) {
     return StateField.define({
-        create: (state) => getCursorTooltips(users),
+        create: () => getCursorTooltips(users),
         update(tooltips, tr) {
             if (!tr.docChanged && !tr.selection) return tooltips
             return getCursorTooltips(users)

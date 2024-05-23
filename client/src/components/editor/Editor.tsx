@@ -67,7 +67,6 @@ function Editor() {
     return (
         <CodeMirror
             placeholder={placeholder(currentFile?.name || "")}
-            mode={language.toLowerCase()}
             theme={editorThemes[theme]}
             onChange={onCodeChange}
             value={currentFile?.content}

@@ -23,4 +23,5 @@ interface AppContext {
     setDrawingData: (data: DrawingData) => void
 }
 
-export { ACTIVITY_STATE, AppContext, DrawingData }
+export { ACTIVITY_STATE }
+export { AppContext, DrawingData }

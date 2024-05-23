@@ -23,4 +23,3 @@ interface FileContext {
 }
 
 export { File, FileContent, FileContext, FileId, FileName }
-

@@ -29,7 +29,7 @@ function SettingsTab() {
     const handleLanguageChange = (e: ChangeEvent<HTMLSelectElement>) =>
         setLanguage(e.target.value)
     const handleFontSizeChange = (e: ChangeEvent<HTMLSelectElement>) =>
-        setFontSize(e.target.value)
+        setFontSize(parseInt(e.target.value))
     const handleShowGitHubCornerChange = (e: ChangeEvent<HTMLInputElement>) =>
         setShowGitHubCorner(e.target.checked)
 

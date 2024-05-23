@@ -33,7 +33,9 @@ function ChatContextProvider({ children }: { children: ReactNode }) {
                 setIsNewMessage(true)
             },
         )
-        return () => socket.off(MessageEvent.RECEIVE_MESSAGE)
+        return () => {
+            socket.off(MessageEvent.RECEIVE_MESSAGE)
+        }
     }, [socket])
 
     return (

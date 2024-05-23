@@ -1,3 +1,5 @@
+import { Socket } from "socket.io-client"
+
 type SocketId = string
 
 enum MessageEvent {
@@ -23,8 +25,7 @@ enum MessageEvent {
 }
 
 interface SocketContext {
-    socket: SocketIOClient.Socket
+    socket: Socket
 }
 
 export { MessageEvent, SocketContext, SocketId }
-
