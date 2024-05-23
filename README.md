@@ -47,125 +47,6 @@ You can view the live preview of the project [here](https://code-sync-live.verce
 ![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 
-<details>
-    <summary>
-        <h2>📂 Folder Structure</h2>
-    </summary>
-
-```
-client/
-├── public/
-│   ├── favicon/
-│   │   └── ...
-├── src/
-│   ├── api/
-│   │   └── index.jsx
-│   ├── assets/
-│   │   └── ...
-│   ├── components/
-│   │   ├── chats/
-│   │   │   ├── ChatInput.jsx
-│   │   │   └── ChatList.jsx
-│   │   ├── common/
-│   │   │   ├── Users.jsx
-│   │   │   ├── Footer.jsx
-│   │   │   └── Select.jsx
-│   │   ├── connection/
-│   │   │   └── ConnectionStatusPage.jsx
-│   │   ├── drawing/
-│   │   │   └── DrawingEditor.jsx
-│   │   ├── editor/
-│   │   │   ├── tooltip.js
-│   │   │   ├── Editor.jsx
-│   │   │   └── EditorComponent.jsx
-│   │   ├── files/
-│   │   │   ├── FileEditor.jsx
-│   │   │   └── FileSystem.jsx
-│   │   ├── loading/
-│   │   │   └── Loading.jsx
-│   │   ├── sidebar/
-│   │   │   └── Sidebar.jsx
-│   │   ├── tabs/
-│   │   │   ├── ChatsTab.jsx
-│   │   │   ├── UsersTab.jsx
-│   │   │   ├── FileTab.jsx
-│   │   │   ├── RunTab.jsx
-│   │   │   ├── SettingsTab.jsx
-│   │   │   └── TabButton.jsx
-│   │   ├── toast/
-│   │   │   └── Toast.jsx
-│   │   ├── GitHubCorner.jsx
-│   │   └── SplitterComponent.jsx
-│   ├── context/
-│   │   ├── AppContext.jsx
-│   │   ├── AppProvider.jsx
-│   │   ├── ChatContext.jsx
-│   │   ├── FileContext.jsx
-│   │   ├── RunContext.jsx
-│   │   ├── SettingContext.jsx
-│   │   ├── SocketContext.jsx
-│   │   └── TabContext.jsx
-│   ├── hooks/
-│   │   ├── useAppContext.jsx
-│   │   ├── useChatRoom.jsx
-│   │   ├── useFileSystem.jsx
-│   │   ├── useFullScreen.jsx
-│   │   ├── useLocalStorage.jsx
-│   │   ├── usePageEvents.jsx
-│   │   ├── useResponsive.jsx
-│   │   ├── useRunCode.jsx
-│   │   ├── useSetting.jsx
-│   │   ├── useSocket.jsx
-│   │   ├── useTab.jsx
-│   │   ├── useUserActivity.jsx
-│   │   └── useWindowDimensions.jsx
-│   ├── pages/
-│   │   ├── EditorPage.jsx
-│   │   └── HomePage.jsx
-│   ├── resources/
-│   │   ├── Font.js
-│   │   └── Themes.js
-│   ├── socket/
-│   │   └── socket.js
-│   ├── utils/
-│   │   ├── actions.js
-│   │   ├── editorPlaceholder.js
-│   │   ├── formateDate.js
-│   │   ├── initialFile.js
-│   │   ├── getIconClassName.js
-│   │   ├── status.js
-│   │   └── tabs.js
-│   ├── App.jsx
-│   ├── index.css
-│   └── main.jsx
-├── .env
-├── .eslintrc.cjs
-├── .gitignore
-├── index.html
-├── package-lock.json
-├── package.json
-├── postcss.config.js
-├── tailwind.config.js
-└── vercel.json
-└── vite.config.js
-
-server/
-├── utils/
-│   └── actions.js
-├── .env
-├── .gitignore
-├── package-lock.json
-├── package.json
-└── server.js
-
-CONTRIBUTING.md
-LICENSE
-preview.png
-README.md
-```
-
-</details>
-
 ## ⚙️ Installation
 
 1. **Fork this repository:** Click the Fork button located in the top-right corner of this page to fork the repository.
@@ -174,8 +55,9 @@ README.md
     git clone https://github.com/<your-username>/Code-Sync.git
     ```
 3. **Set .env file:**
-   Inside the client and server directory, create or edit the .env file and add the following line:  
-   Frontend:
+   Inside the client and server directories rename the `.env.example` file to `.env` and set the following environment variables:
+
+    Frontend:
 
     ```bash
     VITE_BACKEND_URL=<your_server_url>
