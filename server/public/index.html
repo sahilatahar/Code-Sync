@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Code Sync Server</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				margin: 0;
+				padding: 0;
+				background-color: #212429; /* Dark background color */
+				color: #f5f5f5; /* Text color */
+			}
+			.container {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				height: 100vh;
+			}
+			.content {
+				text-align: center;
+			}
+			h1 {
+				color: #39e079; /* Primary color for heading */
+				margin-bottom: 1rem;
+			}
+			p {
+				color: #f5f5f5; /* Text color */
+				margin-bottom: 1rem;
+			}
+			.time {
+				color: #888;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="content">
+				<h1>🚀 API is running smoothly! 🌟</h1>
+				<p>
+					Welcome to Code Sync Server. Everything is set up and ready
+					to go!
+				</p>
+				<p class="time">Current Time: <span id="currentTime"></span></p>
+			</div>
+		</div>
+		<script>
+			document.getElementById("currentTime").innerText =
+				new Date().toLocaleTimeString()
+		</script>
+	</body>
+</html>
