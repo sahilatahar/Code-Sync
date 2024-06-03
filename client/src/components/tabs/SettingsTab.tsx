@@ -55,7 +55,7 @@ function SettingsTab() {
                     onChange={handleFontFamilyChange}
                     value={fontFamily}
                     options={editorFonts}
-                    title="Fonts"
+                    title="Font Family"
                 />
                 {/* Choose font size option */}
                 <select
@@ -78,14 +78,14 @@ function SettingsTab() {
                 onChange={handleThemeChange}
                 value={theme}
                 options={Object.keys(editorThemes)}
-                title="Themes"
+                title="Theme"
             />
             {/* Choose language option */}
             <Select
                 onChange={handleLanguageChange}
                 value={language}
                 options={langNames}
-                title="Editor Languages"
+                title="Language"
             />
             {/* Show GitHub corner option */}
             <div className="mt-4 flex w-full items-center justify-between">

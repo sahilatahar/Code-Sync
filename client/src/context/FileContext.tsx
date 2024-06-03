@@ -7,6 +7,7 @@ import {
 } from "@/types/file"
 import { MessageEvent } from "@/types/socket"
 import { RemoteUser } from "@/types/user"
+import customMapping from "@/utils/customMapping"
 import initialFile from "@/utils/initialFile"
 import { saveAs } from "file-saver"
 import JSZip from "jszip"
@@ -218,9 +219,16 @@ function FileContextProvider({ children }: { children: ReactNode }) {
         // Get file extension on file open and set language when file is opened
         const extension = currentFile.name.split(".").pop()
         if (!extension) return
+
+        // Check if custom mapping exists
+        if (customMapping[extension]) {
+            setLanguage(customMapping[extension])
+            return
+        }
+
         const language = langMap.languages(extension)
         setLanguage(language[0])
-    }, [currentFile, setLanguage])
+    }, [currentFile?.name, setLanguage])
 
     useEffect(() => {
         socket.once(MessageEvent.SYNC_FILES, handleFilesSync)

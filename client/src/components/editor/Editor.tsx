@@ -12,7 +12,7 @@ import { color } from "@uiw/codemirror-extensions-color"
 import { hyperLink } from "@uiw/codemirror-extensions-hyper-link"
 import { LanguageName, loadLanguage } from "@uiw/codemirror-extensions-langs"
 import CodeMirror, { ViewUpdate } from "@uiw/react-codemirror"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import toast from "react-hot-toast"
 import { cursorTooltipBaseTheme, tooltipField } from "./tooltip"
 
@@ -48,7 +48,7 @@ function Editor() {
     // Listen wheel event to zoom in/out and prevent page reload
     usePageEvents()
 
-    const getExtensions = () => {
+    const getExtensions = useMemo(() => {
         const extensions = [
             color,
             hyperLink,
@@ -59,10 +59,15 @@ function Editor() {
         if (langExt) {
             extensions.push(langExt)
         } else {
-            toast.error("Syntax Highlighting not available for this language")
+            toast.error(
+                "Syntax highlighting is unavailable for this language. Please adjust the editor settings; it may be listed under a different name.",
+                {
+                    duration: 5000,
+                },
+            )
         }
         return extensions
-    }
+    }, [language, currentFile?.name])
 
     return (
         <CodeMirror
@@ -70,7 +75,7 @@ function Editor() {
             theme={editorThemes[theme]}
             onChange={onCodeChange}
             value={currentFile?.content}
-            extensions={getExtensions()}
+            extensions={getExtensions}
             minHeight="100%"
             maxWidth="100vw"
             style={{
