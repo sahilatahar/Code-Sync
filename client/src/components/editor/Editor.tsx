@@ -11,7 +11,7 @@ import placeholder from "@/utils/editorPlaceholder"
 import { color } from "@uiw/codemirror-extensions-color"
 import { hyperLink } from "@uiw/codemirror-extensions-hyper-link"
 import { LanguageName, loadLanguage } from "@uiw/codemirror-extensions-langs"
-import CodeMirror, { ViewUpdate } from "@uiw/react-codemirror"
+import CodeMirror, { ViewUpdate, scrollPastEnd } from "@uiw/react-codemirror"
 import { useMemo, useState } from "react"
 import toast from "react-hot-toast"
 import { cursorTooltipBaseTheme, tooltipField } from "./tooltip"
@@ -54,6 +54,7 @@ function Editor() {
             hyperLink,
             tooltipField(filteredUsers),
             cursorTooltipBaseTheme,
+            scrollPastEnd(),
         ]
         const langExt = loadLanguage(language.toLowerCase() as LanguageName)
         if (langExt) {

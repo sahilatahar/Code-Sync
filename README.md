@@ -94,7 +94,6 @@ You can view the live preview of the project [here](https://code-sync-live.verce
 ## 🔮 Features for next release
 
 -   **Admin Permission:** Implement an admin permission system to manage user access levels and control over certain platform features.
--   **Search and Replace:** Implement a search and replace functionality for efficient code navigation.
 
 ## 🤝 Contribute
 
