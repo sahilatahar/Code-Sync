@@ -9,9 +9,9 @@ import { IoShareOutline } from "react-icons/io5"
 import { LuCopy } from "react-icons/lu"
 import { useNavigate } from "react-router-dom"
 
-function UsersTab() {
+function UsersView() {
     const navigate = useNavigate()
-    const { tabHeight } = useWindowDimensions()
+    const { viewHeight } = useWindowDimensions()
     const { setStatus } = useAppContext()
     const { socket } = useSocket()
 
@@ -45,8 +45,8 @@ function UsersTab() {
     }
 
     return (
-        <div className="flex flex-col p-4" style={{ height: tabHeight }}>
-            <h1 className="tab-title">Users</h1>
+        <div className="flex flex-col p-4" style={{ height: viewHeight }}>
+            <h1 className="view-title">Users</h1>
             {/* List of connected users */}
             <Users />
             <div className="flex flex-col items-center gap-4 pt-4">
@@ -81,4 +81,4 @@ function UsersTab() {
     )
 }
 
-export default UsersTab
+export default UsersView

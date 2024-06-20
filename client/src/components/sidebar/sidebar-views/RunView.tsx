@@ -5,8 +5,8 @@ import toast from "react-hot-toast"
 import { LuCopy } from "react-icons/lu"
 import { PiCaretDownBold } from "react-icons/pi"
 
-function RunTab() {
-    const { tabHeight } = useWindowDimensions()
+function RunView() {
+    const { viewHeight } = useWindowDimensions()
     const {
         setInput,
         output,
@@ -30,9 +30,9 @@ function RunTab() {
     return (
         <div
             className="flex flex-col items-center gap-2 p-4"
-            style={{ height: tabHeight }}
+            style={{ height: viewHeight }}
         >
-            <h1 className="tab-title">Run Code</h1>
+            <h1 className="view-title">Run Code</h1>
             <div className="flex h-[90%] w-full flex-col items-end gap-2 md:h-[92%]">
                 <div className="relative w-full">
                     <select
@@ -92,4 +92,4 @@ function RunTab() {
     )
 }
 
-export default RunTab
+export default RunView

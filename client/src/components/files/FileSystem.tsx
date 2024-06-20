@@ -1,5 +1,5 @@
 import { useFileStore } from "@/context/FileContext"
-import { useTabs } from "@/context/TabContext"
+import { useViews } from "@/context/ViewContext"
 import useWindowDimensions from "@/hooks/useWindowDimensions"
 import { FileId, FileName } from "@/types/file"
 import { getIconClassName } from "@/utils/getIconClassName"
@@ -14,7 +14,7 @@ import { useAppContext } from "@/context/AppContext"
 function FileSystem() {
     const { files, currentFile, openFile, deleteFile, createFile } =
         useFileStore()
-    const { setIsSidebarOpen } = useTabs()
+    const { setIsSidebarOpen } = useViews()
     const { isMobile } = useWindowDimensions()
     const { activityState, setActivityState } = useAppContext()
 

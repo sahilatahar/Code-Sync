@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 @layer components {
-    .tab-title {
+    .view-title {
         @apply mb-2 w-full border-b pb-2 text-start text-lg;
     }
 }

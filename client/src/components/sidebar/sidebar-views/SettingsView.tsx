@@ -6,7 +6,7 @@ import { editorThemes } from "@/resources/Themes"
 import { langNames } from "@uiw/codemirror-extensions-langs"
 import { ChangeEvent, useEffect } from "react"
 
-function SettingsTab() {
+function SettingsView() {
     const {
         theme,
         setTheme,
@@ -20,7 +20,7 @@ function SettingsTab() {
         setShowGitHubCorner,
         resetSettings,
     } = useSettings()
-    const { tabHeight } = useWindowDimensions()
+    const { viewHeight } = useWindowDimensions()
 
     const handleFontFamilyChange = (e: ChangeEvent<HTMLSelectElement>) =>
         setFontFamily(e.target.value)
@@ -46,9 +46,9 @@ function SettingsTab() {
     return (
         <div
             className="flex flex-col items-center gap-2 p-4"
-            style={{ height: tabHeight }}
+            style={{ height: viewHeight }}
         >
-            <h1 className="tab-title">Settings</h1>
+            <h1 className="view-title">Settings</h1>
             {/* Choose Font Family option */}
             <div className="flex w-full items-end gap-2">
                 <Select
@@ -110,4 +110,4 @@ function SettingsTab() {
     )
 }
 
-export default SettingsTab
+export default SettingsView

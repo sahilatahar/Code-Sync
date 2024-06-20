@@ -1,11 +1,11 @@
-import { useTabs } from "@/context/TabContext"
+import { useViews } from "@/context/ViewContext"
 import useLocalStorage from "@/hooks/useLocalStorage"
 import useWindowDimensions from "@/hooks/useWindowDimensions"
 import { ReactNode } from "react"
 import Split from "react-split"
 
 function SplitterComponent({ children }: { children: ReactNode }) {
-    const { isSidebarOpen } = useTabs()
+    const { isSidebarOpen } = useViews()
     const { isMobile, width } = useWindowDimensions()
     const { setItem, getItem } = useLocalStorage()
 

@@ -2,15 +2,15 @@ import ChatInput from "@/components/chats/ChatInput"
 import ChatList from "@/components/chats/ChatList"
 import useWindowDimensions from "@/hooks/useWindowDimensions"
 
-const ChatsTab = () => {
-    const { tabHeight } = useWindowDimensions()
+const ChatsView = () => {
+    const { viewHeight } = useWindowDimensions()
 
     return (
         <div
             className="flex max-h-full min-h-[400px] w-full flex-col gap-2 p-4"
-            style={{ height: tabHeight }}
+            style={{ height: viewHeight }}
         >
-            <h1 className="tab-title">Group Chat</h1>
+            <h1 className="view-title">Group Chat</h1>
             {/* Chat list */}
             <ChatList />
             {/* Chat input */}
@@ -19,4 +19,4 @@ const ChatsTab = () => {
     )
 }
 
-export default ChatsTab
+export default ChatsView

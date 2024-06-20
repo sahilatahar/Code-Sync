@@ -1,23 +1,23 @@
-import TabButton from "@/components/tabs/TabButton"
+import SidebarButton from "@/components/sidebar/sidebar-views/SidebarButton"
 import { useAppContext } from "@/context/AppContext"
 import { useSocket } from "@/context/SocketContext"
-import { useTabs } from "@/context/TabContext"
+import { useViews } from "@/context/ViewContext"
 import useResponsive from "@/hooks/useResponsive"
 import useWindowDimensions from "@/hooks/useWindowDimensions"
 import { ACTIVITY_STATE } from "@/types/app"
 import { MessageEvent } from "@/types/socket"
-import { TABS } from "@/types/tab"
+import { VIEWS } from "@/types/view"
 import { IoCodeSlash } from "react-icons/io5"
 import { MdOutlineDraw } from "react-icons/md"
 
 function Sidebar() {
     const {
-        activeTab,
+        activeView,
         isSidebarOpen,
-        tabComponents,
-        tabIcons,
+        viewComponents,
+        viewIcons,
         setIsSidebarOpen,
-    } = useTabs()
+    } = useViews()
     const { showSidebar } = useResponsive()
     const { activityState, setActivityState } = useAppContext()
     const { socket } = useSocket()
@@ -42,16 +42,25 @@ function Sidebar() {
                 className="fixed bottom-0 left-0 z-50 flex h-[50px] w-full gap-6 self-end overflow-auto border-t border-darkHover bg-dark p-3 md:static md:h-full md:w-[50px] md:min-w-[50px] md:flex-col md:border-r md:border-t-0 md:p-2 md:pt-4"
                 style={showSidebar ? {} : { display: "none" }}
             >
-                <TabButton tabName={TABS.FILES} icon={tabIcons[TABS.FILES]} />
-                <TabButton tabName={TABS.CHATS} icon={tabIcons[TABS.CHATS]} />
-                <TabButton tabName={TABS.RUN} icon={tabIcons[TABS.RUN]} />
-                <TabButton
-                    tabName={TABS.CLIENTS}
-                    icon={tabIcons[TABS.CLIENTS]}
+                <SidebarButton
+                    viewName={VIEWS.FILES}
+                    icon={viewIcons[VIEWS.FILES]}
                 />
-                <TabButton
-                    tabName={TABS.SETTINGS}
-                    icon={tabIcons[TABS.SETTINGS]}
+                <SidebarButton
+                    viewName={VIEWS.CHATS}
+                    icon={viewIcons[VIEWS.CHATS]}
+                />
+                <SidebarButton
+                    viewName={VIEWS.RUN}
+                    icon={viewIcons[VIEWS.RUN]}
+                />
+                <SidebarButton
+                    viewName={VIEWS.CLIENTS}
+                    icon={viewIcons[VIEWS.CLIENTS]}
+                />
+                <SidebarButton
+                    viewName={VIEWS.SETTINGS}
+                    icon={viewIcons[VIEWS.SETTINGS]}
                 />
 
                 {/* Button to change activity state coding or drawing */}
@@ -67,8 +76,8 @@ function Sidebar() {
                 className="absolute left-0 top-0 z-20 w-full flex-grow flex-col bg-dark md:static md:w-[300px]"
                 style={isSidebarOpen ? {} : { display: "none" }}
             >
-                {/* Render the active tab component */}
-                {tabComponents[activeTab]}
+                {/* Render the active view component */}
+                {viewComponents[activeView]}
             </div>
         </aside>
     )

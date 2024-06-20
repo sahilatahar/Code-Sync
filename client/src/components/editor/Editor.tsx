@@ -21,7 +21,7 @@ function Editor() {
     const { currentFile, setCurrentFile } = useFileStore()
     const { theme, language, fontSize } = useSettings()
     const { socket } = useSocket()
-    const { tabHeight } = useWindowDimensions()
+    const { viewHeight } = useWindowDimensions()
     const [timeOut, setTimeOut] = useState(setTimeout(() => {}, 0))
     const filteredUsers = users.filter(
         (u) => u.username !== currentUser.username,
@@ -81,7 +81,7 @@ function Editor() {
             maxWidth="100vw"
             style={{
                 fontSize: fontSize + "px",
-                height: tabHeight,
+                height: viewHeight,
                 position: "relative",
             }}
         />

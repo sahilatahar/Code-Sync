@@ -9,7 +9,7 @@ import { LuDownload } from "react-icons/lu"
 import { TbFileUpload } from "react-icons/tb"
 import { v4 as uuidv4 } from "uuid"
 
-function FilesTab() {
+function FilesView() {
     const {
         currentFile,
         setCurrentFile,
@@ -19,7 +19,7 @@ function FilesTab() {
         downloadAllFiles,
     } = useFileStore()
     const fileInputRef = useRef<HTMLInputElement | null>(null)
-    const { tabHeight } = useWindowDimensions()
+    const { viewHeight } = useWindowDimensions()
 
     const handleOpenFile = () => {
         fileInputRef.current?.click()
@@ -54,7 +54,7 @@ function FilesTab() {
     return (
         <div
             className="flex select-none flex-col gap-1 p-4"
-            style={{ height: tabHeight }}
+            style={{ height: viewHeight }}
         >
             <FileSystem />
             <button
@@ -88,4 +88,4 @@ function FilesTab() {
     )
 }
 
-export default FilesTab
+export default FilesView
