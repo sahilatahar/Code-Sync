@@ -1,6 +1,6 @@
 import { useAppContext } from "@/context/AppContext"
 import { useSocket } from "@/context/SocketContext"
-import { MessageEvent, SocketId } from "@/types/socket"
+import { SocketEvent, SocketId } from "@/types/socket"
 import { RemoteUser, USER_CONNECTION_STATUS } from "@/types/user"
 import { useCallback, useEffect } from "react"
 
@@ -10,9 +10,9 @@ function useUserActivity() {
 
     const handleUserVisibilityChange = useCallback(() => {
         if (document.visibilityState === "visible")
-            socket.emit(MessageEvent.USER_ONLINE, { socketId: socket.id })
+            socket.emit(SocketEvent.USER_ONLINE, { socketId: socket.id })
         else if (document.visibilityState === "hidden") {
-            socket.emit(MessageEvent.USER_OFFLINE, { socketId: socket.id })
+            socket.emit(SocketEvent.USER_OFFLINE, { socketId: socket.id })
         }
     }, [socket])
 
@@ -70,10 +70,10 @@ function useUserActivity() {
             handleUserVisibilityChange,
         )
 
-        socket.on(MessageEvent.USER_ONLINE, handleUserOnline)
-        socket.on(MessageEvent.USER_OFFLINE, handleUserOffline)
-        socket.on(MessageEvent.TYPING_START, handleUserTyping)
-        socket.on(MessageEvent.TYPING_PAUSE, handleUserTyping)
+        socket.on(SocketEvent.USER_ONLINE, handleUserOnline)
+        socket.on(SocketEvent.USER_OFFLINE, handleUserOffline)
+        socket.on(SocketEvent.TYPING_START, handleUserTyping)
+        socket.on(SocketEvent.TYPING_PAUSE, handleUserTyping)
 
         return () => {
             document.removeEventListener(
@@ -81,10 +81,10 @@ function useUserActivity() {
                 handleUserVisibilityChange,
             )
 
-            socket.off(MessageEvent.USER_ONLINE)
-            socket.off(MessageEvent.USER_OFFLINE)
-            socket.off(MessageEvent.TYPING_START)
-            socket.off(MessageEvent.TYPING_PAUSE)
+            socket.off(SocketEvent.USER_ONLINE)
+            socket.off(SocketEvent.USER_OFFLINE)
+            socket.off(SocketEvent.TYPING_START)
+            socket.off(SocketEvent.TYPING_PAUSE)
         }
     }, [
         socket,

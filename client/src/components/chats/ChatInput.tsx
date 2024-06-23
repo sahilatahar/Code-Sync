@@ -2,7 +2,7 @@ import { useAppContext } from "@/context/AppContext"
 import { useChatRoom } from "@/context/ChatContext"
 import { useSocket } from "@/context/SocketContext"
 import { ChatMessage } from "@/types/chat"
-import { MessageEvent } from "@/types/socket"
+import { SocketEvent } from "@/types/socket"
 import { formatDate } from "@/utils/formateDate"
 import { FormEvent, useRef } from "react"
 import { LuSendHorizonal } from "react-icons/lu"
@@ -26,7 +26,7 @@ function ChatInput() {
                 username: currentUser.username,
                 timestamp: formatDate(new Date().toISOString()),
             }
-            socket.emit(MessageEvent.SEND_MESSAGE, { message })
+            socket.emit(SocketEvent.SEND_MESSAGE, { message })
             setMessages((messages) => [...messages, message])
 
             if (inputRef.current) inputRef.current.value = ""

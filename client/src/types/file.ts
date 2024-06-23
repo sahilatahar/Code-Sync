@@ -1,25 +1,31 @@
-type FileId = string
+type Id = string
 type FileName = string
 type FileContent = string
 
-interface File {
-    id: FileId
+interface FileSystemItem {
+    id: string
     name: FileName
-    content: FileContent
+    type: "file" | "directory"
+    children?: FileSystemItem[]
+    content?: FileContent
 }
 
 interface FileContext {
-    files: File[]
-    setFiles: (files: File[] | ((files: File[]) => File[])) => void
-    currentFile: File | null
-    setCurrentFile: (file: File | null) => void
-    createFile: (file: FileName) => FileId
-    updateFile: (id: FileId, content: FileContent) => void
-    openFile: (fid: FileId) => void
-    renameFile: (id: FileId, newName: FileName) => boolean
-    deleteFile: (id: FileId) => void
-    downloadCurrentFile: () => void
-    downloadAllFiles: () => void
+    fileStructure: FileSystemItem
+    openFiles: FileSystemItem[]
+    activeFile: FileSystemItem | null
+    setActiveFile: (file: FileSystemItem) => void
+    closeFile: (fileId: Id) => void
+    createDirectory: (parentDirId: Id, name: FileName) => Id
+    updateDirectory: (dirId: Id, children: FileSystemItem[]) => void
+    renameDirectory: (dirId: Id, newName: FileName) => void
+    deleteDirectory: (dirId: Id) => void
+    createFile: (parentDirId: Id, name: FileName) => Id
+    updateFileContent: (fileId: Id, content: FileContent) => void
+    openFile: (fileId: Id) => void
+    renameFile: (fileId: Id, newName: FileName) => boolean
+    deleteFile: (fileId: Id) => void
+    downloadFilesAndFolders: () => void
 }
 
-export { File, FileContent, FileContext, FileId, FileName }
+export { FileSystemItem, FileContent, FileContext, Id, FileName }

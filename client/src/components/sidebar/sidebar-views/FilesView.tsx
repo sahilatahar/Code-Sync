@@ -1,89 +1,84 @@
-import FileSystem from "@/components/files/FileSystem"
-import { useFileStore } from "@/context/FileContext"
+import FileStructureView from "@/components/files/FileStructureView"
+import { useFileSystem } from "@/context/FileContext"
 import useWindowDimensions from "@/hooks/useWindowDimensions"
-import { File } from "@/types/file"
-import langMap from "lang-map"
-import { ChangeEvent, useRef } from "react"
+import { FileSystemItem } from "@/types/file"
 import { BiArchiveIn } from "react-icons/bi"
-import { LuDownload } from "react-icons/lu"
 import { TbFileUpload } from "react-icons/tb"
-import { v4 as uuidv4 } from "uuid"
+import { v4 as uuidV4 } from "uuid"
 
 function FilesView() {
-    const {
-        currentFile,
-        setCurrentFile,
-        updateFile,
-        setFiles,
-        downloadCurrentFile,
-        downloadAllFiles,
-    } = useFileStore()
-    const fileInputRef = useRef<HTMLInputElement | null>(null)
+    const { downloadFilesAndFolders, updateDirectory } = useFileSystem()
     const { viewHeight } = useWindowDimensions()
 
-    const handleOpenFile = () => {
-        fileInputRef.current?.click()
-    }
-
-    const onFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const files = e.target.files
-        if (!files || files.length === 0) return
-        const selectedFile = files[0]
-        const reader = new FileReader()
-        reader.onload = (e: ProgressEvent<FileReader>) => {
-            const text = e.target?.result
-            const file: File = {
-                id: uuidv4(),
-                name: selectedFile.name,
-                content: text as string,
+    const handleOpenDirectory = async () => {
+        if ("showDirectoryPicker" in window) {
+            try {
+                const directoryHandle = await window.showDirectoryPicker()
+                const structure = await readDirectory(directoryHandle)
+                updateDirectory("", structure)
+            } catch (error) {
+                console.error("Error opening directory:", error)
             }
-
-            if (currentFile) {
-                // Save current file before opening new file
-                updateFile(currentFile.id, currentFile.content)
-            }
-
-            setFiles((prev: File[]) => [...prev, file])
-            setCurrentFile(file)
+        } else {
+            alert(
+                "The File System Access API is not supported in this browser.",
+            )
         }
-        reader.readAsText(selectedFile)
     }
 
-    const allowedFileExtensions = Object.keys(langMap().languages).join(",")
+    const readDirectory = async (
+        directoryHandle: FileSystemDirectoryHandle,
+    ): Promise<FileSystemItem[]> => {
+        const children: FileSystemItem[] = []
+        const blackList = ["node_modules", ".git", ".vscode", ".next"]
+
+        for await (const entry of directoryHandle.values()) {
+            if (entry.kind === "file") {
+                const file = await entry.getFile()
+                const newFile: FileSystemItem = {
+                    id: uuidV4(),
+                    name: entry.name,
+                    type: "file",
+                    content: await file.text(),
+                }
+                children.push(newFile)
+            } else if (entry.kind === "directory") {
+                if (blackList.includes(entry.name)) continue
+
+                const newDirectory: FileSystemItem = {
+                    id: uuidV4(),
+                    name: entry.name,
+                    type: "directory",
+                    children: await readDirectory(entry),
+                }
+                children.push(newDirectory)
+            }
+        }
+        return children
+    }
 
     return (
         <div
-            className="flex select-none flex-col gap-1 p-4"
-            style={{ height: viewHeight }}
+            className="flex select-none flex-col gap-1 px-4 py-2"
+            style={{ height: viewHeight, maxHeight: viewHeight }}
         >
-            <FileSystem />
-            <button
-                className="flex w-full justify-start rounded-md p-2 transition-all hover:bg-darkHover"
-                onClick={handleOpenFile}
-            >
-                <TbFileUpload className="mr-2" size={24} />
-                Open File
-            </button>
-            <button
-                className="flex w-full justify-start rounded-md p-2 transition-all hover:bg-darkHover"
-                onClick={downloadCurrentFile}
-            >
-                <LuDownload className="mr-2" size={22} /> Download File
-            </button>
-            <button
-                className="flex w-full justify-start rounded-md p-2 transition-all hover:bg-darkHover"
-                onClick={downloadAllFiles}
-            >
-                <BiArchiveIn className="mr-2" size={22} /> Download All Files
-            </button>
-            {/* Input to choose and open file */}
-            <input
-                type="file"
-                hidden
-                onChange={onFileChange}
-                ref={fileInputRef}
-                accept={allowedFileExtensions}
-            />
+            <FileStructureView />
+            <div className="flex flex-col justify-end pt-2">
+                <hr />
+                <button
+                    className="mt-2 flex w-full justify-start rounded-md p-2 transition-all hover:bg-darkHover"
+                    onClick={handleOpenDirectory}
+                >
+                    <TbFileUpload className="mr-2" size={24} />
+                    Open File/Folder
+                </button>
+                <button
+                    className="flex w-full justify-start rounded-md p-2 transition-all hover:bg-darkHover"
+                    onClick={downloadFilesAndFolders}
+                >
+                    <BiArchiveIn className="mr-2" size={22} /> Download Code
+                </button>
+            </div>
         </div>
     )
 }

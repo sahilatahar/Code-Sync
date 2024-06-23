@@ -1,5 +1,5 @@
 import { ChatContext as ChatContextType, ChatMessage } from "@/types/chat"
-import { MessageEvent } from "@/types/socket"
+import { SocketEvent } from "@/types/socket"
 import {
     ReactNode,
     createContext,
@@ -27,14 +27,14 @@ function ChatContextProvider({ children }: { children: ReactNode }) {
 
     useEffect(() => {
         socket.on(
-            MessageEvent.RECEIVE_MESSAGE,
+            SocketEvent.RECEIVE_MESSAGE,
             ({ message }: { message: ChatMessage }) => {
                 setMessages((messages) => [...messages, message])
                 setIsNewMessage(true)
             },
         )
         return () => {
-            socket.off(MessageEvent.RECEIVE_MESSAGE)
+            socket.off(SocketEvent.RECEIVE_MESSAGE)
         }
     }, [socket])
 

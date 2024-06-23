@@ -14,7 +14,7 @@ const ViewContext = createContext<ViewContextType | null>(null)
 
 export const useViews = (): ViewContextType => {
     const context = useContext(ViewContext)
-    if (context === null) {
+    if (!context) {
         throw new Error("useViews must be used within a ViewContextProvider")
     }
     return context
@@ -24,20 +24,20 @@ function ViewContextProvider({ children }: { children: ReactNode }) {
     const { isMobile } = useWindowDimensions()
     const [activeView, setActiveView] = useState<VIEWS>(VIEWS.FILES)
     const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(!isMobile)
-    const viewComponents = {
+    const [viewComponents] = useState({
         [VIEWS.FILES]: <FilesView />,
         [VIEWS.CLIENTS]: <UsersView />,
         [VIEWS.SETTINGS]: <SettingsView />,
         [VIEWS.CHATS]: <ChatsView />,
         [VIEWS.RUN]: <RunView />,
-    }
-    const viewIcons = {
+    })
+    const [viewIcons] = useState({
         [VIEWS.FILES]: <LuFiles size={28} />,
         [VIEWS.CLIENTS]: <PiUsers size={30} />,
         [VIEWS.SETTINGS]: <IoSettingsOutline size={28} />,
         [VIEWS.CHATS]: <PiChats size={30} />,
         [VIEWS.RUN]: <PiPlay size={28} />,
-    }
+    })
 
     return (
         <ViewContext.Provider

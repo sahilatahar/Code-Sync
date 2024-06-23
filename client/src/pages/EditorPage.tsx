@@ -6,7 +6,7 @@ import { useAppContext } from "@/context/AppContext"
 import { useSocket } from "@/context/SocketContext"
 import useFullScreen from "@/hooks/useFullScreen"
 import useUserActivity from "@/hooks/useUserActivity"
-import { MessageEvent } from "@/types/socket"
+import { SocketEvent } from "@/types/socket"
 import { USER_STATUS, User } from "@/types/user"
 import { useEffect } from "react"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
@@ -32,7 +32,7 @@ function EditorPage() {
         } else if (roomId) {
             const user: User = { username, roomId }
             setCurrentUser(user)
-            socket.emit(MessageEvent.JOIN_REQUEST, user)
+            socket.emit(SocketEvent.JOIN_REQUEST, user)
         }
     }, [
         currentUser.username,

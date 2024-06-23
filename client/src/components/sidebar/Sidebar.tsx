@@ -5,7 +5,7 @@ import { useViews } from "@/context/ViewContext"
 import useResponsive from "@/hooks/useResponsive"
 import useWindowDimensions from "@/hooks/useWindowDimensions"
 import { ACTIVITY_STATE } from "@/types/app"
-import { MessageEvent } from "@/types/socket"
+import { SocketEvent } from "@/types/socket"
 import { VIEWS } from "@/types/view"
 import { IoCodeSlash } from "react-icons/io5"
 import { MdOutlineDraw } from "react-icons/md"
@@ -26,7 +26,7 @@ function Sidebar() {
     const changeState = () => {
         if (activityState === ACTIVITY_STATE.CODING) {
             setActivityState(ACTIVITY_STATE.DRAWING)
-            socket.emit(MessageEvent.REQUEST_DRAWING)
+            socket.emit(SocketEvent.REQUEST_DRAWING)
         } else {
             setActivityState(ACTIVITY_STATE.CODING)
         }

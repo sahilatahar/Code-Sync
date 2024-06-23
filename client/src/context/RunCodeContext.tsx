@@ -9,7 +9,7 @@ import {
     useState,
 } from "react"
 import toast from "react-hot-toast"
-import { useFileStore } from "./FileContext"
+import { useFileSystem } from "./FileContext"
 
 const RunCodeContext = createContext<RunContextType | null>(null)
 
@@ -24,7 +24,7 @@ export const useRunCode = () => {
 }
 
 const RunCodeContextProvider = ({ children }: { children: ReactNode }) => {
-    const { currentFile } = useFileStore()
+    const { currentFile } = useFileSystem()
     const [input, setInput] = useState<string>("")
     const [output, setOutput] = useState<string>("")
     const [isRunning, setIsRunning] = useState<boolean>(false)

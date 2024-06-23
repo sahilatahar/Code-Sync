@@ -1,6 +1,6 @@
 import { DrawingData } from "@/types/app"
 import {
-    MessageEvent,
+    SocketEvent,
     SocketContext as SocketContextType,
     SocketId,
 } from "@/types/socket"
@@ -21,7 +21,7 @@ const SocketContext = createContext<SocketContextType | null>(null)
 
 export const useSocket = (): SocketContextType => {
     const context = useContext(SocketContext)
-    if (context === null) {
+    if (!context) {
         throw new Error("useSocket must be used within a SocketProvider")
     }
     return context
@@ -84,7 +84,7 @@ const SocketProvider = ({ children }: { children: ReactNode }) => {
 
     const handleRequestDrawing = useCallback(
         ({ socketId }: { socketId: SocketId }) => {
-            socket.emit(MessageEvent.SYNC_DRAWING, { socketId, drawingData })
+            socket.emit(SocketEvent.SYNC_DRAWING, { socketId, drawingData })
         },
         [drawingData, socket],
     )
@@ -99,20 +99,20 @@ const SocketProvider = ({ children }: { children: ReactNode }) => {
     useEffect(() => {
         socket.on("connect_error", handleError)
         socket.on("connect_failed", handleError)
-        socket.on(MessageEvent.USERNAME_EXISTS, handleUsernameExist)
-        socket.on(MessageEvent.JOIN_ACCEPTED, handleJoiningAccept)
-        socket.on(MessageEvent.USER_DISCONNECTED, handleUserLeft)
-        socket.on(MessageEvent.REQUEST_DRAWING, handleRequestDrawing)
-        socket.on(MessageEvent.SYNC_DRAWING, handleDrawingSync)
+        socket.on(SocketEvent.USERNAME_EXISTS, handleUsernameExist)
+        socket.on(SocketEvent.JOIN_ACCEPTED, handleJoiningAccept)
+        socket.on(SocketEvent.USER_DISCONNECTED, handleUserLeft)
+        socket.on(SocketEvent.REQUEST_DRAWING, handleRequestDrawing)
+        socket.on(SocketEvent.SYNC_DRAWING, handleDrawingSync)
 
         return () => {
             socket.off("connect_error")
             socket.off("connect_failed")
-            socket.off(MessageEvent.USERNAME_EXISTS)
-            socket.off(MessageEvent.JOIN_ACCEPTED)
-            socket.off(MessageEvent.USER_DISCONNECTED)
-            socket.off(MessageEvent.REQUEST_DRAWING)
-            socket.off(MessageEvent.SYNC_DRAWING)
+            socket.off(SocketEvent.USERNAME_EXISTS)
+            socket.off(SocketEvent.JOIN_ACCEPTED)
+            socket.off(SocketEvent.USER_DISCONNECTED)
+            socket.off(SocketEvent.REQUEST_DRAWING)
+            socket.off(SocketEvent.SYNC_DRAWING)
         }
     }, [
         handleDrawingSync,

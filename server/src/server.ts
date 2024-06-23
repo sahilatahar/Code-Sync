@@ -2,7 +2,7 @@ import express, { Response, Request } from "express"
 import dotenv from "dotenv"
 import http from "http"
 import cors from "cors"
-import { MessageEvent, SocketId } from "./types/socket"
+import { SocketEvent, SocketId } from "./types/socket"
 import { USER_CONNECTION_STATUS, User } from "./types/user"
 import { Server } from "socket.io"
 import path from "path"
@@ -55,13 +55,13 @@ function getUserBySocketId(socketId: SocketId): User | null {
 
 io.on("connection", (socket) => {
 	// Handle user actions
-	socket.on(MessageEvent.JOIN_REQUEST, ({ roomId, username }) => {
+	socket.on(SocketEvent.JOIN_REQUEST, ({ roomId, username }) => {
 		// Check is username exist in the room
 		const isUsernameExist = getUsersInRoom(roomId).filter(
 			(u) => u.username === username
 		)
 		if (isUsernameExist.length > 0) {
-			io.to(socket.id).emit(MessageEvent.USERNAME_EXISTS)
+			io.to(socket.id).emit(SocketEvent.USERNAME_EXISTS)
 			return
 		}
 
@@ -76,9 +76,9 @@ io.on("connection", (socket) => {
 		}
 		userSocketMap.push(user)
 		socket.join(roomId)
-		socket.broadcast.to(roomId).emit(MessageEvent.USER_JOINED, { user })
+		socket.broadcast.to(roomId).emit(SocketEvent.USER_JOINED, { user })
 		const users = getUsersInRoom(roomId)
-		io.to(socket.id).emit(MessageEvent.JOIN_ACCEPTED, { user, users })
+		io.to(socket.id).emit(SocketEvent.JOIN_ACCEPTED, { user, users })
 	})
 
 	socket.on("disconnecting", () => {
@@ -87,45 +87,89 @@ io.on("connection", (socket) => {
 		const roomId = user.roomId
 		socket.broadcast
 			.to(roomId)
-			.emit(MessageEvent.USER_DISCONNECTED, { user })
+			.emit(SocketEvent.USER_DISCONNECTED, { user })
 		userSocketMap = userSocketMap.filter((u) => u.socketId !== socket.id)
 		socket.leave(roomId)
 	})
 
 	// Handle file actions
-	socket.on(MessageEvent.SYNC_FILES, ({ files, currentFile, socketId }) => {
-		io.to(socketId).emit(MessageEvent.SYNC_FILES, {
-			files,
-			currentFile,
+	socket.on(
+		SocketEvent.SYNC_FILE_STRUCTURE,
+		({ fileStructure, socketId }) => {
+			io.to(socketId).emit(SocketEvent.SYNC_FILE_STRUCTURE, {
+				fileStructure,
+			})
+		}
+	)
+
+	socket.on(SocketEvent.DIRECTORY_CREATED, ({ parentDirId, newDirName }) => {
+		const roomId = getRoomId(socket.id)
+		if (!roomId) return
+		socket.broadcast
+			.to(roomId)
+			.emit(SocketEvent.DIRECTORY_CREATED, { parentDirId, newDirName })
+	})
+
+	socket.on(SocketEvent.DIRECTORY_UPDATED, ({ dirId, children }) => {
+		const roomId = getRoomId(socket.id)
+		if (!roomId) return
+		socket.broadcast.to(roomId).emit(SocketEvent.DIRECTORY_UPDATED, {
+			dirId,
+			children,
 		})
 	})
 
-	socket.on(MessageEvent.FILE_CREATED, ({ file }) => {
+	socket.on(SocketEvent.DIRECTORY_RENAMED, ({ dirId, newName }) => {
 		const roomId = getRoomId(socket.id)
 		if (!roomId) return
-		socket.broadcast.to(roomId).emit(MessageEvent.FILE_CREATED, { file })
+		socket.broadcast.to(roomId).emit(SocketEvent.DIRECTORY_RENAMED, {
+			dirId,
+			newName,
+		})
 	})
 
-	socket.on(MessageEvent.FILE_UPDATED, ({ file }) => {
+	socket.on(SocketEvent.DIRECTORY_DELETED, ({ dirId }) => {
 		const roomId = getRoomId(socket.id)
 		if (!roomId) return
-		socket.broadcast.to(roomId).emit(MessageEvent.FILE_UPDATED, { file })
+		socket.broadcast
+			.to(roomId)
+			.emit(SocketEvent.DIRECTORY_DELETED, { dirId })
 	})
 
-	socket.on(MessageEvent.FILE_RENAMED, ({ file }) => {
+	socket.on(SocketEvent.FILE_CREATED, ({ parentDirId, newFileName }) => {
 		const roomId = getRoomId(socket.id)
 		if (!roomId) return
-		socket.broadcast.to(roomId).emit(MessageEvent.FILE_RENAMED, { file })
+		socket.broadcast
+			.to(roomId)
+			.emit(SocketEvent.FILE_CREATED, { parentDirId, newFileName })
 	})
 
-	socket.on(MessageEvent.FILE_DELETED, ({ id }) => {
+	socket.on(SocketEvent.FILE_UPDATED, ({ fileId, newContent }) => {
 		const roomId = getRoomId(socket.id)
 		if (!roomId) return
-		socket.broadcast.to(roomId).emit(MessageEvent.FILE_DELETED, { id })
+		socket.broadcast.to(roomId).emit(SocketEvent.FILE_UPDATED, {
+			fileId,
+			newContent,
+		})
+	})
+
+	socket.on(SocketEvent.FILE_RENAMED, ({ fileId, newName }) => {
+		const roomId = getRoomId(socket.id)
+		if (!roomId) return
+		socket.broadcast.to(roomId).emit(SocketEvent.FILE_RENAMED, {
+			fileId,
+			newName,
+		})
+	})
+
+	socket.on(SocketEvent.FILE_DELETED, ({ fileId }) => {
+		const roomId = getRoomId(socket.id)
+		if (!roomId) return
+		socket.broadcast.to(roomId).emit(SocketEvent.FILE_DELETED, { fileId })
 	})
 
 	// Handle user status
-	socket.on(MessageEvent.USER_OFFLINE, ({ socketId }) => {
+	socket.on(SocketEvent.USER_OFFLINE, ({ socketId }) => {
 		userSocketMap = userSocketMap.map((user) => {
 			if (user.socketId === socketId) {
 				return { ...user, status: USER_CONNECTION_STATUS.OFFLINE }
@@ -134,12 +178,10 @@ io.on("connection", (socket) => {
 		})
 		const roomId = getRoomId(socketId)
 		if (!roomId) return
-		socket.broadcast
-			.to(roomId)
-			.emit(MessageEvent.USER_OFFLINE, { socketId })
+		socket.broadcast.to(roomId).emit(SocketEvent.USER_OFFLINE, { socketId })
 	})
 
-	socket.on(MessageEvent.USER_ONLINE, ({ socketId }) => {
+	socket.on(SocketEvent.USER_ONLINE, ({ socketId }) => {
 		userSocketMap = userSocketMap.map((user) => {
 			if (user.socketId === socketId) {
 				return { ...user, status: USER_CONNECTION_STATUS.ONLINE }
@@ -148,20 +190,20 @@ io.on("connection", (socket) => {
 		})
 		const roomId = getRoomId(socketId)
 		if (!roomId) return
-		socket.broadcast.to(roomId).emit(MessageEvent.USER_ONLINE, { socketId })
+		socket.broadcast.to(roomId).emit(SocketEvent.USER_ONLINE, { socketId })
 	})
 
 	// Handle chat actions
-	socket.on(MessageEvent.SEND_MESSAGE, ({ message }) => {
+	socket.on(SocketEvent.SEND_MESSAGE, ({ message }) => {
 		const roomId = getRoomId(socket.id)
 		if (!roomId) return
 		socket.broadcast
 			.to(roomId)
-			.emit(MessageEvent.RECEIVE_MESSAGE, { message })
+			.emit(SocketEvent.RECEIVE_MESSAGE, { message })
 	})
 
 	// Handle cursor position
-	socket.on(MessageEvent.TYPING_START, ({ cursorPosition }) => {
+	socket.on(SocketEvent.TYPING_START, ({ cursorPosition }) => {
 		userSocketMap = userSocketMap.map((user) => {
 			if (user.socketId === socket.id) {
 				return { ...user, typing: true, cursorPosition }
@@ -171,10 +213,10 @@ io.on("connection", (socket) => {
 		const user = getUserBySocketId(socket.id)
 		if (!user) return
 		const roomId = user.roomId
-		socket.broadcast.to(roomId).emit(MessageEvent.TYPING_START, { user })
+		socket.broadcast.to(roomId).emit(SocketEvent.TYPING_START, { user })
 	})
 
-	socket.on(MessageEvent.TYPING_PAUSE, () => {
+	socket.on(SocketEvent.TYPING_PAUSE, () => {
 		userSocketMap = userSocketMap.map((user) => {
 			if (user.socketId === socket.id) {
 				return { ...user, typing: false }
@@ -184,27 +226,27 @@ io.on("connection", (socket) => {
 		const user = getUserBySocketId(socket.id)
 		if (!user) return
 		const roomId = user.roomId
-		socket.broadcast.to(roomId).emit(MessageEvent.TYPING_PAUSE, { user })
+		socket.broadcast.to(roomId).emit(SocketEvent.TYPING_PAUSE, { user })
 	})
 
-	socket.on(MessageEvent.REQUEST_DRAWING, () => {
+	socket.on(SocketEvent.REQUEST_DRAWING, () => {
 		const roomId = getRoomId(socket.id)
 		if (!roomId) return
 		socket.broadcast
 			.to(roomId)
-			.emit(MessageEvent.REQUEST_DRAWING, { socketId: socket.id })
+			.emit(SocketEvent.REQUEST_DRAWING, { socketId: socket.id })
 	})
 
-	socket.on(MessageEvent.SYNC_DRAWING, ({ drawingData, socketId }) => {
+	socket.on(SocketEvent.SYNC_DRAWING, ({ drawingData, socketId }) => {
 		socket.broadcast
 			.to(socketId)
-			.emit(MessageEvent.SYNC_DRAWING, { drawingData })
+			.emit(SocketEvent.SYNC_DRAWING, { drawingData })
 	})
 
-	socket.on(MessageEvent.DRAWING_UPDATE, ({ snapshot }) => {
+	socket.on(SocketEvent.DRAWING_UPDATE, ({ snapshot }) => {
 		const roomId = getRoomId(socket.id)
 		if (!roomId) return
-		socket.broadcast.to(roomId).emit(MessageEvent.DRAWING_UPDATE, {
+		socket.broadcast.to(roomId).emit(SocketEvent.DRAWING_UPDATE, {
 			snapshot,
 		})
 	})

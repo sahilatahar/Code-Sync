@@ -57,12 +57,12 @@ body {
 /* Editor */
 
 .cm-editor {
-    max-height: 100vh;
+    max-height: 93vh;
 }
 
 .cm-editor .cm-scroller {
     font-family: "Space Mono", monospace;
-    min-height: 100vh; /* Set horizontal scrollbar at bottom*/
+    /* min-height: 100vh; */
 }
 
 select {
@@ -74,11 +74,11 @@ select {
 
 @media screen and (max-width: 768px) {
     .cm-editor {
-        max-height: calc(100vh - 60px);
+        max-height: calc(93vh - 60px);
     }
 
     .cm-editor .cm-scroller {
-        min-height: calc(100vh - 60px);
+        min-height: calc(93vh - 60px);
     }
 }
 

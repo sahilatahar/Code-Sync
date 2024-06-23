@@ -1,6 +1,6 @@
 import { useAppContext } from "@/context/AppContext"
 import { useSocket } from "@/context/SocketContext"
-import { MessageEvent } from "@/types/socket"
+import { SocketEvent } from "@/types/socket"
 import { USER_STATUS } from "@/types/user"
 import { ChangeEvent, FormEvent, useEffect, useRef } from "react"
 import { toast } from "react-hot-toast"
@@ -50,7 +50,7 @@ const FormComponent = () => {
         if (!validateForm()) return
         toast.loading("Joining room...")
         setStatus(USER_STATUS.ATTEMPTING_JOIN)
-        socket.emit(MessageEvent.JOIN_REQUEST, currentUser)
+        socket.emit(SocketEvent.JOIN_REQUEST, currentUser)
     }
 
     useEffect(() => {

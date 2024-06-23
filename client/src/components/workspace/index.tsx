@@ -4,7 +4,7 @@ import { ACTIVITY_STATE } from "@/types/app"
 import DrawingEditor from "../drawing/DrawingEditor"
 import EditorComponent from "../editor/EditorComponent"
 
-function index() {
+function WorkSpace() {
     const { viewHeight } = useWindowDimensions()
     const { activityState } = useAppContext()
 
@@ -22,4 +22,4 @@ function index() {
     )
 }
 
-export default index
+export default WorkSpace
