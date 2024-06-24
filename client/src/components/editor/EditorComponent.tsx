@@ -1,9 +1,12 @@
 import { useFileSystem } from "@/context/FileContext"
+import useResponsive from "@/hooks/useResponsive"
+import cn from "classnames"
 import Editor from "./Editor"
 import FileTab from "./FileTab"
 
 function EditorComponent() {
     const { openFiles } = useFileSystem()
+    const { minHeightReached } = useResponsive()
 
     if (openFiles.length <= 0) {
         return (
@@ -16,7 +19,12 @@ function EditorComponent() {
     }
 
     return (
-        <main className="flex h-[calc(100vh-50px)] w-full flex-col overflow-x-auto md:h-screen">
+        <main
+            className={cn("flex w-full flex-col overflow-x-auto md:h-screen", {
+                "h-[calc(100vh-50px)]": !minHeightReached,
+                "h-full": minHeightReached,
+            })}
+        >
             <FileTab />
             <Editor />
         </main>

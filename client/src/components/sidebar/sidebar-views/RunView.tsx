@@ -1,12 +1,12 @@
 import { useRunCode } from "@/context/RunCodeContext"
-import useWindowDimensions from "@/hooks/useWindowDimensions"
+import useResponsive from "@/hooks/useResponsive"
 import { ChangeEvent } from "react"
 import toast from "react-hot-toast"
 import { LuCopy } from "react-icons/lu"
 import { PiCaretDownBold } from "react-icons/pi"
 
 function RunView() {
-    const { viewHeight } = useWindowDimensions()
+    const { viewHeight } = useResponsive()
     const {
         setInput,
         output,

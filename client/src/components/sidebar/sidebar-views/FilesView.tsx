@@ -1,16 +1,15 @@
 import FileStructureView from "@/components/files/FileStructureView"
 import { useFileSystem } from "@/context/FileContext"
-import useWindowDimensions from "@/hooks/useWindowDimensions"
+import useResponsive from "@/hooks/useResponsive"
 import { FileSystemItem } from "@/types/file"
+import cn from "classnames"
 import { BiArchiveIn } from "react-icons/bi"
 import { TbFileUpload } from "react-icons/tb"
 import { v4 as uuidV4 } from "uuid"
-import cn from "classnames"
-import useResponsive from "@/hooks/useResponsive"
 
 function FilesView() {
     const { downloadFilesAndFolders, updateDirectory } = useFileSystem()
-    const { viewHeight } = useWindowDimensions()
+    const { viewHeight } = useResponsive()
     const { minHeightReached } = useResponsive()
 
     const handleOpenDirectory = async () => {

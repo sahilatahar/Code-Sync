@@ -1,7 +1,7 @@
 import Users from "@/components/common/Users"
 import { useAppContext } from "@/context/AppContext"
 import { useSocket } from "@/context/SocketContext"
-import useWindowDimensions from "@/hooks/useWindowDimensions"
+import useResponsive from "@/hooks/useResponsive"
 import { USER_STATUS } from "@/types/user"
 import toast from "react-hot-toast"
 import { GoSignOut } from "react-icons/go"
@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom"
 
 function UsersView() {
     const navigate = useNavigate()
-    const { viewHeight } = useWindowDimensions()
+    const { viewHeight } = useResponsive()
     const { setStatus } = useAppContext()
     const { socket } = useSocket()
 

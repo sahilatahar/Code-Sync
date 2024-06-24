@@ -1,9 +1,9 @@
 import ChatInput from "@/components/chats/ChatInput"
 import ChatList from "@/components/chats/ChatList"
-import useWindowDimensions from "@/hooks/useWindowDimensions"
+import useResponsive from "@/hooks/useResponsive"
 
 const ChatsView = () => {
-    const { viewHeight } = useWindowDimensions()
+    const { viewHeight } = useResponsive()
 
     return (
         <div

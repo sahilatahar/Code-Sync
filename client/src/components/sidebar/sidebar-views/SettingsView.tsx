@@ -1,6 +1,6 @@
 import Select from "@/components/common/Select"
 import { useSettings } from "@/context/SettingContext"
-import useWindowDimensions from "@/hooks/useWindowDimensions"
+import useResponsive from "@/hooks/useResponsive"
 import { editorFonts } from "@/resources/Fonts"
 import { editorThemes } from "@/resources/Themes"
 import { langNames } from "@uiw/codemirror-extensions-langs"
@@ -20,7 +20,7 @@ function SettingsView() {
         setShowGitHubCorner,
         resetSettings,
     } = useSettings()
-    const { viewHeight } = useWindowDimensions()
+    const { viewHeight } = useResponsive()
 
     const handleFontFamilyChange = (e: ChangeEvent<HTMLSelectElement>) =>
         setFontFamily(e.target.value)

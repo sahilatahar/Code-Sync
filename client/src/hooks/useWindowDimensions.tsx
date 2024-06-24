@@ -11,9 +11,6 @@ function useWindowDimensions() {
         height: window.innerHeight,
     })
     const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 768)
-    const viewHeight = isMobile
-        ? windowDimensions.height - 50
-        : windowDimensions.height
 
     useEffect(() => {
         const updateWindowDimensions = () => {
@@ -30,7 +27,7 @@ function useWindowDimensions() {
             window.removeEventListener("resize", updateWindowDimensions)
         }
     }, [])
-    return { ...windowDimensions, isMobile, viewHeight }
+    return { ...windowDimensions, isMobile }
 }
 
 export default useWindowDimensions

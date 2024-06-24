@@ -1,12 +1,12 @@
 import { useAppContext } from "@/context/AppContext"
+import { useFileSystem } from "@/context/FileContext"
 import { useSettings } from "@/context/SettingContext"
 import { useSocket } from "@/context/SocketContext"
 import usePageEvents from "@/hooks/usePageEvents"
-import useWindowDimensions from "@/hooks/useWindowDimensions"
+import useResponsive from "@/hooks/useResponsive"
 import { editorThemes } from "@/resources/Themes"
 import { FileSystemItem } from "@/types/file"
 import { SocketEvent } from "@/types/socket"
-import placeholder from "@/utils/editorPlaceholder"
 import { color } from "@uiw/codemirror-extensions-color"
 import { hyperLink } from "@uiw/codemirror-extensions-hyper-link"
 import { LanguageName, loadLanguage } from "@uiw/codemirror-extensions-langs"
@@ -18,14 +18,13 @@ import CodeMirror, {
 import { useEffect, useMemo, useState } from "react"
 import toast from "react-hot-toast"
 import { cursorTooltipBaseTheme, tooltipField } from "./tooltip"
-import { useFileSystem } from "@/context/FileContext"
 
 function Editor() {
     const { users, currentUser } = useAppContext()
     const { activeFile, setActiveFile } = useFileSystem()
     const { theme, language, fontSize } = useSettings()
     const { socket } = useSocket()
-    const { viewHeight } = useWindowDimensions()
+    const { viewHeight } = useResponsive()
     const [timeOut, setTimeOut] = useState(setTimeout(() => {}, 0))
     const filteredUsers = useMemo(
         () => users.filter((u) => u.username !== currentUser.username),
@@ -81,7 +80,6 @@ function Editor() {
 
     return (
         <CodeMirror
-            placeholder={placeholder(activeFile?.name || "")}
             theme={editorThemes[theme]}
             onChange={onCodeChange}
             value={activeFile?.content}
