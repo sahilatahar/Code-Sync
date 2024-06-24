@@ -14,13 +14,13 @@ Code Sync is a collaborative, real-time code editor where users can seamlessly c
 ## 🔮 Features
 
 -   💻 Real-time collaboration on code editing across multiple files
--   📁 Open, edit, save, and delete file functionalities
--   💾 Option to download files edited within the collaboration session
+-   📁 Create, open, edit, save, delete, and organize files and folders
+-   💾 Option to download the entire codebase as a zip file
 -   🚀 Unique room generation with room ID for collaboration
 -   🌍 Comprehensive language support for versatile programming
 -   🌈 Syntax highlighting for various file types with auto-language detection
 -   🚀 Code Execution: Users can execute the code directly within the collaboration environment, providing instant feedback and results.
--   ⏱️ Instant updates and synchronization of code changes across all files
+-   ⏱️ Instant updates and synchronization of code changes across all files and folders
 -   📣 Notifications for user join and leave events
 -   👥 User presence list of users currently in the collaboration session, including online/offline status indicators
 -   💬 Group chatting allows users to communicate in real-time while working on code.
