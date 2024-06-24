@@ -38,10 +38,12 @@ function Editor() {
 
         const file: FileSystemItem = { ...activeFile, content: code }
         setActiveFile(file)
-        socket.emit(SocketEvent.FILE_UPDATED, { file })
         const cursorPosition = view.state?.selection?.main?.head
         socket.emit(SocketEvent.TYPING_START, { cursorPosition })
-
+        socket.emit(SocketEvent.FILE_UPDATED, {
+            fileId: activeFile.id,
+            newContent: code,
+        })
         clearTimeout(timeOut)
 
         const newTimeOut = setTimeout(

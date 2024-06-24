@@ -3,18 +3,18 @@ import useWindowDimensions from "./useWindowDimensions"
 
 // This hook is used to hide sidebar when keyboard is open on mobile devices
 function useResponsive() {
-    const [showSidebar, setShowSidebar] = useState<boolean>(false)
+    const [minHeightReached, setMinHeightReached] = useState(false)
     const { height } = useWindowDimensions()
 
     useEffect(() => {
         if (height < 500) {
-            setShowSidebar(false)
+            setMinHeightReached(true)
         } else {
-            setShowSidebar(true)
+            setMinHeightReached(false)
         }
     }, [height])
 
-    return { showSidebar }
+    return { minHeightReached}
 }
 
 export default useResponsive

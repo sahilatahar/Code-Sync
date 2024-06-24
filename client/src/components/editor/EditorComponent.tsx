@@ -16,7 +16,7 @@ function EditorComponent() {
     }
 
     return (
-        <main className="flex h-screen w-full flex-col overflow-x-auto">
+        <main className="flex h-[calc(100vh-50px)] w-full flex-col overflow-x-auto md:h-screen">
             <FileTab />
             <Editor />
         </main>

@@ -1,7 +1,7 @@
 import SplitterComponent from "@/components/SplitterComponent"
 import ConnectionStatusPage from "@/components/connection/ConnectionStatusPage"
-import EditorComponent from "@/components/editor/EditorComponent"
 import Sidebar from "@/components/sidebar/Sidebar"
+import WorkSpace from "@/components/workspace"
 import { useAppContext } from "@/context/AppContext"
 import { useSocket } from "@/context/SocketContext"
 import useFullScreen from "@/hooks/useFullScreen"
@@ -50,7 +50,7 @@ function EditorPage() {
     return (
         <SplitterComponent>
             <Sidebar />
-            <EditorComponent />
+            <WorkSpace/>
         </SplitterComponent>
     )
 }

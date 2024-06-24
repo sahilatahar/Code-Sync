@@ -30,7 +30,7 @@ export function getCursorTooltips(users: RemoteUser[]) {
             strictSide: true,
             arrow: true,
             create: () => {
-                let dom = document.createElement("div")
+                const dom = document.createElement("div")
                 dom.className = "cm-tooltip-cursor"
                 dom.textContent = text
                 return { dom }

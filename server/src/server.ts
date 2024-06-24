@@ -22,6 +22,8 @@ const io = new Server(server, {
 	cors: {
 		origin: "*",
 	},
+	maxHttpBufferSize: 1e8,
+	pingTimeout: 60000,
 })
 
 let userSocketMap: User[] = []
@@ -95,20 +97,26 @@ io.on("connection", (socket) => {
 	// Handle file actions
 	socket.on(
 		SocketEvent.SYNC_FILE_STRUCTURE,
-		({ fileStructure, socketId }) => {
+		({ fileStructure, openFiles, activeFile, socketId }) => {
 			io.to(socketId).emit(SocketEvent.SYNC_FILE_STRUCTURE, {
 				fileStructure,
+				openFiles,
+				activeFile,
 			})
 		}
 	)
 
-	socket.on(SocketEvent.DIRECTORY_CREATED, ({ parentDirId, newDirName }) => {
-		const roomId = getRoomId(socket.id)
-		if (!roomId) return
-		socket.broadcast
-			.to(roomId)
-			.emit(SocketEvent.DIRECTORY_CREATED, { parentDirId, newDirName })
-	})
+	socket.on(
+		SocketEvent.DIRECTORY_CREATED,
+		({ parentDirId, newDirectory }) => {
+			const roomId = getRoomId(socket.id)
+			if (!roomId) return
+			socket.broadcast.to(roomId).emit(SocketEvent.DIRECTORY_CREATED, {
+				parentDirId,
+				newDirectory,
+			})
+		}
+	)
 
 	socket.on(SocketEvent.DIRECTORY_UPDATED, ({ dirId, children }) => {
 		const roomId = getRoomId(socket.id)
@@ -136,12 +144,12 @@ io.on("connection", (socket) => {
 			.emit(SocketEvent.DIRECTORY_DELETED, { dirId })
 	})
 
-	socket.on(SocketEvent.FILE_CREATED, ({ parentDirId, newFileName }) => {
+	socket.on(SocketEvent.FILE_CREATED, ({ parentDirId, newFile }) => {
 		const roomId = getRoomId(socket.id)
 		if (!roomId) return
 		socket.broadcast
 			.to(roomId)
-			.emit(SocketEvent.FILE_CREATED, { parentDirId, newFileName })
+			.emit(SocketEvent.FILE_CREATED, { parentDirId, newFile })
 	})
 
 	socket.on(SocketEvent.FILE_UPDATED, ({ fileId, newContent }) => {

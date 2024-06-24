@@ -69,7 +69,7 @@ function FileTab() {
 
     return (
         <div
-            className="flex w-full select-none gap-2 overflow-x-auto p-2 pb-0"
+            className="flex h-[50px] w-full select-none gap-2 overflow-x-auto p-2 pb-0"
             ref={fileTabRef}
         >
             {openFiles.map((file) => (

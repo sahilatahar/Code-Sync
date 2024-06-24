@@ -8,6 +8,7 @@ interface FileSystemItem {
     type: "file" | "directory"
     children?: FileSystemItem[]
     content?: FileContent
+    isOpen?: boolean
 }
 
 interface FileContext {
@@ -16,6 +17,8 @@ interface FileContext {
     activeFile: FileSystemItem | null
     setActiveFile: (file: FileSystemItem) => void
     closeFile: (fileId: Id) => void
+    toggleDirectory: (dirId: Id) => void
+    collapseDirectories: () => void
     createDirectory: (parentDirId: Id, name: FileName) => Id
     updateDirectory: (dirId: Id, children: FileSystemItem[]) => void
     renameDirectory: (dirId: Id, newName: FileName) => void

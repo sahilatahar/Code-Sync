@@ -24,7 +24,7 @@ export const useRunCode = () => {
 }
 
 const RunCodeContextProvider = ({ children }: { children: ReactNode }) => {
-    const { currentFile } = useFileSystem()
+    const { activeFile } = useFileSystem()
     const [input, setInput] = useState<string>("")
     const [output, setOutput] = useState<string>("")
     const [isRunning, setIsRunning] = useState<boolean>(false)
@@ -42,7 +42,7 @@ const RunCodeContextProvider = ({ children }: { children: ReactNode }) => {
                 setSupportedLanguages(languages.data)
             } catch (error: any) {
                 toast.error("Failed to fetch supported languages")
-                console.error(error?.response?.data)
+                if (error?.response?.data) console.error(error?.response?.data)
             }
         }
 
@@ -51,9 +51,9 @@ const RunCodeContextProvider = ({ children }: { children: ReactNode }) => {
 
     // Set the selected language based on the file extension
     useEffect(() => {
-        if (supportedLanguages.length === 0 || !currentFile?.name) return
+        if (supportedLanguages.length === 0 || !activeFile?.name) return
 
-        const extension = currentFile.name.split(".").pop()
+        const extension = activeFile.name.split(".").pop()
         if (extension) {
             const languageName = langMap.languages(extension)
             const language = supportedLanguages.find(
@@ -63,13 +63,13 @@ const RunCodeContextProvider = ({ children }: { children: ReactNode }) => {
             )
             if (language) setSelectedLanguage(language)
         } else setSelectedLanguage({ language: "", version: "", aliases: [] })
-    }, [currentFile?.name, supportedLanguages])
+    }, [activeFile?.name, supportedLanguages])
 
     const runCode = async () => {
         try {
             if (!selectedLanguage) {
                 return toast.error("Please select a language to run the code")
-            } else if (!currentFile) {
+            } else if (!activeFile) {
                 return toast.error("Please open a file to run the code")
             } else {
                 toast.loading("Running code...")
@@ -81,9 +81,7 @@ const RunCodeContextProvider = ({ children }: { children: ReactNode }) => {
             const response = await axiosInstance.post("/execute", {
                 language,
                 version,
-                files: [
-                    { name: currentFile.name, content: currentFile.content },
-                ],
+                files: [{ name: activeFile.name, content: activeFile.content }],
                 stdin: input,
             })
             if (response.data.run.stderr) {

@@ -19,12 +19,14 @@ import {
     RiFolderUploadLine,
 } from "react-icons/ri"
 import RenameView from "./RenameView"
+import useResponsive from "@/hooks/useResponsive"
 
 function FileStructureView() {
-    const { fileStructure, createFile, createDirectory } = useFileSystem()
+    const { fileStructure, createFile, createDirectory, collapseDirectories } =
+        useFileSystem()
     const explorerRef = useRef<HTMLDivElement | null>(null)
     const [selectedDirId, setSelectedDirId] = useState<Id | null>(null)
-    const [isAllDirCollapsed, setAllDirCollapsed] = useState<boolean>(false)
+    const { minHeightReached } = useResponsive()
 
     const handleClickOutside = (e: MouseEvent) => {
         if (
@@ -51,18 +53,10 @@ function FileStructureView() {
         }
     }
 
-    const collapseDirectories = () => {
-        setAllDirCollapsed(true)
-        setTimeout(() => setAllDirCollapsed(false), 100)
-    }
-
     const sortedFileStructure = sortFileSystemItem(fileStructure)
 
     return (
-        <div
-            onClick={handleClickOutside}
-            className="flex max-h-[80vh] flex-grow flex-col"
-        >
+        <div onClick={handleClickOutside} className="flex flex-grow flex-col">
             <div className="view-title flex justify-between">
                 <h2>Files</h2>
                 <div className="flex gap-2">
@@ -90,7 +84,13 @@ function FileStructureView() {
                 </div>
             </div>
             <div
-                className="max-h-[100%] min-h-[200px] flex-grow overflow-auto pr-2 sm:min-h-0"
+                className={cn(
+                    "min-h-[200px] flex-grow overflow-auto pr-2 sm:min-h-0",
+                    {
+                        "h-[calc(80vh-170px)]": !minHeightReached,
+                        "h-[85vh]": minHeightReached,
+                    },
+                )}
                 ref={explorerRef}
             >
                 {sortedFileStructure.children &&
@@ -99,7 +99,6 @@ function FileStructureView() {
                             key={item.id}
                             item={item}
                             setSelectedDirId={setSelectedDirId}
-                            isAllDirCollapsed={isAllDirCollapsed}
                         />
                     ))}
             </div>
@@ -110,23 +109,20 @@ function FileStructureView() {
 function Directory({
     item,
     setSelectedDirId,
-    isAllDirCollapsed,
 }: {
     item: FileSystemItem
     setSelectedDirId: (id: Id) => void
-    isAllDirCollapsed: boolean
 }) {
-    const [expand, setExpand] = useState(false)
     const [isEditing, setEditing] = useState<boolean>(false)
     const dirRef = useRef<HTMLDivElement | null>(null)
     const { coords, menuOpen, setMenuOpen } = useContextMenu({
         ref: dirRef,
     })
-    const { deleteDirectory } = useFileSystem()
+    const { deleteDirectory, toggleDirectory } = useFileSystem()
 
     const handleDirClick = (dirId: string) => {
         setSelectedDirId(dirId)
-        setExpand(!expand)
+        toggleDirectory(dirId)
     }
 
     const handleRenameDirectory = (e: MouseEvent) => {
@@ -145,13 +141,6 @@ function Directory({
             deleteDirectory(id)
         }
     }
-
-    // Collapse all directories when all directories are collapsed
-    useEffect(() => {
-        if (isAllDirCollapsed) {
-            setExpand(false)
-        }
-    }, [isAllDirCollapsed])
 
     // Add F2 key event listener to directory for renaming
     useEffect(() => {
@@ -186,7 +175,7 @@ function Directory({
                 onClick={() => handleDirClick(item.id)}
                 ref={dirRef}
             >
-                {expand ? (
+                {item.isOpen ? (
                     <AiOutlineFolderOpen size={24} className="mr-2 min-w-fit" />
                 ) : (
                     <AiOutlineFolder size={24} className="mr-2 min-w-fit" />
@@ -209,8 +198,8 @@ function Directory({
             </div>
             <div
                 className={cn(
-                    { hidden: !expand },
-                    { block: expand },
+                    { hidden: !item.isOpen },
+                    { block: item.isOpen },
                     { "pl-4": item.name !== "root" },
                 )}
             >
@@ -220,7 +209,6 @@ function Directory({
                             key={item.id}
                             item={item}
                             setSelectedDirId={setSelectedDirId}
-                            isAllDirCollapsed={isAllDirCollapsed}
                         />
                     ))}
             </div>

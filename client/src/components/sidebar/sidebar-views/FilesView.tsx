@@ -5,10 +5,13 @@ import { FileSystemItem } from "@/types/file"
 import { BiArchiveIn } from "react-icons/bi"
 import { TbFileUpload } from "react-icons/tb"
 import { v4 as uuidV4 } from "uuid"
+import cn from "classnames"
+import useResponsive from "@/hooks/useResponsive"
 
 function FilesView() {
     const { downloadFilesAndFolders, updateDirectory } = useFileSystem()
     const { viewHeight } = useWindowDimensions()
+    const { minHeightReached } = useResponsive()
 
     const handleOpenDirectory = async () => {
         if ("showDirectoryPicker" in window) {
@@ -50,6 +53,7 @@ function FilesView() {
                     name: entry.name,
                     type: "directory",
                     children: await readDirectory(entry),
+                    isOpen: false,
                 }
                 children.push(newDirectory)
             }
@@ -63,7 +67,11 @@ function FilesView() {
             style={{ height: viewHeight, maxHeight: viewHeight }}
         >
             <FileStructureView />
-            <div className="flex flex-col justify-end pt-2">
+            <div
+                className={cn(`flex flex-col justify-end pt-2 min-h-fit`, {
+                    hidden: minHeightReached,
+                })}
+            >
                 <hr />
                 <button
                     className="mt-2 flex w-full justify-start rounded-md p-2 transition-all hover:bg-darkHover"
