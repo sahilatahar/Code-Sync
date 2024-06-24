@@ -1,6 +1,4 @@
-<div align="center">
-    <img src="logo.png" alt="Logo">
-</div>
+![logo](https://github.com/sahilatahar/Code-Sync/assets/100127570/943f5a4b-188c-4061-b111-109d1beb33fb)
 
 A collaborative, real-time code editor where users can seamlessly code together. It provides a platform for multiple users to enter a room, share a unique room ID, and collaborate on code simultaneously.
 
