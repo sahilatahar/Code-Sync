@@ -6,6 +6,7 @@ import cn from "classnames"
 import { BiArchiveIn } from "react-icons/bi"
 import { TbFileUpload } from "react-icons/tb"
 import { v4 as uuidV4 } from "uuid"
+import { toast } from "react-hot-toast"
 
 function FilesView() {
     const { downloadFilesAndFolders, updateDirectory } = useFileSystem()
@@ -16,6 +17,7 @@ function FilesView() {
         if ("showDirectoryPicker" in window) {
             try {
                 const directoryHandle = await window.showDirectoryPicker()
+                toast.loading("Getting files and folders...")
                 const structure = await readDirectory(directoryHandle)
                 updateDirectory("", structure)
             } catch (error) {
@@ -67,7 +69,7 @@ function FilesView() {
         >
             <FileStructureView />
             <div
-                className={cn(`flex flex-col justify-end pt-2 min-h-fit`, {
+                className={cn(`flex min-h-fit flex-col justify-end pt-2`, {
                     hidden: minHeightReached,
                 })}
             >

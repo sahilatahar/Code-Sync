@@ -180,12 +180,16 @@ function FileContextProvider({ children }: { children: ReactNode }) {
             // Set the active file to null if it's in the directory being updated
             setActiveFile(null)
 
-            if (sendToSocket) {
-                socket.emit(SocketEvent.DIRECTORY_UPDATED, {
-                    dirId,
-                    children,
-                })
+            if (dirId === fileStructure.id) {
+                toast.dismiss()
+                toast.success("Files and folders updated")
             }
+
+            if (!sendToSocket) return
+            socket.emit(SocketEvent.DIRECTORY_UPDATED, {
+                dirId,
+                children,
+            })
         },
         [fileStructure.id, socket],
     )
@@ -661,6 +665,7 @@ function FileContextProvider({ children }: { children: ReactNode }) {
             setFileStructure(fileStructure)
             setOpenFiles(openFiles)
             setActiveFile(activeFile)
+            toast.dismiss()
         },
         [],
     )

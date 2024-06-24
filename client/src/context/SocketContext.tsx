@@ -70,6 +70,10 @@ const SocketProvider = ({ children }: { children: ReactNode }) => {
             setUsers(users)
             toast.dismiss()
             setStatus(USER_STATUS.JOINED)
+
+            if (users.length > 1) {
+                toast.loading("Syncing data, please wait...")
+            }
         },
         [setCurrentUser, setStatus, setUsers],
     )
@@ -79,7 +83,7 @@ const SocketProvider = ({ children }: { children: ReactNode }) => {
             toast.success(`${user.username} left the room`)
             setUsers(users.filter((u: User) => u.username !== user.username))
         },
-        [setUsers],
+        [setUsers, users],
     )
 
     const handleRequestDrawing = useCallback(
