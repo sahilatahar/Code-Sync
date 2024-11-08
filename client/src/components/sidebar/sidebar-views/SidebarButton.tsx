@@ -24,9 +24,11 @@ const ViewButton = ({ viewName, icon }: ViewButtonProps) => {
     return (
         <button
             onClick={() => handleViewClick(viewName)}
-            className="relative flex items-center justify-center"
+            className="relative flex items-center justify-center rounded transition-colors duration-200 ease-in-out hover:bg-[#3D404A] p-2" 
         >
-            {icon}
+            <div className="flex items-center justify-center">
+                {icon}
+            </div>
             {/* Show dot for new message in chat View Button */}
             {viewName === VIEWS.CHATS && isNewMessage && (
                 <div className="absolute right-0 top-0 h-3 w-3 rounded-full bg-primary"></div>
