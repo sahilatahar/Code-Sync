@@ -10,6 +10,19 @@ import { VIEWS } from "@/types/view"
 import { IoCodeSlash } from "react-icons/io5"
 import { MdOutlineDraw } from "react-icons/md"
 import cn from "classnames"
+import { Tooltip } from 'react-tooltip'
+import { useState } from 'react'
+
+//*Tooltip Styles
+const tooltipStyles = {
+    backgroundColor: '#e0e0e0',
+    padding: '8px 12px',
+    borderRadius: '6px',
+    color:'#000',
+    fontSize: '13px',
+    fontWeight:'500',
+    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+}
 
 function Sidebar() {
     const {
@@ -23,8 +36,10 @@ function Sidebar() {
     const { activityState, setActivityState } = useAppContext()
     const { socket } = useSocket()
     const { isMobile } = useWindowDimensions()
+    const [showTooltip, setShowTooltip] = useState(true)
 
     const changeState = () => {
+        setShowTooltip(false)
         if (activityState === ACTIVITY_STATE.CODING) {
             setActivityState(ACTIVITY_STATE.DRAWING)
             socket.emit(SocketEvent.REQUEST_DRAWING)
@@ -70,13 +85,33 @@ function Sidebar() {
 
                 {/* Button to change activity state coding or drawing */}
                 <div className="flex items-center justify-center">
-                    <button className="self-end  rounded transition-colors duration-200 ease-in-out hover:bg-[#3D404A] p-1" onClick={changeState}>
+                    <button className="self-end  rounded transition-colors duration-200 ease-in-out hover:bg-[#3D404A] p-2"
+                    onClick={changeState}
+                    onMouseEnter={() => setShowTooltip(true)}
+                    data-tooltip-id="activity-state-tooltip"
+                    data-tooltip-content={
+                            activityState === ACTIVITY_STATE.CODING 
+                                ? "Switch to Drawing Mode" 
+                                : "Switch to Coding Mode"
+                    }>
                         {activityState === ACTIVITY_STATE.CODING ? (
                             <MdOutlineDraw size={30} />
                         ) : (
                             <IoCodeSlash size={30} />
                         )}
                     </button>
+                    {showTooltip && (
+                        <Tooltip 
+                            id="activity-state-tooltip"
+                            place="right"
+                            offset={15}
+                            className="!z-50"
+                            style={tooltipStyles}
+                            noArrow={false}
+                            positionStrategy="fixed"
+                            float={true}
+                        />
+                    )}
                 </div>
             </div>
             <div
