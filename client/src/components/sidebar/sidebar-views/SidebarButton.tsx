@@ -2,33 +2,27 @@ import { useChatRoom } from "@/context/ChatContext"
 import { useViews } from "@/context/ViewContext"
 import { VIEWS } from "@/types/view"
 import { Tooltip } from 'react-tooltip'
-import { useState } from 'react'
+import { useState , useEffect } from 'react'
+import { tooltipStyles , buttonStyles } from "../tooltipStyles"
+import useWindowDimensions from "@/hooks/useWindowDimensions"
+
 
 interface ViewButtonProps {
     viewName: VIEWS
     icon: JSX.Element
 }
-//*Tooltip Styles
-const tooltipStyles = {
-    backgroundColor: '#e0e0e0',
-    padding: '8px 12px',
-    borderRadius: '6px',
-    color:'#000',
-    fontSize: '12px',
-    fontWeight:'500',
-    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-}
 
-const buttonStyles = {
-    base: "relative flex items-center justify-center rounded transition-colors duration-200 ease-in-out p-2",
-    hover: "hover:bg-[#3D404A]",
-}
 
 const ViewButton = ({ viewName, icon }: ViewButtonProps) => {
     const { activeView, setActiveView, isSidebarOpen, setIsSidebarOpen } =
         useViews()
     const { isNewMessage } = useChatRoom()
+    const { width } = useWindowDimensions()  // Get the screen width from the hook
     const [showTooltip, setShowTooltip] = useState(true)
+
+    useEffect(() => {
+        setShowTooltip(width > 1024)
+    }, [width])
 
     const handleViewClick = (viewName: VIEWS) => {
         if (viewName === activeView) {
@@ -39,14 +33,17 @@ const ViewButton = ({ viewName, icon }: ViewButtonProps) => {
         }
     }
 
+
     return (
         <div className="relative flex items-center flex-col">
         <button
             onClick={() => handleViewClick(viewName)}
             onMouseEnter={() => setShowTooltip(true)} // Show tooltip again on hover
             className={`${buttonStyles.base} ${buttonStyles.hover}`}
-            data-tooltip-id={`tooltip-${viewName}`}
-            data-tooltip-content={viewName}
+            {...(showTooltip && {
+                'data-tooltip-id': `tooltip-${viewName}`,
+                'data-tooltip-content': viewName
+            })}
         >
             <div className="flex items-center justify-center">
                 {icon}

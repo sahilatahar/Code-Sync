@@ -12,17 +12,7 @@ import { MdOutlineDraw } from "react-icons/md"
 import cn from "classnames"
 import { Tooltip } from 'react-tooltip'
 import { useState } from 'react'
-
-//*Tooltip Styles
-const tooltipStyles = {
-    backgroundColor: '#e0e0e0',
-    padding: '8px 12px',
-    borderRadius: '6px',
-    color:'#000',
-    fontSize: '13px',
-    fontWeight:'500',
-    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-}
+import { tooltipStyles } from "./tooltipStyles"
 
 function Sidebar() {
     const {
@@ -56,7 +46,7 @@ function Sidebar() {
         <aside className="flex w-full md:h-full md:max-h-full md:min-h-full md:w-auto">
             <div
                 className={cn(
-                    "fixed bottom-0 left-0 z-50 flex h-[50px] w-full gap-6 self-end overflow-auto border-t border-darkHover bg-dark p-3 md:static md:h-full md:w-[50px] md:min-w-[50px] md:flex-col md:border-r md:border-t-0 md:p-2 md:pt-4",
+                    "fixed bottom-0 left-0 z-50 flex h-[50px] w-full gap-4 self-end overflow-hidden border-t border-darkHover bg-dark p-2 md:static md:h-full md:w-[50px] md:min-w-[50px] md:flex-col md:border-r md:border-t-0 md:p-2 md:pt-4",
                     {
                         hidden: minHeightReached,
                     },
@@ -84,8 +74,8 @@ function Sidebar() {
                 />
 
                 {/* Button to change activity state coding or drawing */}
-                <div className="flex items-center justify-center">
-                    <button className="self-end  rounded transition-colors duration-200 ease-in-out hover:bg-[#3D404A] p-2"
+                <div className="flex items-center justify-center h-fit">
+                    <button className="flex items-center justify-cente  rounded transition-colors duration-200 ease-in-out hover:bg-[#3D404A] p-1.5"
                     onClick={changeState}
                     onMouseEnter={() => setShowTooltip(true)}
                     data-tooltip-id="activity-state-tooltip"
@@ -115,7 +105,7 @@ function Sidebar() {
                 </div>
             </div>
             <div
-                className="absolute left-0 top-0 z-20 w-full flex-grow flex-col bg-dark md:static md:w-[300px]"
+                className="absolute left-0 top-0 z-20 w-full flex-col bg-dark md:static md:w-[300px]"
                 style={isSidebarOpen ? {} : { display: "none" }}
             >
                 {/* Render the active view component */}
