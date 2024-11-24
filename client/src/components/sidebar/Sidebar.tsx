@@ -105,7 +105,7 @@ function Sidebar() {
                 </div>
             </div>
             <div
-                className="absolute left-0 top-0 z-20 w-full flex-col bg-dark md:static md:w-[300px]"
+                className="absolute left-0 top-0 z-20 w-full flex-col bg-dark md:static md:min-w-[300px]"
                 style={isSidebarOpen ? {} : { display: "none" }}
             >
                 {/* Render the active view component */}
