@@ -100,7 +100,7 @@ function FilesView() {
         const children: FileSystemItem[] = []
         const blackList = ["node_modules", ".git", ".vscode", ".next"]
 
-        for (let i = 0 i < files.length i++) {
+        for (let i = 0; i < files.length; i++) {
             const file = files[i]
             const pathParts = file.webkitRelativePath.split("/")
 
