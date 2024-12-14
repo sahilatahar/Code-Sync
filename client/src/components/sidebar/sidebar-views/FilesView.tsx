@@ -1,4 +1,4 @@
-import  { useState } from "react"
+import React, { useState } from "react"
 import FileStructureView from "@/components/files/FileStructureView"
 import { useFileSystem } from "@/context/FileContext"
 import useResponsive from "@/hooks/useResponsive"
@@ -19,27 +19,33 @@ function FilesView() {
         try {
             setIsLoading(true)
 
-            // Modern browser support (Chrome, Edge, etc.)
+            // Check for modern API support
             if ("showDirectoryPicker" in window) {
                 const directoryHandle = await window.showDirectoryPicker()
                 await processDirectoryHandle(directoryHandle)
                 return
             }
 
-            // Fallback for browsers without File System Access API
-            const fileInput = document.createElement("input")
-            fileInput.type = "file"
-            fileInput.webkitdirectory = true
+            // Fallback for browsers without `showDirectoryPicker`
+            if ("webkitdirectory" in HTMLInputElement.prototype) {
+                const fileInput = document.createElement("input")
+                fileInput.type = "file"
+                fileInput.webkitdirectory = true
 
-            fileInput.onchange = async (e) => {
-                const files = (e.target as HTMLInputElement).files
-                if (files) {
-                    const structure = await readFileList(files)
-                    updateDirectory("", structure)
+                fileInput.onchange = async (e) => {
+                    const files = (e.target as HTMLInputElement).files
+                    if (files) {
+                        const structure = await readFileList(files)
+                        updateDirectory("", structure)
+                    }
                 }
+
+                fileInput.click()
+                return
             }
 
-            fileInput.click()
+            // Notify if neither API is supported
+            toast.error("Your browser does not support directory selection.")
         } catch (error) {
             console.error("Error opening directory:", error)
             toast.error("Failed to open directory")
@@ -95,7 +101,6 @@ function FilesView() {
         return children
     }
 
-    // Fallback method for browsers without File System Access API
     const readFileList = async (files: FileList): Promise<FileSystemItem[]> => {
         const children: FileSystemItem[] = []
         const blackList = ["node_modules", ".git", ".vscode", ".next"]
@@ -104,10 +109,8 @@ function FilesView() {
             const file = files[i]
             const pathParts = file.webkitRelativePath.split("/")
 
-            // Skip files in blacklisted directories
             if (pathParts.some((part) => blackList.includes(part))) continue
 
-            // Handle directory structure
             if (pathParts.length > 1) {
                 const directoryPath = pathParts.slice(0, -1).join("/")
                 const directoryIndex = children.findIndex(
@@ -127,7 +130,6 @@ function FilesView() {
                     children.push(newDirectory)
                 }
 
-                // Add file to directory
                 const newFile: FileSystemItem = {
                     id: uuidV4(),
                     name: file.name,
@@ -144,7 +146,6 @@ function FilesView() {
                     targetDirectory.children.push(newFile)
                 }
             } else {
-                // Handle root-level files
                 const newFile: FileSystemItem = {
                     id: uuidV4(),
                     name: file.name,
@@ -157,12 +158,13 @@ function FilesView() {
         return children
     }
 
-    // Safely read file content with size limit
     const readFileContent = async (file: File): Promise<string> => {
-        const MAX_FILE_SIZE = 1024 * 1024 // 1MB limit
+        const MAX_FILE_SIZE = 1024 * 1024; // 1MB limit
 
         if (file.size > MAX_FILE_SIZE) {
-            return `File too large: ${file.name} (${Math.round(file.size / 1024)}KB)`
+            return `File too large: ${file.name} (${Math.round(
+                file.size / 1024,
+            )}KB)`
         }
 
         try {
