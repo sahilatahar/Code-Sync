@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import FileStructureView from "@/components/files/FileStructureView";
 import { useFileSystem } from "@/context/FileContext";
 import useResponsive from "@/hooks/useResponsive";
