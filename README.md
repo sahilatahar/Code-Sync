@@ -11,22 +11,22 @@ A collaborative, real-time code editor where users can seamlessly code together.
 
 ## 🔮 Features
 
--   💻 Real-time collaboration on code editing across multiple files
--   📁 Create, open, edit, save, delete, and organize files and folders
--   💾 Option to download the entire codebase as a zip file
--   🚀 Unique room generation with room ID for collaboration
--   🌍 Comprehensive language support for versatile programming
--   🌈 Syntax highlighting for various file types with auto-language detection
--   🚀 Code Execution: Users can execute the code directly within the collaboration environment, providing instant feedback and results.
--   ⏱️ Instant updates and synchronization of code changes across all files and folders
--   📣 Notifications for user join and leave events
--   👥 User presence list of users currently in the collaboration session, including online/offline status indicators
--   💬 Group chatting allows users to communicate in real-time while working on code.
--   🎩 Real-time tooltip displaying users currently editing
--   💡 Auto suggestion based on programming language
--   🔠 Option to change font size and font family
--   🎨 Multiple themes for personalized coding experience
--   🎨 Collaborative Drawing: Enable users to draw and sketch collaboratively in real-time, enhancing the interactive experience of your project.
+- 💻 Real-time collaboration on code editing across multiple files
+- 📁 Create, open, edit, save, delete, and organize files and folders
+- 💾 Option to download the entire codebase as a zip file
+- 🚀 Unique room generation with room ID for collaboration
+- 🌍 Comprehensive language support for versatile programming
+- 🌈 Syntax highlighting for various file types with auto-language detection
+- 🚀 Code Execution: Users can execute the code directly within the collaboration environment
+- ⏱️ Instant updates and synchronization of code changes across all files and folders
+- 📣 Notifications for user join and leave events
+- 👥 User presence list with online/offline status indicators
+- 💬 Real-time group chatting functionality
+- 🎩 Real-time tooltip displaying users currently editing
+- 💡 Auto suggestion based on programming language
+- 🔠 Option to change font size and font family
+- 🎨 Multiple themes for personalized coding experience
+- 🎨 Collaborative Drawing: Enable users to draw and sketch collaboratively in real-time
 
 ## 🚀 Live Preview
 
@@ -47,59 +47,94 @@ You can view the live preview of the project [here](https://code-sync-live.verce
 
 ## ⚙️ Installation
 
-1. **Fork this repository:** Click the Fork button located in the top-right corner of this page to fork the repository.
+### Method 1: Manual Installation
+
+1. **Fork this repository:** Click the Fork button located in the top-right corner of this page.
 2. **Clone the repository:**
-    ```bash
-    git clone https://github.com/<your-username>/Code-Sync.git
-    ```
+   ```bash
+   git clone https://github.com/<your-username>/Code-Sync.git
+   ```
 3. **Set .env file:**
-   Inside the client and server directories rename the `.env.example` file to `.env` and set the following environment variables:
+   Inside the client and server directories rename the `.env.example` file to `.env` and set:
 
-    Frontend:
+   Frontend:
 
-    ```bash
-    VITE_BACKEND_URL=<your_server_url>
-    ```
+   ```bash
+   VITE_BACKEND_URL=<your_server_url>
+   ```
 
-    Backend:
+   Backend:
 
-    ```bash
-    PORT=3000
-    ```
+   ```bash
+   PORT=3000
+   ```
 
 4. **Install dependencies:**
-   Navigate to the frontend and backend directories separately and run:
-    ```bash
-     npm install
-    ```
-5. **Start the frontend and backend servers:**  
+   ```bash
+   npm install     # Run in both client and server directories
+   ```
+5. **Start the servers:**  
    Frontend:
-    ```bash
-    cd client
-    npm run dev
-    ```
-    Backend:
-    ```bash
-    cd server
-    npm run dev
-    ```
+   ```bash
+   cd client
+   npm run dev
+   ```
+   Backend:
+   ```bash
+   cd server
+   npm run dev
+   ```
 6. **Access the application:**
-   Open a browser and enter the following URL:
-    ```bash
-    http://localhost:5173/
-    ```
+   ```bash
+   http://localhost:5173/
+   ```
+
+### Method 2: Docker Installation
+
+1. **Install Docker Desktop:**
+
+   - Download and install Docker Desktop from [https://www.docker.com/products/docker-desktop/](https://www.docker.com/products/docker-desktop/)
+   - Verify installation:
+     ```bash
+     docker --version
+     ```
+
+2. **Pull Docker Images:**
+
+   ```bash
+   # Pull Backend Image
+   docker pull chandankumar55/code_sync-backend:tagname
+
+   # Pull Frontend Image
+   docker pull chandankumar55/code_sync-frontend:tagname
+   ```
+
+3. **Run Docker Containers:**
+
+   ```bash
+   # Run Backend Container (Port 3000)
+   docker run -p 3000:3000 chandankumar55/code_sync-backend:tagname
+
+   # Run Frontend Container (Port 5173)
+   docker run -p 5173:5173 chandankumar55/code_sync-frontend:tagname
+   ```
+
+4. **Access the application:**
+   ```bash
+   http://localhost:5173/
+   ```
 
 ## 🔮 Features for next release
 
--   **Admin Permission:** Implement an admin permission system to manage user access levels and control over certain platform features.
+- **Admin Permission:** Implement an admin permission system to manage user access levels and control over certain platform features.
 
 ## 🤝 Contribute
 
-We welcome contributions to make Code Sync even better! Whether you're reporting a bug, suggesting a new feature, or fixing a typo, your input is valuable to us. Follow the [contribution guidelines](CONTRIBUTING.md) to get started.
+We welcome contributions to make Code Sync even better! Follow the [contribution guidelines](CONTRIBUTING.md) to get started.
 
 ## 🌟 Support Us
 
-If you find this helpful or valuable, please consider 🌟 starring the repository. It helps us gain visibility and encourages further development. We appreciate your support!
+If you find this helpful or valuable, please consider 🌟 starring the repository. It helps us gain visibility and encourages further development.
 
 ## 🧾 License
 
@@ -107,15 +142,16 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## 🌟 Appreciation for Resources
 
-Special thanks to EMKC for providing the Piston API, enabling code execution. For more information, visit the following links:
+Special thanks to:
 
--   [Piston Repository](https://github.com/engineer-man/piston)
--   [Piston Docs](https://piston.readthedocs.io/en/latest/api-v2/)
+- EMKC for providing the Piston API:
 
-Also, huge gratitude to Tldraw contributors for their amazing library. For more information about Tldraw, please visit:
+  - [Piston Repository](https://github.com/engineer-man/piston)
+  - [Piston Docs](https://piston.readthedocs.io/en/latest/api-v2/)
 
--   [Tldraw Repository](https://github.com/tldraw/tldraw)
--   [Tldraw Documentation](https://tldraw.dev/)
+- Tldraw contributors:
+  - [Tldraw Repository](https://github.com/tldraw/tldraw)
+  - [Tldraw Documentation](https://tldraw.dev/)
 
 ## ✍️ About Developer
 
@@ -132,11 +168,11 @@ Also, huge gratitude to Tldraw contributors for their amazing library. For more 
         <td align="center">
             <a href="https://github.com/sahilatahar">
             <img src="https://img.shields.io/badge/GitHub-100000.svg?style=for-the-badge&logo=github&logoColor=white"/>
-        </a>
-        <br/>
-        <a href="https://linkedin.com/in/sahilatahar">
+            </a>
+            <br/>
+            <a href="https://linkedin.com/in/sahilatahar">
             <img src="https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white"/>
-        </a>
+            </a>
         </td>
     </tr>
   </tbody>
