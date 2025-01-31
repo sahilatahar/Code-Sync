@@ -14,7 +14,7 @@ import {
     useMemo,
 } from "react"
 import { toast } from "react-hot-toast"
-import { Socket, io } from "socket.io-client"
+import { io } from "socket.io-client"
 import { useAppContext } from "./AppContext"
 
 const SocketContext = createContext<SocketContextType | null>(null)
@@ -38,13 +38,20 @@ const SocketProvider = ({ children }: { children: ReactNode }) => {
         drawingData,
         setDrawingData,
     } = useAppContext()
-    const socket: Socket = useMemo(
-        () =>
-            io(BACKEND_URL, {
-                reconnectionAttempts: 2,
-            }),
-        [],
-    )
+    const socket = useMemo(() => {
+        console.log("Connecting to backend URL:", BACKEND_URL)
+        return io(BACKEND_URL, {
+            transports: ["polling", "websocket"],
+            withCredentials: true,
+            forceNew: true,
+            timeout: 10000,
+            autoConnect: true,
+            reconnection: true,
+            path: "/socket.io/",
+            reconnectionAttempts: 5,
+            reconnectionDelay: 1000,
+        })
+    }, [BACKEND_URL])
 
     const handleError = useCallback(
         (err: any) => {

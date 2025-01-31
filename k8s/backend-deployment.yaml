@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: code-sync-backend:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          resources:
+            requests:
+              cpu: '200m'
+              memory: '256Mi'
+            limits:
+              cpu: '500m'
+              memory: '512Mi'
+          env:
+            - name: PORT
+              value: '3000'
+            - name: NODE_ENV
+              value: 'production'
+            - name: CORS_ORIGIN
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: frontend_url
+            - name: WS_ENABLED
+              value: 'true'
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  type: NodePort
+  ports:
+    - port: 3000
+      targetPort: 3000
+      nodePort: 30002
+      protocol: TCP
+  selector:
+    app: backend

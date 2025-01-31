@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: code-sync-frontend:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5173
+          resources:
+            requests:
+              cpu: '500m'
+              memory: '512Mi'
+            limits:
+              cpu: '1000m'
+              memory: '1Gi'
+          env:
+            - name: VITE_BACKEND_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: backend_url
+            - name: NODE_OPTIONS
+              value: '--max-old-space-size=512'
+            - name: NODE_ENV
+              value: 'production'
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  type: NodePort
+  ports:
+    - port: 5173
+      targetPort: 5173
+      nodePort: 30001
+  selector:
+    app: frontend

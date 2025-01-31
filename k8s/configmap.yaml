@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  backend_url: 'http://192.168.49.2:30002'
+  frontend_url: 'http://192.168.49.2:30001'
