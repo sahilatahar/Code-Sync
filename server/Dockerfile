@@ -21,6 +21,7 @@ WORKDIR /app
 
 # Copy the `dist` folder from the builder stage
 COPY --from=builder /build/dist dist/
+COPY --from=builder /build/public public/
 COPY --from=builder /build/node_modules /node_modules
 COPY --from=builder /build/package*.json .
 

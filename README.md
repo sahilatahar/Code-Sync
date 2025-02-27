@@ -93,7 +93,7 @@ You can view the live preview of the project [here](https://code-sync-live.verce
 
 1. **Install Docker Desktop:**
 
-   - Download and install Docker Desktop from [https://www.docker.com/products/docker-desktop/](https://www.docker.com/products/docker-desktop/)
+   - Download and install **Docker Desktop** from [Docker’s official website](https://www.docker.com/products/docker-desktop/).
    - Verify installation:
      ```bash
      docker --version
@@ -113,10 +113,10 @@ You can view the live preview of the project [here](https://code-sync-live.verce
 
    ```bash
    # Run Backend Container (Port 3000)
-   docker run -p 3000:3000 sahilatahar/code-sync-server:latest
+   docker run -d -p 3000:3000 --name code-sync-server sahilatahar/code-sync-server:latest
 
    # Run Frontend Container (Port 5173)
-   docker run -p 5173:5173 sahilatahar/code-sync-client::latest
+   docker run -d -p 5173:5173 --name code-sync-client sahilatahar/code-sync-client:latest
    ```
 
 4. **Access the application:**
