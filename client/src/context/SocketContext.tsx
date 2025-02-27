@@ -1,7 +1,7 @@
 import { DrawingData } from "@/types/app"
 import {
-    SocketEvent,
     SocketContext as SocketContextType,
+    SocketEvent,
     SocketId,
 } from "@/types/socket"
 import { RemoteUser, USER_STATUS, User } from "@/types/user"
@@ -27,7 +27,7 @@ export const useSocket = (): SocketContextType => {
     return context
 }
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000"
 
 const SocketProvider = ({ children }: { children: ReactNode }) => {
     const {
@@ -47,6 +47,7 @@ const SocketProvider = ({ children }: { children: ReactNode }) => {
     )
 
     const handleError = useCallback(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (err: any) => {
             console.log("socket error", err)
             setStatus(USER_STATUS.CONNECTION_FAILED)

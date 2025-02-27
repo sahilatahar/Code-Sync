@@ -1,36 +1,34 @@
-version: '3.8'
-
 services:
-  backend:
-    build: 
+  server:
+    container_name: code-sync-server
+    build:
       context: ./server
       dockerfile: Dockerfile
-    env_file:
-      - ./server/.env
+      target: runner
     volumes:
       - ./server:/app
-      - /app/node_modules
+      - /build/node_modules
     networks:
-      - Code_Sync
+      - Code-Sync
     ports:
       - "3000:3000"
-    command: npm run dev
 
-  frontend:
-    build: 
+  client:
+    container_name: code-sync-client
+    build:
       context: ./client
       dockerfile: Dockerfile
+      target: runner
     volumes:
       - ./client:/app
-      - /app/node_modules
+      - /build/node_modules
     networks:
-      - Code_Sync
+      - Code-Sync
     ports:
       - "5173:5173"
     depends_on:
-      - backend
-    command: npm run dev -- --host
+      - server
 
 networks:
-  Code_Sync:
+  Code-Sync:
     driver: bridge

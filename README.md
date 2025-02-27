@@ -73,7 +73,7 @@ You can view the live preview of the project [here](https://code-sync-live.verce
    ```bash
    npm install     # Run in both client and server directories
    ```
-5. **Start the servers:**  
+5. **Start the servers:**
    Frontend:
    ```bash
    cd client
@@ -103,20 +103,20 @@ You can view the live preview of the project [here](https://code-sync-live.verce
 
    ```bash
    # Pull Backend Image
-   docker pull chandankumar55/code_sync-backend:tagname
+   docker pull sahilatahar/code-sync-server:latest
 
    # Pull Frontend Image
-   docker pull chandankumar55/code_sync-frontend:tagname
+   docker pull sahilatahar/code-sync-client:latest
    ```
 
 3. **Run Docker Containers:**
 
    ```bash
    # Run Backend Container (Port 3000)
-   docker run -p 3000:3000 chandankumar55/code_sync-backend:tagname
+   docker run -p 3000:3000 sahilatahar/code-sync-server:latest
 
    # Run Frontend Container (Port 5173)
-   docker run -p 5173:5173 chandankumar55/code_sync-frontend:tagname
+   docker run -p 5173:5173 sahilatahar/code-sync-client::latest
    ```
 
 4. **Access the application:**
@@ -124,9 +124,10 @@ You can view the live preview of the project [here](https://code-sync-live.verce
    http://localhost:5173/
    ```
 
-## 🔮 Features for next release
+## 🔮 Features for Next Release
 
 - **Admin Permission:** Implement an admin permission system to manage user access levels and control over certain platform features.
+- **AI Code Generator:** Integrate AI-powered code generation for smarter and more efficient development.
 
 ## 🤝 Contribute
 
