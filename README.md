@@ -27,6 +27,7 @@ A collaborative, real-time code editor where users can seamlessly code together.
 - 🔠 Option to change font size and font family
 - 🎨 Multiple themes for personalized coding experience
 - 🎨 Collaborative Drawing: Enable users to draw and sketch collaboratively in real-time
+- 🤖 Copilot: An AI-powered assistant that generates code, allowing you to insert, copy, or replace content seamlessly within your files.
 
 ## 🚀 Live Preview
 
@@ -44,6 +45,7 @@ You can view the live preview of the project [here](https://code-sync-live.verce
 ![Git](https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white)
 ![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 
 ## ⚙️ Installation
 
@@ -127,7 +129,6 @@ You can view the live preview of the project [here](https://code-sync-live.verce
 ## 🔮 Features for Next Release
 
 - **Admin Permission:** Implement an admin permission system to manage user access levels and control over certain platform features.
-- **AI Code Generator:** Integrate AI-powered code generation for smarter and more efficient development.
 
 ## 🤝 Contribute
 
@@ -153,6 +154,10 @@ Special thanks to:
 - Tldraw contributors:
   - [Tldraw Repository](https://github.com/tldraw/tldraw)
   - [Tldraw Documentation](https://tldraw.dev/)
+
+- Pollinations AI:
+  - [Pollinations Repository](https://github.com/pollinations/pollinations)
+  - [Pollinations Docs](https://pollinations.ai/)
 
 ## ✍️ About Developer
 

@@ -1,4 +1,4 @@
-import axiosInstance from "@/api/"
+import axiosInstance from "@/api/pistonApi"
 import { Language, RunContext as RunContextType } from "@/types/run"
 import langMap from "lang-map"
 import {
