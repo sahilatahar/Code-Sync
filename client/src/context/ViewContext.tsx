@@ -23,7 +23,7 @@ export const useViews = (): ViewContextType => {
 
 function ViewContextProvider({ children }: { children: ReactNode }) {
     const { isMobile } = useWindowDimensions()
-    const [activeView, setActiveView] = useState<VIEWS>(VIEWS.COPILOT)
+    const [activeView, setActiveView] = useState<VIEWS>(VIEWS.FILES)
     const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(!isMobile)
     const [viewComponents] = useState({
         [VIEWS.FILES]: <FilesView />,
