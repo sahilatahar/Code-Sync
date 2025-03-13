@@ -56,8 +56,8 @@ You can view the live preview of the project [here](https://code-sync-live.verce
    ```bash
    git clone https://github.com/<your-username>/Code-Sync.git
    ```
-3. **Set .env file:**
-   Inside the client and server directories rename the `.env.example` file to `.env` and set:
+3. **Create .env file:**
+   Inside the client and server directories create `.env` and set:
 
    Frontend:
 
