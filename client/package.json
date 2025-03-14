@@ -15,7 +15,7 @@
         "@uiw/codemirror-extensions-langs": "^4.21.21",
         "@uiw/codemirror-themes-all": "^4.21.21",
         "@uiw/react-codemirror": "^4.21.21",
-        "axios": "^1.7.4",
+        "axios": "^1.8.2",
         "classnames": "^2.5.1",
         "codemirror": "^6.0.1",
         "file-saver": "^2.0.5",
