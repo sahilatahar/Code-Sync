@@ -86,11 +86,18 @@ const FormComponent = () => {
             socket.disconnect()
             socket.connect()
         }
-    }, [currentUser, location.state?.redirect, navigate, setStatus, socket, status])
+    }, [
+        currentUser,
+        location.state?.redirect,
+        navigate,
+        setStatus,
+        socket,
+        status,
+    ])
 
     return (
         <div className="flex w-full max-w-[500px] flex-col items-center justify-center gap-4 p-4 sm:w-[500px] sm:p-8">
-            <img src={logo} alt="Logo" className="w-full"/>
+            <img src={logo} alt="Logo" className="w-full" />
             <form onSubmit={joinRoom} className="flex w-full flex-col gap-4">
                 <input
                     type="text"
