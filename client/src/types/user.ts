@@ -7,6 +7,14 @@ interface User {
     username: string
     roomId: string
 }
+export interface IUserDTO {
+    _id: string
+    username: string
+    email: string
+    avatarUrl?: string
+    createdAt: string
+    updatedAt: string
+}
 
 interface RemoteUser extends User {
     status: USER_CONNECTION_STATUS
