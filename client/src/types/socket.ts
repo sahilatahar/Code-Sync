@@ -22,6 +22,7 @@ enum SocketEvent {
     RECEIVE_MESSAGE = "receive-message",
     TYPING_START = "typing-start",
     TYPING_PAUSE = "typing-pause",
+    CURSOR_MOVE = "cursor-move",
     USERNAME_EXISTS = "username-exists",
     REQUEST_DRAWING = "request-drawing",
     SYNC_DRAWING = "sync-drawing",

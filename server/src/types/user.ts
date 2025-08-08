@@ -11,6 +11,8 @@ interface User {
 	typing: boolean
 	currentFile: string | null
 	socketId: string
+	selectionStart?: number
+	selectionEnd?: number
 }
 
 export { USER_CONNECTION_STATUS, User }

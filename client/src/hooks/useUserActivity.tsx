@@ -74,6 +74,7 @@ function useUserActivity() {
         socket.on(SocketEvent.USER_OFFLINE, handleUserOffline)
         socket.on(SocketEvent.TYPING_START, handleUserTyping)
         socket.on(SocketEvent.TYPING_PAUSE, handleUserTyping)
+        socket.on(SocketEvent.CURSOR_MOVE, handleUserTyping)
 
         return () => {
             document.removeEventListener(
@@ -85,6 +86,7 @@ function useUserActivity() {
             socket.off(SocketEvent.USER_OFFLINE)
             socket.off(SocketEvent.TYPING_START)
             socket.off(SocketEvent.TYPING_PAUSE)
+            socket.off(SocketEvent.CURSOR_MOVE)
         }
     }, [
         socket,
