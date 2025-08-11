@@ -18,7 +18,6 @@ import CodeMirror, {
 import { EditorView } from "@codemirror/view"
 import { useEffect, useMemo, useState, useRef, useCallback } from "react"
 import toast from "react-hot-toast"
-import { cursorTooltipBaseTheme, tooltipField } from "./tooltip"
 import { collaborativeHighlighting, updateRemoteUsers } from "./collaborativeHighlighting"
 
 function Editor() {
@@ -109,8 +108,6 @@ function Editor() {
         const extensions = [
             color,
             hyperLink,
-            tooltipField(filteredUsers),
-            cursorTooltipBaseTheme,
             collaborativeHighlighting(),
             EditorView.updateListener.of(handleSelectionChange),
             scrollPastEnd(),

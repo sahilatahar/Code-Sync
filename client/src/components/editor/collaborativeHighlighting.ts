@@ -7,18 +7,19 @@ export const updateRemoteUsers = StateEffect.define<RemoteUser[]>()
 
 // Generate a consistent color for each user based on their username
 function getUserColor(username: string): string {
+
     const colors = [
-        "#FF6B6B", // Red
-        "#4ECDC4", // Teal
-        "#45B7D1", // Blue
-        "#96CEB4", // Green
-        "#FFEAA7", // Yellow
-        "#DDA0DD", // Plum
-        "#98D8C8", // Mint
-        "#F7DC6F", // Light Yellow
-        "#BB8FCE", // Light Purple
-        "#85C1E9", // Light Blue
-    ]
+        "#FF0000", // Bold Red
+        "#008080", // Bold Teal
+        "#0000FF", // Bold Blue
+        "#008000", // Bold Green
+        "#FFD700", // Bold Yellow (Gold)
+        "#800080", // Bold Purple
+        "#00CED1", // Bold Mint (Dark Turquoise)
+        "#FFA500", // Bold Orange
+        "#9932CC", // Bold Medium Purple
+        "#1E90FF", // Bold Dodger Blue
+    ];
     
     let hash = 0
     for (let i = 0; i < username.length; i++) {
@@ -142,10 +143,15 @@ export const remoteUsersField = StateField.define<DecorationSet>({
                     }
                 }
 
-                // Sort decorations by their from position to satisfy CodeMirror's requirements
-                newDecorations.sort((a, b) => a.from - b.from)
-
-                return Decoration.set(newDecorations)
+                // Sort decorations by from, then by startSide
+                newDecorations.sort((a, b) => {
+                    const diff = a.from - b.from
+                    if (diff !== 0) return diff
+                    const aSide = a.value?.spec?.startSide || 0
+                    const bSide = b.value?.spec?.startSide || 0
+                    return aSide - bSide
+                })
+                return Decoration.set(newDecorations, true)
             }
         }
         
@@ -168,7 +174,7 @@ export const remoteUserTheme = EditorView.baseTheme({
     
     "@keyframes cursor-blink": {
         "0%, 50%": { opacity: "1" },
-        "51%, 100%": { opacity: "0.3" }
+        "51%, 100%": { opacity: "0" }
     }
 })
 
