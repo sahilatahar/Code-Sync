@@ -210,11 +210,17 @@ io.on("connection", (socket) => {
 			.emit(SocketEvent.RECEIVE_MESSAGE, { message })
 	})
 
-	// Handle cursor position
-	socket.on(SocketEvent.TYPING_START, ({ cursorPosition }) => {
+	// Handle cursor position and selection
+	socket.on(SocketEvent.TYPING_START, ({ cursorPosition, selectionStart, selectionEnd }) => {
 		userSocketMap = userSocketMap.map((user) => {
 			if (user.socketId === socket.id) {
-				return { ...user, typing: true, cursorPosition }
+				return {
+					...user,
+					typing: true,
+					cursorPosition,
+					selectionStart,
+					selectionEnd
+				}
 			}
 			return user
 		})
@@ -235,6 +241,25 @@ io.on("connection", (socket) => {
 		if (!user) return
 		const roomId = user.roomId
 		socket.broadcast.to(roomId).emit(SocketEvent.TYPING_PAUSE, { user })
+	})
+
+	// Handle cursor movement without typing
+	socket.on(SocketEvent.CURSOR_MOVE, ({ cursorPosition, selectionStart, selectionEnd }) => {
+		userSocketMap = userSocketMap.map((user) => {
+			if (user.socketId === socket.id) {
+				return {
+					...user,
+					cursorPosition,
+					selectionStart,
+					selectionEnd
+				}
+			}
+			return user
+		})
+		const user = getUserBySocketId(socket.id)
+		if (!user) return
+		const roomId = user.roomId
+		socket.broadcast.to(roomId).emit(SocketEvent.CURSOR_MOVE, { user })
 	})
 
 	socket.on(SocketEvent.REQUEST_DRAWING, () => {

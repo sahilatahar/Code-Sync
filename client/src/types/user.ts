@@ -14,6 +14,8 @@ interface RemoteUser extends User {
     typing: boolean
     currentFile: string
     socketId: string
+    selectionStart?: number
+    selectionEnd?: number
 }
 
 enum USER_STATUS {
