@@ -22,8 +22,9 @@ A collaborative, real-time code editor where users can seamlessly code together.
 - 📣 Notifications for user join and leave events
 - 👥 User presence list with online/offline status indicators
 - 💬 Real-time group chatting functionality
-- 🎩 Real-time tooltip displaying users currently editing
-- 💡 Auto suggestion based on programming language
+- 🎩 Real-time tooltip displaying users currently editing.
+- 🖊 Showing real-time selection of what each user has currently selected.
+- 💡 Auto-suggestion based on programming language
 - 🔠 Option to change font size and font family
 - 🎨 Multiple themes for personalized coding experience
 - 🎨 Collaborative Drawing: Enable users to draw and sketch collaboratively in real-time
