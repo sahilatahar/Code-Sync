@@ -7,6 +7,11 @@ import { USER_CONNECTION_STATUS, User } from "./types/user"
 import { Server } from "socket.io"
 import path from "path"
 
+import {connectDB} from "./db/db"
+
+import userRoutes from "./routes/userRoutes"
+import RoomRoutes from "./routes/RoomRoutes";
+
 dotenv.config()
 
 const app = express()
@@ -287,10 +292,15 @@ io.on("connection", (socket) => {
 
 const PORT = process.env.PORT || 3000
 
+connectDB();
+
 app.get("/", (req: Request, res: Response) => {
 	// Send the index.html file
 	res.sendFile(path.join(__dirname, "..", "public", "index.html"))
 })
+
+app.use("/api/users", userRoutes)
+app.use("/api/rooms", RoomRoutes);
 
 server.listen(PORT, () => {
 	console.log(`Listening on port ${PORT}`)
