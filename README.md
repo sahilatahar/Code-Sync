@@ -64,6 +64,7 @@ You can view the live preview of the project [here](https://code-sync-live.verce
 
    ```bash
    VITE_BACKEND_URL=<your_server_url>
+   VITE_PISTON_API_URL=<your_piston_instance_api_url>
    ```
 
    Backend:
