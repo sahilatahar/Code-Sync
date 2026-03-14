@@ -8,6 +8,12 @@ interface User {
     roomId: string
 }
 
+interface UserInfo {
+    username: string
+    email: string
+    token: string
+}
+
 interface RemoteUser extends User {
     status: USER_CONNECTION_STATUS
     cursorPosition: number
@@ -27,4 +33,4 @@ enum USER_STATUS {
     DISCONNECTED = "disconnected",
 }
 
-export { USER_CONNECTION_STATUS, USER_STATUS, RemoteUser, User }
+export { USER_CONNECTION_STATUS, USER_STATUS, RemoteUser, User, UserInfo }

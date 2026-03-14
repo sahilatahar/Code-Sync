@@ -3,7 +3,7 @@ import {
     AppContext as AppContextType,
     DrawingData,
 } from "@/types/app"
-import { RemoteUser, USER_STATUS, User } from "@/types/user"
+import { RemoteUser, USER_STATUS, User, UserInfo } from "@/types/user"
 import { ReactNode, createContext, useContext, useState } from "react"
 
 const AppContext = createContext<AppContextType | null>(null)
@@ -25,6 +25,7 @@ function AppContextProvider({ children }: { children: ReactNode }) {
         username: "",
         roomId: "",
     })
+    const [userInfo, setUserInfo] = useState<UserInfo | null>(null)
     const [activityState, setActivityState] = useState<ACTIVITY_STATE>(
         ACTIVITY_STATE.CODING,
     )
@@ -43,6 +44,8 @@ function AppContextProvider({ children }: { children: ReactNode }) {
                 setActivityState,
                 drawingData,
                 setDrawingData,
+                userInfo,
+                setUserInfo,
             }}
         >
             {children}
