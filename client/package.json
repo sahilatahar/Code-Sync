@@ -4,10 +4,11 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
-        "dev": "vite",
-        "build": "tsc && vite build",
+        "dev": "npm run ensure-user-config && vite",
+        "build": "npm run ensure-user-config && tsc && vite build",
         "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-        "preview": "vite preview --host 0.0.0.0"
+        "preview": "vite preview --host 0.0.0.0",
+        "ensure-user-config": "cp -n src/config/user.sample.ts src/config/user.ts"
     },
     "dependencies": {
         "@uiw/codemirror-extensions-color": "^4.21.21",
