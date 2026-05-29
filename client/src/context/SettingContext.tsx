@@ -1,3 +1,4 @@
+import config from "@/config"
 import useLocalStorage from "@/hooks/useLocalStorage"
 import {
     Settings,
@@ -24,11 +25,11 @@ export const useSettings = (): SettingsContextType => {
 }
 
 const defaultSettings: Settings = {
-    theme: "Dracula",
-    language: "Javascript",
-    fontSize: 16,
-    fontFamily: "Space Mono",
-    showGitHubCorner: true,
+    theme: config.defaultTheme,
+    language: config.defaultProjectLanguage,
+    fontSize: config.defaultFontSize,
+    fontFamily: config.defaultFontFamily,
+    showGitHubCorner: config.defaultShowGitHubCorner,
 }
 
 function SettingContextProvider({ children }: { children: ReactNode }) {
