@@ -652,6 +652,15 @@ function FileContextProvider({ children }: { children: ReactNode }) {
         [activeFile, drawingData, fileStructure, openFiles, setUsers, socket],
     )
 
+    const handleJoinAccepted = useCallback(
+        ({ isNewRoom }: { isNewRoom: boolean }) => {
+            if (isNewRoom) {
+                socket.emit(SocketEvent.SEED_FILE_STRUCTURE, { fileStructure })
+            }
+        },
+        [fileStructure, socket],
+    )
+
     const handleFileStructureSync = useCallback(
         ({
             fileStructure,
@@ -744,6 +753,7 @@ function FileContextProvider({ children }: { children: ReactNode }) {
 
     useEffect(() => {
         socket.once(SocketEvent.SYNC_FILE_STRUCTURE, handleFileStructureSync)
+        socket.on(SocketEvent.JOIN_ACCEPTED, handleJoinAccepted)
         socket.on(SocketEvent.USER_JOINED, handleUserJoined)
         socket.on(SocketEvent.DIRECTORY_CREATED, handleDirCreated)
         socket.on(SocketEvent.DIRECTORY_UPDATED, handleDirUpdated)
@@ -755,6 +765,7 @@ function FileContextProvider({ children }: { children: ReactNode }) {
         socket.on(SocketEvent.FILE_DELETED, handleFileDeleted)
 
         return () => {
+            socket.off(SocketEvent.JOIN_ACCEPTED)
             socket.off(SocketEvent.USER_JOINED)
             socket.off(SocketEvent.DIRECTORY_CREATED)
             socket.off(SocketEvent.DIRECTORY_UPDATED)
@@ -775,6 +786,7 @@ function FileContextProvider({ children }: { children: ReactNode }) {
         handleFileRenamed,
         handleFileStructureSync,
         handleFileUpdated,
+        handleJoinAccepted,
         handleUserJoined,
         socket,
     ])

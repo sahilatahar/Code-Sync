@@ -27,6 +27,7 @@ enum SocketEvent {
     REQUEST_DRAWING = "request-drawing",
     SYNC_DRAWING = "sync-drawing",
     DRAWING_UPDATE = "drawing-update",
+    SEED_FILE_STRUCTURE = "seed-file-structure",
 }
 
 interface SocketContext {

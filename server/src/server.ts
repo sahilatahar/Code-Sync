@@ -4,6 +4,16 @@ import http from "http"
 import cors from "cors"
 import { SocketEvent, SocketId } from "./types/socket"
 import { USER_CONNECTION_STATUS, User } from "./types/user"
+import {
+	getRoot,
+	saveRoot,
+	findFirstFile,
+	applyNodeRenamed,
+	applyNodeDeleted,
+	applyNodeCreated,
+	applyFileUpdated,
+	applyDirectoryUpdated,
+} from "./sessionStore"
 import { Server } from "socket.io"
 import path from "path"
 
@@ -80,7 +90,20 @@ io.on("connection", (socket) => {
 		socket.join(roomId)
 		socket.broadcast.to(roomId).emit(SocketEvent.USER_JOINED, { user })
 		const users = getUsersInRoom(roomId)
-		io.to(socket.id).emit(SocketEvent.JOIN_ACCEPTED, { user, users })
+		const existingRoot = getRoot(roomId)
+		io.to(socket.id).emit(SocketEvent.JOIN_ACCEPTED, {
+			user, users, isNewRoom: !existingRoot,
+		})
+
+		// If a saved session exists, send it to the new client
+		if (existingRoot) {
+			const firstFile = findFirstFile(existingRoot)
+			io.to(socket.id).emit(SocketEvent.SYNC_FILE_STRUCTURE, {
+				fileStructure: existingRoot,
+				openFiles: firstFile ? [firstFile] : [],
+				activeFile: firstFile ?? null,
+			})
+		}
 	})
 
 	socket.on("disconnecting", () => {
@@ -94,7 +117,17 @@ io.on("connection", (socket) => {
 		socket.leave(roomId)
 	})
 
-	// Handle file actions
+	// Handle file structure seeding (first client in a new room)
+	socket.on(
+		SocketEvent.SEED_FILE_STRUCTURE,
+		({ fileStructure }) => {
+			const roomId = getRoomId(socket.id)
+			if (!roomId || getRoot(roomId)) return
+			saveRoot(roomId, fileStructure)
+		}
+	)
+
+	// Handle file structure sync (relay to a specific socket)
 	socket.on(
 		SocketEvent.SYNC_FILE_STRUCTURE,
 		({ fileStructure, openFiles, activeFile, socketId }) => {
@@ -111,6 +144,7 @@ io.on("connection", (socket) => {
 		({ parentDirId, newDirectory }) => {
 			const roomId = getRoomId(socket.id)
 			if (!roomId) return
+			applyNodeCreated(roomId, parentDirId, newDirectory)
 			socket.broadcast.to(roomId).emit(SocketEvent.DIRECTORY_CREATED, {
 				parentDirId,
 				newDirectory,
@@ -121,6 +155,7 @@ io.on("connection", (socket) => {
 	socket.on(SocketEvent.DIRECTORY_UPDATED, ({ dirId, children }) => {
 		const roomId = getRoomId(socket.id)
 		if (!roomId) return
+		applyDirectoryUpdated(roomId, dirId, children)
 		socket.broadcast.to(roomId).emit(SocketEvent.DIRECTORY_UPDATED, {
 			dirId,
 			children,
@@ -130,6 +165,7 @@ io.on("connection", (socket) => {
 	socket.on(SocketEvent.DIRECTORY_RENAMED, ({ dirId, newName }) => {
 		const roomId = getRoomId(socket.id)
 		if (!roomId) return
+		applyNodeRenamed(roomId, dirId, newName)
 		socket.broadcast.to(roomId).emit(SocketEvent.DIRECTORY_RENAMED, {
 			dirId,
 			newName,
@@ -139,6 +175,7 @@ io.on("connection", (socket) => {
 	socket.on(SocketEvent.DIRECTORY_DELETED, ({ dirId }) => {
 		const roomId = getRoomId(socket.id)
 		if (!roomId) return
+		applyNodeDeleted(roomId, dirId)
 		socket.broadcast
 			.to(roomId)
 			.emit(SocketEvent.DIRECTORY_DELETED, { dirId })
@@ -147,6 +184,7 @@ io.on("connection", (socket) => {
 	socket.on(SocketEvent.FILE_CREATED, ({ parentDirId, newFile }) => {
 		const roomId = getRoomId(socket.id)
 		if (!roomId) return
+		applyNodeCreated(roomId, parentDirId, newFile)
 		socket.broadcast
 			.to(roomId)
 			.emit(SocketEvent.FILE_CREATED, { parentDirId, newFile })
@@ -155,6 +193,7 @@ io.on("connection", (socket) => {
 	socket.on(SocketEvent.FILE_UPDATED, ({ fileId, newContent }) => {
 		const roomId = getRoomId(socket.id)
 		if (!roomId) return
+		applyFileUpdated(roomId, fileId, newContent)
 		socket.broadcast.to(roomId).emit(SocketEvent.FILE_UPDATED, {
 			fileId,
 			newContent,
@@ -164,6 +203,7 @@ io.on("connection", (socket) => {
 	socket.on(SocketEvent.FILE_RENAMED, ({ fileId, newName }) => {
 		const roomId = getRoomId(socket.id)
 		if (!roomId) return
+		applyNodeRenamed(roomId, fileId, newName)
 		socket.broadcast.to(roomId).emit(SocketEvent.FILE_RENAMED, {
 			fileId,
 			newName,
@@ -173,6 +213,7 @@ io.on("connection", (socket) => {
 	socket.on(SocketEvent.FILE_DELETED, ({ fileId }) => {
 		const roomId = getRoomId(socket.id)
 		if (!roomId) return
+		applyNodeDeleted(roomId, fileId)
 		socket.broadcast.to(roomId).emit(SocketEvent.FILE_DELETED, { fileId })
 	})
 
