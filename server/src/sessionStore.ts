@@ -2,6 +2,38 @@ import { FileSystemItem, Id } from "./types/file"
 
 const roots = new Map<string, FileSystemItem>()
 
+function parseSessionTTL(): number {
+	const raw = process.env.SESSION_TTL
+	if (raw !== "") {
+		const parsed = Number(raw)
+		if (parsed >= 0) return parsed
+	}
+	console.warn(`Invalid SESSION_TTL "${raw}", defaulting to 60s`)
+	return 60
+}
+
+const sessionTTL = parseSessionTTL()
+
+const sessionTimers = new Map<string, NodeJS.Timeout>()
+
+export function startSessionTimer(roomId: string): void {
+	if (sessionTTL === Infinity || sessionTTL === 0) return
+	cancelSessionTimer(roomId)
+	const timer = setTimeout(() => {
+		roots.delete(roomId)
+		sessionTimers.delete(roomId)
+	}, sessionTTL * 1000)
+	sessionTimers.set(roomId, timer)
+}
+
+export function cancelSessionTimer(roomId: string): void {
+	const timer = sessionTimers.get(roomId)
+	if (timer) {
+		clearTimeout(timer)
+		sessionTimers.delete(roomId)
+	}
+}
+
 function findNodeById(root: FileSystemItem, id: Id): FileSystemItem | null {
 	if (root.id === id) return root
 	if (root.type === "directory" && root.children) {
@@ -42,6 +74,7 @@ export function getRoot(roomId: string): FileSystemItem | null {
 }
 
 export function saveRoot(roomId: string, root: FileSystemItem): void {
+	if (sessionTTL === 0) return
 	roots.set(roomId, structuredClone(root))
 }
 

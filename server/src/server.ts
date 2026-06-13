@@ -1,5 +1,7 @@
+// Loaded first so other modules can use configured env vars at import time
+require("dotenv").config()
+
 import express, { Response, Request } from "express"
-import dotenv from "dotenv"
 import http from "http"
 import cors from "cors"
 import { SocketEvent, SocketId } from "./types/socket"
@@ -13,11 +15,11 @@ import {
 	applyNodeCreated,
 	applyFileUpdated,
 	applyDirectoryUpdated,
+	startSessionTimer,
+	cancelSessionTimer,
 } from "./sessionStore"
 import { Server } from "socket.io"
 import path from "path"
-
-dotenv.config()
 
 const app = express()
 
@@ -88,6 +90,7 @@ io.on("connection", (socket) => {
 		}
 		userSocketMap.push(user)
 		socket.join(roomId)
+		cancelSessionTimer(roomId)  // Cancel pending cleanup if room was empty
 		socket.broadcast.to(roomId).emit(SocketEvent.USER_JOINED, { user })
 		const users = getUsersInRoom(roomId)
 		const existingRoot = getRoot(roomId)
@@ -115,6 +118,9 @@ io.on("connection", (socket) => {
 			.emit(SocketEvent.USER_DISCONNECTED, { user })
 		userSocketMap = userSocketMap.filter((u) => u.socketId !== socket.id)
 		socket.leave(roomId)
+
+		// Start cleanup timer if room is now empty
+		if (getUsersInRoom(roomId).length === 0) startSessionTimer(roomId)
 	})
 
 	// Handle file structure seeding (first client in a new room)
