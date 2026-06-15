@@ -57,27 +57,39 @@ You can view the live preview of the project [here](https://code-sync-live.verce
    ```bash
    git clone https://github.com/<your-username>/Code-Sync.git
    ```
-3. **Create .env file:**
-   Inside the client and server directories create `.env` and set:
+3. **Configure client:**
 
-   Frontend:
+   The client configuration lives in `client/src/config/`. Copy the sample file and customize as needed:
 
    ```bash
-   VITE_BACKEND_URL=<your_server_url>
-   VITE_PISTON_API_URL=<your_piston_instance_api_url>
+   cp client/src/config/user.sample.ts client/src/config/user.ts
    ```
 
-   Backend:
+   Edit `client/src/config/user.ts` to override any defaults. For example:
+   ```typescript
+   import type { Config } from './defaults'
+
+   const overrides: Partial<Config> = {
+      backendUrl: 'http://localhost:3000',
+      pistonApiUrl: 'http://localhost:2000/api/v2',
+   }
+
+   export default overrides
+   ```
+   All other defaults you can see in `client/src/config/defaults.ts`.
+
+4. **Configure backend:**
+   Create `server/.env` and set:
 
    ```bash
    PORT=3000
    ```
 
-4. **Install dependencies:**
+5. **Install dependencies:**
    ```bash
    npm install     # Run in both client and server directories
    ```
-5. **Start the servers:**
+6. **Start the servers:**
    Frontend:
    ```bash
    cd client
@@ -88,7 +100,7 @@ You can view the live preview of the project [here](https://code-sync-live.verce
    cd server
    npm run dev
    ```
-6. **Access the application:**
+7. **Access the application:**
    ```bash
    http://localhost:5173/
    ```
