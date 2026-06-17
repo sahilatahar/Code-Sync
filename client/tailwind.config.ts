@@ -1,15 +1,10 @@
-/** @type {import('tailwindcss').Config} */
+import config from "./src/config"
+
 export default {
     content: ["./src/**/*.{jsx,tsx}", "./*.html"],
     theme: {
         extend: {
-            colors: {
-                dark: "#212429",
-                darkHover: "#3D404A",
-                light: "#f5f5f5",
-                primary: "#39E079",
-                danger: "#ef4444",
-            },
+            colors: config.interfaceColors,
             fontFamily: {
                 poppins: ["Poppins", "sans-serif"],
             },

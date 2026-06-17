@@ -1,4 +1,5 @@
 import SidebarButton from "@/components/sidebar/sidebar-views/SidebarButton"
+import config from "@/config"
 import { useAppContext } from "@/context/AppContext"
 import { useSocket } from "@/context/SocketContext"
 import { useViews } from "@/context/ViewContext"
@@ -6,7 +7,6 @@ import useResponsive from "@/hooks/useResponsive"
 import useWindowDimensions from "@/hooks/useWindowDimensions"
 import { ACTIVITY_STATE } from "@/types/app"
 import { SocketEvent } from "@/types/socket"
-import { VIEWS } from "@/types/view"
 import { IoCodeSlash } from "react-icons/io5"
 import { MdOutlineDraw } from "react-icons/md"
 import cn from "classnames"
@@ -22,6 +22,7 @@ function Sidebar() {
         viewIcons,
         setIsSidebarOpen,
     } = useViews()
+    const visibleTabs = config.visibleTabs
     const { minHeightReached } = useResponsive()
     const { activityState, setActivityState } = useAppContext()
     const { socket } = useSocket()
@@ -52,32 +53,16 @@ function Sidebar() {
                     },
                 )}
             >
-                <SidebarButton
-                    viewName={VIEWS.FILES}
-                    icon={viewIcons[VIEWS.FILES]}
-                />
-                <SidebarButton
-                    viewName={VIEWS.CHATS}
-                    icon={viewIcons[VIEWS.CHATS]}
-                />
-                <SidebarButton
-                    viewName={VIEWS.COPILOT}
-                    icon={viewIcons[VIEWS.COPILOT]}
-                />
-                <SidebarButton
-                    viewName={VIEWS.RUN}
-                    icon={viewIcons[VIEWS.RUN]}
-                />
-                <SidebarButton
-                    viewName={VIEWS.CLIENTS}
-                    icon={viewIcons[VIEWS.CLIENTS]}
-                />
-                <SidebarButton
-                    viewName={VIEWS.SETTINGS}
-                    icon={viewIcons[VIEWS.SETTINGS]}
-                />
+                {visibleTabs.map((viewName) => (
+                    <SidebarButton
+                        key={viewName}
+                        viewName={viewName}
+                        icon={viewIcons[viewName]}
+                    />
+                ))}
 
-                {/* Button to change activity state coding or drawing */}
+                {config.showDrawingToggle && (
+                /* Button to change activity state coding or drawing */
                 <div className="flex h-fit items-center justify-center">
                     <button
                         className="justify-cente flex items-center  rounded p-1.5 transition-colors duration-200 ease-in-out hover:bg-[#3D404A]"
@@ -109,6 +94,7 @@ function Sidebar() {
                         />
                     )}
                 </div>
+                )}
             </div>
             <div
                 className="absolute left-0 top-0 z-20 w-full flex-col bg-dark md:static md:min-w-[300px]"
