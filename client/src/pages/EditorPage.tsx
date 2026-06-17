@@ -9,7 +9,7 @@ import useUserActivity from "@/hooks/useUserActivity"
 import { SocketEvent } from "@/types/socket"
 import { USER_STATUS, User } from "@/types/user"
 import { useEffect } from "react"
-import { useLocation, useNavigate, useParams } from "react-router-dom"
+import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom"
 
 function EditorPage() {
     // Listen user online/offline status
@@ -21,11 +21,12 @@ function EditorPage() {
     const { status, setCurrentUser, currentUser } = useAppContext()
     const { socket } = useSocket()
     const location = useLocation()
+    const [searchParams] = useSearchParams()
 
     useEffect(() => {
         if (currentUser.username.length > 0) return
-        const username = location.state?.username
-        if (username === undefined) {
+        const username = location.state?.username || searchParams.get("username")
+        if (username === null || username === "") {
             navigate("/", {
                 state: { roomId },
             })
@@ -37,6 +38,7 @@ function EditorPage() {
     }, [
         currentUser.username,
         location.state?.username,
+        searchParams,
         navigate,
         roomId,
         setCurrentUser,
