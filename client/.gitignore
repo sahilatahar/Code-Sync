@@ -24,6 +24,9 @@ dist-ssr
 *.sw?
 .env
 
+# User config
+src/config/user.ts
+
 # Tailwind output file
 public/style.css
 
